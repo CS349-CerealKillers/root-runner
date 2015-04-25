@@ -1,3 +1,0 @@
-[submodule "libraries/AndEngine"]
-	path = libraries/AndEngine
-	url = git@github.com:nicolasgramlich/AndEngine.git
