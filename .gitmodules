@@ -1,0 +1,3 @@
+[submodule "libraries/AndEngine"]
+	path = libraries/AndEngine
+	url = git@github.com:CS349-CerealKillers/AndEngine.git
