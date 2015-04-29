@@ -3,10 +3,10 @@ package com.cerealkillers.rootrunner.gamemodels;
 /**
  * Created by ben on 4/25/15.
  */
-public class Item {
+public interface Item {
 
-    String description;
-    String itemId;
-    int health;
+    public String getDescription();
+    public String getItemId();
+    public int getHealth();
 
 }
