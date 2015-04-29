@@ -19,4 +19,7 @@ public class Inventory {
         return itemList.get(itemId);
     }
 
+    public boolean contains(Item item) {
+        return itemList.containsValue(item);
+    }
 }
