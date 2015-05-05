@@ -5,7 +5,6 @@ package com.cerealkillers.rootrunner;
  * 5/4/2015
  * */
 
-import android.widget.Toast;
 
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
@@ -45,8 +44,15 @@ import android.opengl.GLES20;
 
 public class MainActivity extends SimpleBaseGameActivity {
 
-    TMXTiledMap mapa;
-    TMXLayer layer;
+    private enum PlayerDirection {
+        NONE,
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+    private PlayerDirection playerDirection = PlayerDirection.DOWN;
+
     private static int CAMERA_WIDTH = 800;
     private static int CAMERA_HEIGHT = 480;
 
@@ -54,7 +60,6 @@ public class MainActivity extends SimpleBaseGameActivity {
     private BitmapTextureAtlas mBitmapTextureAtlas;
     private TiledTextureRegion mPlayerTextureRegion;
     private TMXTiledMap mTMXTiledMap;
-    protected int mCactusCount;
 
     // digital on screen control
     private DigitalOnScreenControl mDigitalOnScreenControl;
@@ -65,7 +70,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 
     @Override
     public EngineOptions onCreateEngineOptions() {
-        //Toast.makeText(this, "The tile the player is walking on will be highlighted.", Toast.LENGTH_LONG).show();
         this.mBoundChaseCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mBoundChaseCamera);
     }
@@ -102,14 +106,6 @@ public class MainActivity extends SimpleBaseGameActivity {
             });
             this.mTMXTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
 
-            /*
-            this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(MainActivity.this, "Cactus count in this TMXTiledMap: " + MainActivity.this.mCactusCount, Toast.LENGTH_LONG).show();
-                }
-            });
-            */ //NOTE: Remove this crap
         } catch (final TMXLoadException e) {
             Debug.e(e);
         }
@@ -117,7 +113,6 @@ public class MainActivity extends SimpleBaseGameActivity {
         final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
         scene.attachChild(tmxLayer);
 
-        // At this point the TMX Background is created and attached to scene
 
 		/* Make the camera not exceed the bounds of the TMXEntity. */
         this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
@@ -180,6 +175,38 @@ public class MainActivity extends SimpleBaseGameActivity {
         this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
             public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
+
+                if(v2 == 1) {
+                    //up
+                    if(playerDirection != PlayerDirection.UP) {
+                        player.animate(new long[]{200,200,200},6,8,true);
+                        playerDirection = PlayerDirection.UP;
+                    }
+                } else if(v2 == -1) {
+                    //down
+                    if(playerDirection != PlayerDirection.DOWN) {
+                        player.animate(new long[]{200,200,200},0,2,true);
+                        playerDirection = PlayerDirection.DOWN;
+                    }
+                } else if(v == -1) {
+                    //left
+                    if(playerDirection != PlayerDirection.LEFT) {
+                        player.animate(new long[]{200,200,200},9,11,true);
+                        playerDirection = PlayerDirection.LEFT;
+                    }
+                } else if(v == 1) {
+                    //right
+                    if(playerDirection != PlayerDirection.RIGHT) {
+                        player.animate(new long[]{200,200,200},3,5,true);
+                        playerDirection = PlayerDirection.RIGHT;
+                    }
+                } else {
+                    if(player.isAnimationRunning()) {
+                        player.stopAnimation();
+                        playerDirection = PlayerDirection.NONE;
+                    }
+                }
+
                 physicsHandler.setVelocity(v*100, v2*100);
             }
         });
