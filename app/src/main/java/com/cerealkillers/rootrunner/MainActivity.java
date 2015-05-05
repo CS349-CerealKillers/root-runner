@@ -8,7 +8,10 @@ package com.cerealkillers.rootrunner;
 import android.widget.Toast;
 
 import org.andengine.engine.camera.BoundCamera;
+import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
+import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -32,10 +35,12 @@ import org.andengine.extension.tmx.util.exception.TMXLoadException;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.Constants;
 import org.andengine.util.debug.Debug;
+import android.opengl.GLES20;
 
 
 public class MainActivity extends SimpleBaseGameActivity {
@@ -51,6 +56,12 @@ public class MainActivity extends SimpleBaseGameActivity {
     private TMXTiledMap mTMXTiledMap;
     protected int mCactusCount;
 
+    // digital on screen control
+    private DigitalOnScreenControl mDigitalOnScreenControl;
+    private BitmapTextureAtlas mOnScreenControlTexture;
+    private ITextureRegion mOnScreenControlBaseTextureRegion;
+    private ITextureRegion mOnScreenControlKnobTextureRegion;
+
 
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -63,10 +74,17 @@ public class MainActivity extends SimpleBaseGameActivity {
     public void onCreateResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
+        // load player from asset
         this.mBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
         this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "player.png", 0, 0, 3, 4);
-
         this.mBitmapTextureAtlas.load();
+
+        // digital on screen control
+        this.mOnScreenControlTexture = new BitmapTextureAtlas(this.getTextureManager(), 256, 128, TextureOptions.BILINEAR);
+        this.mOnScreenControlBaseTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_base.png", 0, 0);
+        this.mOnScreenControlKnobTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_knob.png", 128, 0);
+        this.mOnScreenControlTexture.load();
+
     }
 
     @Override
@@ -79,26 +97,27 @@ public class MainActivity extends SimpleBaseGameActivity {
             final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
                 @Override
                 public void onTMXTileWithPropertiesCreated(final TMXTiledMap pTMXTiledMap, final TMXLayer pTMXLayer, final TMXTile pTMXTile, final TMXProperties<TMXTileProperty> pTMXTileProperties) {
-					/* We are going to count the tiles that have the property "cactus=true" set. */
-                    if(pTMXTileProperties.containsTMXProperty("cactus", "true")) {
-                        MainActivity.this.mCactusCount++;
-                    }
+                    //do nothing
                 }
             });
             this.mTMXTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
 
+            /*
             this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(MainActivity.this, "Cactus count in this TMXTiledMap: " + MainActivity.this.mCactusCount, Toast.LENGTH_LONG).show();
                 }
             });
+            */ //NOTE: Remove this crap
         } catch (final TMXLoadException e) {
             Debug.e(e);
         }
 
         final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
         scene.attachChild(tmxLayer);
+
+        // At this point the TMX Background is created and attached to scene
 
 		/* Make the camera not exceed the bounds of the TMXEntity. */
         this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
@@ -112,6 +131,12 @@ public class MainActivity extends SimpleBaseGameActivity {
         final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
         this.mBoundChaseCamera.setChaseEntity(player);
 
+        // Setup physics handler for sprite
+        final PhysicsHandler physicsHandler = new PhysicsHandler(player);
+        player.registerUpdateHandler(physicsHandler);
+
+
+        /*
         final Path path = new Path(5).to(0, 160).to(0, 500).to(600, 500).to(600, 160).to(0, 160);
 
         player.registerEntityModifier(new LoopEntityModifier(new PathModifier(30, path, null, new IPathModifierListener() {
@@ -147,32 +172,25 @@ public class MainActivity extends SimpleBaseGameActivity {
             public void onPathFinished(final PathModifier pPathModifier, final IEntity pEntity) {
 
             }
-        })));
+        }))); */
 
-		/* Now we are going to create a rectangle that will  always highlight the tile below the feet of the pEntity.
-        final Rectangle currentTileRectangle = new Rectangle(0, 0, this.mTMXTiledMap.getTileWidth(), this.mTMXTiledMap.getTileHeight(), this.getVertexBufferObjectManager());
-        currentTileRectangle.setColor(1, 0, 0, 0.25f);
-        scene.attachChild(currentTileRectangle);
+        scene.attachChild(player);
 
-        scene.registerUpdateHandler(new IUpdateHandler() {
+        // setup controls
+        this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
-            public void reset() { }
-
-            @Override
-            public void onUpdate(final float pSecondsElapsed) {
-				/* Get the scene-coordinates of the players feet.
-                final float[] playerFootCordinates = player.convertLocalToSceneCoordinates(12, 31);
-
-				/* Get the tile the feet of the player are currently waking on.
-                final TMXTile tmxTile = tmxLayer.getTMXTileAt(playerFootCordinates[Constants.VERTEX_INDEX_X], playerFootCordinates[Constants.VERTEX_INDEX_Y]);
-                if(tmxTile != null) {
-                    // tmxTile.setTextureRegion(null); <-- Rubber-style removing of tiles =D
-                    currentTileRectangle.setPosition(tmxTile.getTileX(), tmxTile.getTileY());
-                }
+            public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
+                physicsHandler.setVelocity(v*100, v2*100);
             }
         });
-        */
-        scene.attachChild(player);
+	    this.mDigitalOnScreenControl.getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        this.mDigitalOnScreenControl.getControlBase().setAlpha(0.5f);
+        this.mDigitalOnScreenControl.getControlBase().setScaleCenter(0, 128);
+       	this.mDigitalOnScreenControl.getControlBase().setScale(1.25f);
+       	this.mDigitalOnScreenControl.getControlKnob().setScale(1.25f);
+       	this.mDigitalOnScreenControl.refreshControlKnobPosition();
+
+        scene.setChildScene(mDigitalOnScreenControl);
 
         return scene;
     }
