@@ -1,5 +1,9 @@
 package com.cerealkillers.rootrunner;
 
+/**
+ * Written By Josh Harshman
+ * 5/4/2015
+ * */
 
 import android.widget.Toast;
 
@@ -41,10 +45,7 @@ public class MainActivity extends SimpleBaseGameActivity {
     private static int CAMERA_WIDTH = 800;
     private static int CAMERA_HEIGHT = 480;
 
-
-
     private BoundCamera mBoundChaseCamera;
-
     private BitmapTextureAtlas mBitmapTextureAtlas;
     private TiledTextureRegion mPlayerTextureRegion;
     private TMXTiledMap mTMXTiledMap;
@@ -53,10 +54,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 
     @Override
     public EngineOptions onCreateEngineOptions() {
-        Toast.makeText(this, "The tile the player is walking on will be highlighted.", Toast.LENGTH_LONG).show();
-
+        //Toast.makeText(this, "The tile the player is walking on will be highlighted.", Toast.LENGTH_LONG).show();
         this.mBoundChaseCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-
         return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mBoundChaseCamera);
     }
 
@@ -150,7 +149,7 @@ public class MainActivity extends SimpleBaseGameActivity {
             }
         })));
 
-		/* Now we are going to create a rectangle that will  always highlight the tile below the feet of the pEntity. */
+		/* Now we are going to create a rectangle that will  always highlight the tile below the feet of the pEntity.
         final Rectangle currentTileRectangle = new Rectangle(0, 0, this.mTMXTiledMap.getTileWidth(), this.mTMXTiledMap.getTileHeight(), this.getVertexBufferObjectManager());
         currentTileRectangle.setColor(1, 0, 0, 0.25f);
         scene.attachChild(currentTileRectangle);
@@ -161,10 +160,10 @@ public class MainActivity extends SimpleBaseGameActivity {
 
             @Override
             public void onUpdate(final float pSecondsElapsed) {
-				/* Get the scene-coordinates of the players feet. */
+				/* Get the scene-coordinates of the players feet.
                 final float[] playerFootCordinates = player.convertLocalToSceneCoordinates(12, 31);
 
-				/* Get the tile the feet of the player are currently waking on. */
+				/* Get the tile the feet of the player are currently waking on.
                 final TMXTile tmxTile = tmxLayer.getTMXTileAt(playerFootCordinates[Constants.VERTEX_INDEX_X], playerFootCordinates[Constants.VERTEX_INDEX_Y]);
                 if(tmxTile != null) {
                     // tmxTile.setTextureRegion(null); <-- Rubber-style removing of tiles =D
@@ -172,6 +171,7 @@ public class MainActivity extends SimpleBaseGameActivity {
                 }
             }
         });
+        */
         scene.attachChild(player);
 
         return scene;
