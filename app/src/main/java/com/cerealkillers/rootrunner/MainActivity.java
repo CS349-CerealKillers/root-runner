@@ -3,29 +3,22 @@ package com.cerealkillers.rootrunner;
 /**
  * Written By Josh Harshman
  * 5/4/2015
+ *
  * */
 
 
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
-import org.andengine.entity.IEntity;
-import org.andengine.entity.modifier.LoopEntityModifier;
-import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.PathModifier.IPathModifierListener;
-import org.andengine.entity.modifier.PathModifier.Path;
-import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXLoader;
-import org.andengine.extension.tmx.TMXLoader.ITMXTilePropertiesListener;
 import org.andengine.extension.tmx.TMXProperties;
 import org.andengine.extension.tmx.TMXTile;
 import org.andengine.extension.tmx.TMXTileProperty;
@@ -37,13 +30,13 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegion
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
-import org.andengine.util.Constants;
 import org.andengine.util.debug.Debug;
 import android.opengl.GLES20;
 
 
 public class MainActivity extends SimpleBaseGameActivity {
 
+    /*Define Player Direction*/
     private enum PlayerDirection {
         NONE,
         UP,
@@ -53,29 +46,45 @@ public class MainActivity extends SimpleBaseGameActivity {
     }
     private PlayerDirection playerDirection;
 
+
+    // Camera height and width values
     private static int CAMERA_WIDTH = 800;
     private static int CAMERA_HEIGHT = 480;
 
+    // Define variables needed for the scene
     private BoundCamera mBoundChaseCamera;
     private BitmapTextureAtlas mBitmapTextureAtlas;
     private TiledTextureRegion mPlayerTextureRegion;
     private TMXTiledMap mTMXTiledMap;
-
     private Scene mScene;
 
-    // digital on screen control
+    // Define variables needed for digital on screen control
     private DigitalOnScreenControl mDigitalOnScreenControl;
     private BitmapTextureAtlas mOnScreenControlTexture;
     private ITextureRegion mOnScreenControlBaseTextureRegion;
     private ITextureRegion mOnScreenControlKnobTextureRegion;
 
 
+    /**
+     * onCreateEngineOptions
+     * @return EngineOptions
+     *
+     * Description:
+     *      Set global game engine options.
+     * */
     @Override
     public EngineOptions onCreateEngineOptions() {
         this.mBoundChaseCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mBoundChaseCamera);
     }
 
+    /**
+     * onCreateResources
+     *
+     * Description:
+     *      Loads all requested resources from assets folder.
+     *      Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
+     * */
     @Override
     public void onCreateResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -85,7 +94,7 @@ public class MainActivity extends SimpleBaseGameActivity {
         this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "player.png", 0, 0, 3, 4);
         this.mBitmapTextureAtlas.load();
 
-        // digital on screen control
+        // load digital on screen control from assets
         this.mOnScreenControlTexture = new BitmapTextureAtlas(this.getTextureManager(), 256, 128, TextureOptions.BILINEAR);
         this.mOnScreenControlBaseTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_base.png", 0, 0);
         this.mOnScreenControlKnobTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_knob.png", 128, 0);
@@ -93,6 +102,13 @@ public class MainActivity extends SimpleBaseGameActivity {
 
     }
 
+    /**
+     * onCreateScene
+     * @return Scene
+     *
+     * Description:
+     *      Calling function for init* routines pertaining to the current scene.
+     * */
     @Override
     public Scene onCreateScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
@@ -106,7 +122,11 @@ public class MainActivity extends SimpleBaseGameActivity {
     }
 
     /**
-     * Initialize TMXTiled Map
+     * initMap
+     *
+     * Description:
+     *      Initializes TMX Tiled Map and attaches it to the scene.
+     *      Throws a TMXLoadException if Map fails to load.
      * */
     void initMap() {
         try {
@@ -130,8 +150,11 @@ public class MainActivity extends SimpleBaseGameActivity {
     }
 
     /**
-     * Initialize Player
-     * @return AnimatedSprite
+     * initPlayer
+     * @return: Returns initialized object of type AnimatedSprite to calling function.
+     *
+     * Description:
+     *      Initializes player of type AnimatedSprite and attaches the object to the scene.
      * */
     AnimatedSprite initPlayer() {
 
@@ -146,9 +169,13 @@ public class MainActivity extends SimpleBaseGameActivity {
     }
 
     /**
-     * Initialize DOSC
-     * @param player
-     * @param physicsHandler
+     * initDOSC
+     * @param player: object of type AnimatedSprite
+     * @param physicsHandler: object of type PhysicsHandler
+     *
+     * Description:
+     *      Initializes Digital On Screen Controls for the player.
+     *      Controls changes in animation throughout runtime.
      * */
     void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
                this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
