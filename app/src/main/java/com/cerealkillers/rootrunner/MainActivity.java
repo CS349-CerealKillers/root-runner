@@ -51,7 +51,7 @@ public class MainActivity extends SimpleBaseGameActivity {
         LEFT,
         RIGHT
     }
-    private PlayerDirection playerDirection = PlayerDirection.DOWN;
+    private PlayerDirection playerDirection;
 
     private static int CAMERA_WIDTH = 800;
     private static int CAMERA_HEIGHT = 480;
@@ -60,6 +60,8 @@ public class MainActivity extends SimpleBaseGameActivity {
     private BitmapTextureAtlas mBitmapTextureAtlas;
     private TiledTextureRegion mPlayerTextureRegion;
     private TMXTiledMap mTMXTiledMap;
+
+    private Scene mScene;
 
     // digital on screen control
     private DigitalOnScreenControl mDigitalOnScreenControl;
@@ -95,81 +97,13 @@ public class MainActivity extends SimpleBaseGameActivity {
     public Scene onCreateScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
 
-        final Scene scene = new Scene();
-
-        try {
-            final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
-                @Override
-                public void onTMXTileWithPropertiesCreated(final TMXTiledMap pTMXTiledMap, final TMXLayer pTMXLayer, final TMXTile pTMXTile, final TMXProperties<TMXTileProperty> pTMXTileProperties) {
-                    //do nothing
-                }
-            });
-            this.mTMXTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
-
-        } catch (final TMXLoadException e) {
-            Debug.e(e);
-        }
-
-        final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
-        scene.attachChild(tmxLayer);
-
-
-		/* Make the camera not exceed the bounds of the TMXEntity. */
-        this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
-        this.mBoundChaseCamera.setBoundsEnabled(true);
-
-		/* Calculate the coordinates for the face, so its centered on the camera. */
-        final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
-        final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
-
-		/* Create the sprite and add it to the scene. */
-        final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
-        this.mBoundChaseCamera.setChaseEntity(player);
-
-        // Setup physics handler for sprite
+        this.mScene = new Scene();
+        initMap();
+        final AnimatedSprite player = initPlayer();
         final PhysicsHandler physicsHandler = new PhysicsHandler(player);
         player.registerUpdateHandler(physicsHandler);
 
 
-        /*
-        final Path path = new Path(5).to(0, 160).to(0, 500).to(600, 500).to(600, 160).to(0, 160);
-
-        player.registerEntityModifier(new LoopEntityModifier(new PathModifier(30, path, null, new IPathModifierListener() {
-            @Override
-            public void onPathStarted(final PathModifier pPathModifier, final IEntity pEntity) {
-
-            }
-
-            @Override
-            public void onPathWaypointStarted(final PathModifier pPathModifier, final IEntity pEntity, final int pWaypointIndex) {
-                switch(pWaypointIndex) {
-                    case 0:
-                        player.animate(new long[]{200, 200, 200}, 6, 8, true);
-                        break;
-                    case 1:
-                        player.animate(new long[]{200, 200, 200}, 3, 5, true);
-                        break;
-                    case 2:
-                        player.animate(new long[]{200, 200, 200}, 0, 2, true);
-                        break;
-                    case 3:
-                        player.animate(new long[]{200, 200, 200}, 9, 11, true);
-                        break;
-                }
-            }
-
-            @Override
-            public void onPathWaypointFinished(final PathModifier pPathModifier, final IEntity pEntity, final int pWaypointIndex) {
-
-            }
-
-            @Override
-            public void onPathFinished(final PathModifier pPathModifier, final IEntity pEntity) {
-
-            }
-        }))); */
-
-        scene.attachChild(player);
 
         // setup controls
         this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
@@ -217,10 +151,48 @@ public class MainActivity extends SimpleBaseGameActivity {
        	this.mDigitalOnScreenControl.getControlKnob().setScale(1.25f);
        	this.mDigitalOnScreenControl.refreshControlKnobPosition();
 
-        scene.setChildScene(mDigitalOnScreenControl);
+        mScene.setChildScene(mDigitalOnScreenControl);
 
-        return scene;
+        return mScene;
     }
 
+    /**
+     * Initialize TMXTiled Map
+     * */
+    void initMap() {
+        try {
+            final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
+                @Override
+                public void onTMXTileWithPropertiesCreated(final TMXTiledMap pTMXTiledMap, final TMXLayer pTMXLayer, final TMXTile pTMXTile, final TMXProperties<TMXTileProperty> pTMXTileProperties) {
+                    //do nothing
+                }
+            });
+            this.mTMXTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
+
+        } catch (final TMXLoadException e) {
+            Debug.e(e);
+        }
+
+        final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
+        this.mScene.attachChild(tmxLayer);
+
+        this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
+        this.mBoundChaseCamera.setBoundsEnabled(true);
+    }
+
+    /**
+     * Initialize Player
+     * */
+    AnimatedSprite initPlayer() {
+
+        final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
+        final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
+
+        final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
+        this.mBoundChaseCamera.setChaseEntity(player);
+
+        mScene.attachChild(player);
+        return player;
+    }
 
 }
