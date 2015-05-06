@@ -96,17 +96,62 @@ public class MainActivity extends SimpleBaseGameActivity {
     @Override
     public Scene onCreateScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
-
         this.mScene = new Scene();
         initMap();
         final AnimatedSprite player = initPlayer();
         final PhysicsHandler physicsHandler = new PhysicsHandler(player);
         player.registerUpdateHandler(physicsHandler);
+        initDOSC(player, physicsHandler);
+        return mScene;
+    }
 
+    /**
+     * Initialize TMXTiled Map
+     * */
+    void initMap() {
+        try {
+            final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
+                @Override
+                public void onTMXTileWithPropertiesCreated(final TMXTiledMap pTMXTiledMap, final TMXLayer pTMXLayer, final TMXTile pTMXTile, final TMXProperties<TMXTileProperty> pTMXTileProperties) {
+                    //do nothing
+                }
+            });
+            this.mTMXTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
 
+        } catch (final TMXLoadException e) {
+            Debug.e(e);
+        }
 
-        // setup controls
-        this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
+        final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
+        this.mScene.attachChild(tmxLayer);
+
+        this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
+        this.mBoundChaseCamera.setBoundsEnabled(true);
+    }
+
+    /**
+     * Initialize Player
+     * @return AnimatedSprite
+     * */
+    AnimatedSprite initPlayer() {
+
+        final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
+        final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
+
+        final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
+        this.mBoundChaseCamera.setChaseEntity(player);
+
+        mScene.attachChild(player);
+        return player;
+    }
+
+    /**
+     * Initialize DOSC
+     * @param player
+     * @param physicsHandler
+     * */
+    void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
+               this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
             public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
 
@@ -153,46 +198,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 
         mScene.setChildScene(mDigitalOnScreenControl);
 
-        return mScene;
-    }
-
-    /**
-     * Initialize TMXTiled Map
-     * */
-    void initMap() {
-        try {
-            final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
-                @Override
-                public void onTMXTileWithPropertiesCreated(final TMXTiledMap pTMXTiledMap, final TMXLayer pTMXLayer, final TMXTile pTMXTile, final TMXProperties<TMXTileProperty> pTMXTileProperties) {
-                    //do nothing
-                }
-            });
-            this.mTMXTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
-
-        } catch (final TMXLoadException e) {
-            Debug.e(e);
-        }
-
-        final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
-        this.mScene.attachChild(tmxLayer);
-
-        this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
-        this.mBoundChaseCamera.setBoundsEnabled(true);
-    }
-
-    /**
-     * Initialize Player
-     * */
-    AnimatedSprite initPlayer() {
-
-        final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
-        final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
-
-        final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
-        this.mBoundChaseCamera.setChaseEntity(player);
-
-        mScene.attachChild(player);
-        return player;
     }
 
 }
