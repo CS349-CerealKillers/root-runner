@@ -7,6 +7,10 @@ import android.util.Log;
  */
 public class ln extends Tool
 {
+    /**
+     * Class constructor for the ln tool.
+     * @param id The id of the tool.
+     */
     public ln(int id)
     {
         super("ln", "Create a link to TARGET in the current directory.", id);

@@ -7,6 +7,10 @@ import android.util.Log;
  */
 public class ls extends  Tool
 {
+    /**
+     * Class constructor for the ls tool.
+     * @param id The id of the tool.
+     */
     public ls(int id)
     {
         super("ls", "Reveal information  about  the FILEs in the current directory.", id);

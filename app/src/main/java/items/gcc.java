@@ -7,6 +7,10 @@ import android.util.Log;
  */
 public class gcc extends Tool
 {
+    /**
+     * Class constructor for the gcc tool.
+     * @param id The id of the tool.
+     */
     public gcc(int id)
     {
         super("gcc", "When you invoke GCC, it does preprocessing, compilation, assembly and linking.", id);

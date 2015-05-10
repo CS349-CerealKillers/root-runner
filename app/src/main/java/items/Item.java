@@ -9,6 +9,12 @@ public abstract class Item
     private String description;
     private int id;
 
+    /**
+     * The class constructor for an item.
+     * @param name The name of the item.
+     * @param description The description of the item.
+     * @param id The id of the item.
+     */
     public Item(String name, String description, int id)
     {
         this.name = name;
@@ -16,16 +22,28 @@ public abstract class Item
         this.id = id;
     }
 
+    /**
+     * Returns the name of the item.
+     * @return the name of the item.
+     */
     public String getName()
     {
         return this.name;
     }
 
+    /**
+     * Returns the description of the item.
+     * @return the description of the item.
+     */
     public String getDescription()
     {
         return this.description;
     }
 
+    /**
+     * Returns the id of the item.
+     * @return the id of the item.
+     */
     public int getID()
     {
         return this.id;

@@ -7,6 +7,10 @@ import android.util.Log;
  */
 public class chmod extends Tool
 {
+    /**
+     * Class constructor for the chmod tool.
+     * @param id The id of the tool.
+     */
     public chmod(int id)
     {
         super("chmod", "Change file access permissions.", id);

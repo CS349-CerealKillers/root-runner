@@ -7,6 +7,10 @@ import android.util.Log;
  */
 public class rm extends Tool
 {
+    /**
+     * Class constructor for the rm tool.
+     * @param id The id of the tool.
+     */
     public rm(int id)
     {
         super("rm", "Remove files or directories.", id);

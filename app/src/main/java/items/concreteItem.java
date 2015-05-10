@@ -3,10 +3,19 @@ package items;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
+
+
 public class concreteItem extends Item
 {
     private boolean isStatic;
 
+    /**
+     * The class constructor for items that have no behavior besides having a description.
+     * @param name The name of the item.
+     * @param description The description of the item.
+     * @param id The id of the item.
+     * @param isStatic Whether or not the item should be able to be picked up or not.
+     */
     public concreteItem(String name, String description, int id, boolean isStatic)
     {
         super(name, description, id);
@@ -14,8 +23,8 @@ public class concreteItem extends Item
     }
 
     /**
-     * If an item isStatic it cannot be put into the players inventory.
-     * @return Returns true if item is static. Returns false if item can be picked up.
+     * Returns true if the object is static. Returns false if the object is not static.
+     * @return if an object is static or not.
      */
     public boolean isStatic()
     {

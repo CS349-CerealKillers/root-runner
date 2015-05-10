@@ -7,6 +7,10 @@ import android.util.Log;
  */
 public class adduser extends Tool
 {
+    /**
+     * Class constructor for the adduser tool.
+     * @param id The id of the tool.
+     */
     public adduser(int id)
     {
         super("adduser", "", id);
