@@ -6,7 +6,6 @@ package com.cerealkillers.rootrunner;
  *
  * */
 
-
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
@@ -32,7 +31,6 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.debug.Debug;
 import android.opengl.GLES20;
-
 
 public class MainActivity extends SimpleBaseGameActivity {
 
@@ -64,13 +62,12 @@ public class MainActivity extends SimpleBaseGameActivity {
     private ITextureRegion mOnScreenControlBaseTextureRegion;
     private ITextureRegion mOnScreenControlKnobTextureRegion;
 
-
     /**
      * onCreateEngineOptions
      * @return EngineOptions
      *
      * Description:
-     *      Set global game engine options.
+     *              Set global game engine options.
      * */
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -82,8 +79,8 @@ public class MainActivity extends SimpleBaseGameActivity {
      * onCreateResources
      *
      * Description:
-     *      Loads all requested resources from assets folder.
-     *      Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
+     *              Loads all requested resources from assets folder.
+     *              Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
      * */
     @Override
     public void onCreateResources() {
@@ -107,7 +104,7 @@ public class MainActivity extends SimpleBaseGameActivity {
      * @return Scene
      *
      * Description:
-     *      Calling function for init* routines pertaining to the current scene.
+     *              Calling function for init* routines pertaining to the current scene.
      * */
     @Override
     public Scene onCreateScene() {
@@ -125,8 +122,8 @@ public class MainActivity extends SimpleBaseGameActivity {
      * initMap
      *
      * Description:
-     *      Initializes TMX Tiled Map and attaches it to the scene.
-     *      Throws a TMXLoadException if Map fails to load.
+     *              Initializes TMX Tiled Map and attaches it to the scene.
+     *              Throws a TMXLoadException if Map fails to load.
      * */
     void initMap() {
         try {
@@ -154,7 +151,7 @@ public class MainActivity extends SimpleBaseGameActivity {
      * @return: Returns initialized object of type AnimatedSprite to calling function.
      *
      * Description:
-     *      Initializes player of type AnimatedSprite and attaches the object to the scene.
+     *              Initializes player of type AnimatedSprite and attaches the object to the scene.
      * */
     AnimatedSprite initPlayer() {
 
@@ -174,8 +171,8 @@ public class MainActivity extends SimpleBaseGameActivity {
      * @param physicsHandler: object of type PhysicsHandler
      *
      * Description:
-     *      Initializes Digital On Screen Controls for the player.
-     *      Controls changes in animation throughout runtime.
+     *              Initializes Digital On Screen Controls for the player.
+     *              Controls changes in animation throughout runtime.
      * */
     void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
                this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
@@ -185,25 +182,25 @@ public class MainActivity extends SimpleBaseGameActivity {
                 if(v2 == 1) {
                     //up
                     if(playerDirection != PlayerDirection.UP) {
-                        player.animate(new long[]{200,200,200},6,8,true);
+                        player.animate(new long[]{100,100,100},6,8,true);
                         playerDirection = PlayerDirection.UP;
                     }
                 } else if(v2 == -1) {
                     //down
                     if(playerDirection != PlayerDirection.DOWN) {
-                        player.animate(new long[]{200,200,200},0,2,true);
+                        player.animate(new long[]{100,100,100},0,2,true);
                         playerDirection = PlayerDirection.DOWN;
                     }
                 } else if(v == -1) {
                     //left
                     if(playerDirection != PlayerDirection.LEFT) {
-                        player.animate(new long[]{200,200,200},9,11,true);
+                        player.animate(new long[]{100,100,100},9,11,true);
                         playerDirection = PlayerDirection.LEFT;
                     }
                 } else if(v == 1) {
                     //right
                     if(playerDirection != PlayerDirection.RIGHT) {
-                        player.animate(new long[]{200,200,200},3,5,true);
+                        player.animate(new long[]{100,100,100},3,5,true);
                         playerDirection = PlayerDirection.RIGHT;
                     }
                 } else {
@@ -214,6 +211,7 @@ public class MainActivity extends SimpleBaseGameActivity {
                 }
 
                 physicsHandler.setVelocity(v*100, v2*100);
+                adjustToSceneBoundary(player);
             }
         });
 	    this.mDigitalOnScreenControl.getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
@@ -224,6 +222,34 @@ public class MainActivity extends SimpleBaseGameActivity {
        	this.mDigitalOnScreenControl.refreshControlKnobPosition();
 
         mScene.setChildScene(mDigitalOnScreenControl);
+
+    }
+
+    /**
+     * adjustToSceneBoundary
+     * @param player: object of type AnimatedSprite
+     *
+     * Description:
+     *              Keeps sprite entity bound by dimensions of the TMX Layer.
+     * */
+    public void adjustToSceneBoundary(AnimatedSprite player) {
+
+        TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
+        int tmxWidth = tmxLayer.getWidth();
+        int tmxHeight = tmxLayer.getHeight();
+
+        // adjust X
+        if(player.getX() < 0)
+            player.setX(0);
+        else if(player.getX() + player.getWidth() > tmxWidth)
+            player.setX(tmxWidth - player.getWidth());
+
+        // adjust Y
+        if(player.getY() < 0)
+            player.setY(0);
+        else if(player.getY() + player.getHeight() > tmxHeight)
+            player.setY(tmxHeight - player.getHeight());
+
 
     }
 
