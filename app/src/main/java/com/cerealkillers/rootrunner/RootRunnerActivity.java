@@ -1,9 +1,16 @@
 package com.cerealkillers.rootrunner;
 
 import android.app.Activity;
+import android.graphics.Point;
+import android.view.Display;
+import android.widget.Toast;
 
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.options.EngineOptions;
+import org.andengine.engine.options.ScreenOrientation;
+import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.ui.IGameInterface;
 import org.andengine.ui.activity.BaseGameActivity;
 
@@ -15,20 +22,26 @@ public class RootRunnerActivity extends BaseGameActivity {
 
     @Override
     public EngineOptions onCreateEngineOptions() {
-        //TODO
-        return null;
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        BoundCamera boundChaseCamera = new BoundCamera(0, 0, size.x, size.y);
+
+        return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new RatioResolutionPolicy(size.x, size.y), boundChaseCamera);
     }
 
     @Override
     public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws Exception {
-        //TODO
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+
+        onCreateResourcesCallback.onCreateResourcesFinished();
     }
 
     @Override
     public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws Exception {
         final Scene scene = new Scene();
         MapLoader mapLoader = MapLoaderFactory.getMapLoader(this, mEngine);
-        mapLoader.load("map", scene);
+        mapLoader.load("map.tmx", scene);
         onCreateSceneCallback.onCreateSceneFinished(scene);
     }
 
