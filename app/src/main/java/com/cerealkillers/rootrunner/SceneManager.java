@@ -5,7 +5,7 @@ package com.cerealkillers.rootrunner;
  */
 
 import org.andengine.engine.Engine;
-
+import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 public class SceneManager {
 
     /* Different Scenes */
@@ -56,9 +56,20 @@ public class SceneManager {
         return INSTANCE;
     }
     public SceneType getCurrentSceneType() {
-        return currentSceneType();
+        return currentSceneType;
     }
     public BaseScene getCurrentScene() {
         return currentScene;
+    }
+    public void createSplashScene(OnCreateSceneCallback onCreateSceneCallback) {
+        ResourceManager.getInstance().loadSplashScreen();
+        splashScene = new SplashScene();
+        currentScene = splashScene;
+        onCreateSceneCallback.onCreateSceneFinished(splashScene);
+    }
+    private void disposedSplashScene() {
+        ResourceManager.getInstance().unloadSplashScreen();
+        splashScene.disposeScene();
+        splashScene = null;
     }
 }

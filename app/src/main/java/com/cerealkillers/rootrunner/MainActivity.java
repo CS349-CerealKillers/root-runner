@@ -12,6 +12,7 @@ import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.physics.PhysicsHandler;
+import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -32,6 +33,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
+import org.andengine.engine.handler.timer.TimerHandler;
 import android.opengl.GLES20;
 
 import java.io.IOException;
@@ -109,6 +111,7 @@ public class MainActivity extends BaseGameActivity {
         onCreateResourcesCallback.onCreateResourcesFinished();
         // end delegation to Resource manager
 
+        /*
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
         // load player from asset
@@ -121,7 +124,7 @@ public class MainActivity extends BaseGameActivity {
         this.mOnScreenControlBaseTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_base.png", 0, 0);
         this.mOnScreenControlKnobTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_knob.png", 128, 0);
         this.mOnScreenControlTexture.load();
-
+        */
     }
 
     /**
@@ -133,6 +136,11 @@ public class MainActivity extends BaseGameActivity {
      * */
     @Override
     public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws IOException {
+
+        /* create splash screen */
+        SceneManager.getInstance().createSplashScene(onCreateSceneCallback);
+
+        /*
         this.mEngine.registerUpdateHandler(new FPSLogger());
         this.mScene = new Scene();
         initMap();
@@ -140,11 +148,18 @@ public class MainActivity extends BaseGameActivity {
         final PhysicsHandler physicsHandler = new PhysicsHandler(player);
         player.registerUpdateHandler(physicsHandler);
         initDOSC(player, physicsHandler);
-        //return mScene;
+        return mScene;
+        */
     }
 
     public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws IOException {
-        //
+        mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
+            public void onTimePassed(final TimerHandler timeHandler) {
+                mEngine.unregisterUpdateHandler(timeHandler);
+                //load shit here
+            }
+        }));
+        onPopulateSceneCallback.onPopulateSceneFinished();
 
     }
 

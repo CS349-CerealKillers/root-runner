@@ -9,6 +9,8 @@ import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import android.app.Activity;
+import com.cerealkillers.rootrunner.SceneManager.SceneType;
+
 
 public abstract class BaseScene extends Scene {
 
@@ -32,7 +34,7 @@ public abstract class BaseScene extends Scene {
     /* abstract methods */
     public abstract void createScene();
     public abstract void onBackKeyPressed();
-    public abstract void SceneType getSceneType();
+    public abstract SceneType getSceneType();
     public abstract void disposeScene();
 
 }
