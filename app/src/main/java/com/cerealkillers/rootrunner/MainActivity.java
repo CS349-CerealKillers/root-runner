@@ -6,6 +6,8 @@ package com.cerealkillers.rootrunner;
  *
  * */
 
+import org.andengine.engine.Engine;
+import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
@@ -63,6 +65,18 @@ public class MainActivity extends SimpleBaseGameActivity {
     private ITextureRegion mOnScreenControlKnobTextureRegion;
 
     /**
+     * onCreateEngine
+     * @return Engine
+     *
+     * Description:
+     *              Return new Engine
+     * */
+    @Override
+    public Engine onCreateEngine(EngineOptions mEngineOptions) {
+        return new LimitedFPSEngine(mEngineOptions, 60);
+    }
+
+     /**
      * onCreateEngineOptions
      * @return EngineOptions
      *
