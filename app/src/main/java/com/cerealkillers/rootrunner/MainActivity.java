@@ -30,11 +30,13 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.andengine.ui.activity.SimpleBaseGameActivity;
+import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
 import android.opengl.GLES20;
 
-public class MainActivity extends SimpleBaseGameActivity {
+import java.io.IOException;
+
+public class MainActivity extends BaseGameActivity {
 
     /*Define Player Direction*/
     private enum PlayerDirection {
@@ -63,6 +65,8 @@ public class MainActivity extends SimpleBaseGameActivity {
     private BitmapTextureAtlas mOnScreenControlTexture;
     private ITextureRegion mOnScreenControlBaseTextureRegion;
     private ITextureRegion mOnScreenControlKnobTextureRegion;
+
+    private ResourceManager mResourceManager;
 
     /**
      * onCreateEngine
@@ -97,7 +101,14 @@ public class MainActivity extends SimpleBaseGameActivity {
      *              Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
      * */
     @Override
-    public void onCreateResources() {
+    public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws IOException {
+
+        // delegate to resource manager
+        ResourceManager.prepareManager(mEngine, this, mBoundChaseCamera, getVertexBufferObjectManager());
+        mResourceManager = mResourceManager.getInstance();
+        onCreateResourcesCallback.onCreateResourcesFinished();
+        // end delegation to Resource manager
+
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
         // load player from asset
@@ -121,7 +132,7 @@ public class MainActivity extends SimpleBaseGameActivity {
      *              Calling function for init* routines pertaining to the current scene.
      * */
     @Override
-    public Scene onCreateScene() {
+    public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws IOException {
         this.mEngine.registerUpdateHandler(new FPSLogger());
         this.mScene = new Scene();
         initMap();
@@ -129,7 +140,12 @@ public class MainActivity extends SimpleBaseGameActivity {
         final PhysicsHandler physicsHandler = new PhysicsHandler(player);
         player.registerUpdateHandler(physicsHandler);
         initDOSC(player, physicsHandler);
-        return mScene;
+        //return mScene;
+    }
+
+    public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws IOException {
+        //
+
     }
 
     /**
