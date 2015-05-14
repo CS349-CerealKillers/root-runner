@@ -1,13 +1,14 @@
 package com.cerealkillers.rootrunner.GameObjects.Items;
 
+import com.cerealkillers.rootrunner.GameObjects.GameObject;
+
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public abstract class Item
+public abstract class Item extends GameObject
 {
     private String name;
     private String description;
-    private int id;
 
     /**
      * The class constructor for an item.
@@ -17,9 +18,9 @@ public abstract class Item
      */
     public Item(String name, String description, int id)
     {
+        super(id);
         this.name = name;
         this.description = description;
-        this.id = id;
     }
 
     /**
@@ -38,14 +39,5 @@ public abstract class Item
     public String getDescription()
     {
         return this.description;
-    }
-
-    /**
-     * Returns the id of the item.
-     * @return the id of the item.
-     */
-    public int getID()
-    {
-        return this.id;
     }
 }
