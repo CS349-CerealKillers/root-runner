@@ -1,4 +1,4 @@
-package items;
+package com.cerealkillers.rootrunner.GameObjects.Items;
 
 /**
  * Created by Tyler Herrin on 5/10/2015.
@@ -10,7 +10,7 @@ public class concreteItem extends Item
     private boolean isStatic;
 
     /**
-     * The class constructor for items that have no behavior besides having a description.
+     * The class constructor for com.ceralkillers.rootrunner.gameobjects.items that have no behavior besides having a description.
      * @param name The name of the item.
      * @param description The description of the item.
      * @param id The id of the item.

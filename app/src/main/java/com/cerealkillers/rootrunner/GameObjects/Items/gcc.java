@@ -1,4 +1,4 @@
-package items;
+package com.cerealkillers.rootrunner.GameObjects.Items;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package items;
+package com.cerealkillers.rootrunner.GameObjects.Items;
 
 /**
  * Created by Tyler Herrin on 5/10/2015.
