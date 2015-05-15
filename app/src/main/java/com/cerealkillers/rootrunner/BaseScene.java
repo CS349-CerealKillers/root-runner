@@ -10,7 +10,7 @@ import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import android.app.Activity;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
-
+import org.andengine.engine.camera.Camera;
 
 public abstract class BaseScene extends Scene {
 

@@ -67,7 +67,13 @@ public class SceneManager {
         currentScene = splashScene;
         onCreateSceneCallback.onCreateSceneFinished(splashScene);
     }
-    private void disposedSplashScene() {
+    public void createMenuScene() {
+        ResourceManager.getInstance().loadMenuResources();
+        menuScene = new MainMenuScene();
+        setScene(menuScene);
+        disposeSplashScene();
+    }
+    private void disposeSplashScene() {
         ResourceManager.getInstance().unloadSplashScreen();
         splashScene.disposeScene();
         splashScene = null;

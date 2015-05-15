@@ -156,6 +156,7 @@ public class MainActivity extends BaseGameActivity {
         mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
             public void onTimePassed(final TimerHandler timeHandler) {
                 mEngine.unregisterUpdateHandler(timeHandler);
+                SceneManager.getInstance().createMenuScene();
                 //load shit here
             }
         }));

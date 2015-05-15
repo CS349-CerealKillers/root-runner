@@ -9,11 +9,19 @@ package com.cerealkillers.rootrunner;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
+import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
+import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
+import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
+import org.andengine.util.debug.Debug;
+import org.andengine.engine.camera.Camera;
 
 public class ResourceManager {
 
@@ -29,10 +37,18 @@ public class ResourceManager {
     public ITextureRegion splashTextureRegion;
     private BitmapTextureAtlas splashTextureAtlas;
 
+    public ITextureRegion menuBackgroundRegion;
+    public ITextureRegion playRegion;
+    public ITextureRegion optionRegion;
+
+    private BuildableBitmapTextureAtlas menuTextureAtlas;
+
+
+
     /* Logic */
     public void loadMenuResources() {
         loadMenuGraphics();
-        loadMenuAudio();
+        //loadMenuAudio();
     }
     public void loadGameResources() {
         loadGameGraphics();
@@ -50,6 +66,18 @@ public class ResourceManager {
         splashTextureRegion = null;
     }
     private void loadMenuGraphics() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+        menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+        menuBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_background.png");
+        playRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_ok.png");
+        optionRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_back.png");
+
+        try {
+            this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,1,0));
+            this.menuTextureAtlas.load();
+        }catch(final TextureAtlasBuilderException e) {
+            Debug.e(e);
+        }
 
     }
     private void loadMenuAudio() {
