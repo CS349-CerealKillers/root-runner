@@ -59,7 +59,7 @@ public class ResourceManager {
     private Context myContext;
 
     private BitmapTextureAtlas playerBitmapTextureAtlas;
-    private TiledTextureRegion playerTiledTextureRegion;
+    public TiledTextureRegion playerTiledTextureRegion;
 
     /* tmx */
     public TMXTiledMap tmxTiledMap;
@@ -125,6 +125,7 @@ public class ResourceManager {
         playerBitmapTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
         playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, activity, "player.png", 0, 0, 3, 4);
         playerBitmapTextureAtlas.load();
+
 
         //todo load other game graphics
     }

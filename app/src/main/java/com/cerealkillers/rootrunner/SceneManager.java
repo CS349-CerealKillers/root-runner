@@ -95,6 +95,7 @@ public class SceneManager {
                 setScene(gameScene);
             }
         }));
+
     }
 
     public void loadMenuScene(final Engine engine) {

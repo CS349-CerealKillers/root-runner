@@ -55,8 +55,8 @@ public class MainActivity extends BaseGameActivity {
 
 
     // Camera height and width values
-    private static int CAMERA_WIDTH = 800;
-    private static int CAMERA_HEIGHT = 480;
+    public static int CAMERA_WIDTH = 800;
+    public static int CAMERA_HEIGHT = 480;
 
     // Define variables needed for the scene
     private BoundCamera mBoundChaseCamera;
