@@ -13,6 +13,7 @@ import com.cerealkillers.rootrunner.SceneManager.SceneType;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.text.Text;
+import org.andengine.extension.tmx.TMXLayer;
 
 public class GameScene extends BaseScene {
 
@@ -24,7 +25,8 @@ public class GameScene extends BaseScene {
     @Override
     public void createScene() {
         //use simple background placeholder
-        createBackground();
+        //createBackground();
+        loadMap();
         createHUD();
         //createPhysics();
     }
@@ -34,14 +36,17 @@ public class GameScene extends BaseScene {
     }
     @Override
     public SceneType getSceneType() {
-        return null;
+        return SceneType.GAME;
     }
     @Override
     public void disposeScene() {
         boundCamera.setHUD(null);
         boundCamera.setCenter(400,240);
 
-        //todo code for desposing of scene
+        // code for disposing of scene
+        this.detachSelf();
+        this.dispose();
+
         //todo remove all game scene objects
     }
 
@@ -60,6 +65,13 @@ public class GameScene extends BaseScene {
 
     private void createBackground() {
         setBackground(new Background(Color.BLUE));
+    }
+
+    private void loadMap() {
+        final TMXLayer tmxLayer = ResourceManager.getInstance().tmxTiledMap.getTMXLayers().get(0);
+        attachChild(tmxLayer); // attach child to scene
+        ResourceManager.getInstance().boundCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
+        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
     }
 
     //keep track of score.  This is an example.  Tweak slightly to keep track of health

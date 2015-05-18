@@ -34,7 +34,10 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
 import org.andengine.engine.handler.timer.TimerHandler;
+
+import android.content.res.AssetManager;
 import android.opengl.GLES20;
+import android.view.KeyEvent;
 
 import java.io.IOException;
 
@@ -82,6 +85,20 @@ public class MainActivity extends BaseGameActivity {
         return new LimitedFPSEngine(mEngineOptions, 60);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.exit(0);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+        }
+        return false;
+    }
+
      /**
      * onCreateEngineOptions
      * @return EngineOptions
@@ -106,7 +123,7 @@ public class MainActivity extends BaseGameActivity {
     public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws IOException {
 
         // delegate to resource manager
-        ResourceManager.prepareManager(mEngine, this, mBoundChaseCamera, getVertexBufferObjectManager());
+        ResourceManager.prepareManager(mEngine, this, mBoundChaseCamera, getVertexBufferObjectManager(), MainActivity.this);
         mResourceManager = mResourceManager.getInstance();
         onCreateResourcesCallback.onCreateResourcesFinished();
         // end delegation to Resource manager
@@ -298,5 +315,6 @@ public class MainActivity extends BaseGameActivity {
 
 
     }
+
 
 }

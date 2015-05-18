@@ -7,8 +7,19 @@ package com.cerealkillers.rootrunner;
  */
 
 
+import android.content.res.AssetManager;
+import android.graphics.Color;
+
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.BoundCamera;
+import org.andengine.extension.tmx.TMXLayer;
+import org.andengine.extension.tmx.TMXProperties;
+import org.andengine.extension.tmx.TMXTile;
+import org.andengine.extension.tmx.TMXTileProperty;
+import org.andengine.extension.tmx.TMXTiledMap;
+import org.andengine.extension.tmx.TMXLoader;
+import org.andengine.extension.tmx.util.exception.TMXLoadException;
+import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -17,11 +28,13 @@ import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSourc
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.util.debug.Debug;
-import org.andengine.engine.camera.Camera;
+import org.andengine.opengl.font.Font;
+import android.content.Context;
 
 public class ResourceManager {
 
@@ -32,7 +45,7 @@ public class ResourceManager {
     public MainActivity activity;
     public BoundCamera boundCamera;
     public VertexBufferObjectManager vertexBufferObjectManager;
-
+    public Font font;
     /* Textures and Regions */
     public ITextureRegion splashTextureRegion;
     private BitmapTextureAtlas splashTextureAtlas;
@@ -42,18 +55,25 @@ public class ResourceManager {
     public ITextureRegion optionRegion;
 
     private BuildableBitmapTextureAtlas menuTextureAtlas;
+    private AssetManager am;
+    private Context myContext;
 
+    private BitmapTextureAtlas playerBitmapTextureAtlas;
+    private TiledTextureRegion playerTiledTextureRegion;
 
+    /* tmx */
+    public TMXTiledMap tmxTiledMap;
 
     /* Logic */
     public void loadMenuResources() {
         loadMenuGraphics();
+        loadMenuFonts();
         //loadMenuAudio();
     }
     public void loadGameResources() {
         loadGameGraphics();
-        loadGameFonts();
-        loadGameAudio();
+        //loadGameFonts();
+        //loadGameAudio();
     }
     public void loadSplashScreen() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -64,6 +84,15 @@ public class ResourceManager {
     public void unloadSplashScreen() {
         splashTextureAtlas.unload();
         splashTextureRegion = null;
+    }
+    public void unloadMenuTextures() {
+        menuTextureAtlas.unload();
+    }
+    public void unloadGameTextures() {
+        //todo
+    }
+    public void loadMenuTextures() {
+        menuTextureAtlas.load();
     }
     private void loadMenuGraphics() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
@@ -78,13 +107,26 @@ public class ResourceManager {
         }catch(final TextureAtlasBuilderException e) {
             Debug.e(e);
         }
-
     }
+
     private void loadMenuAudio() {
 
     }
     private void loadGameGraphics() {
+        //load tmx
+        try {
+            final TMXLoader tmxLoader = new TMXLoader(myContext.getAssets(), engine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, vertexBufferObjectManager);
+            this.tmxTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
+        } catch (TMXLoadException e) {
+            Debug.e(e);
+        }
 
+        // load player
+        playerBitmapTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
+        playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, activity, "player.png", 0, 0, 3, 4);
+        playerBitmapTextureAtlas.load();
+
+        //todo load other game graphics
     }
     private void loadGameFonts() {
 
@@ -92,21 +134,27 @@ public class ResourceManager {
     private void loadGameAudio() {
 
     }
+    private void loadMenuFonts() {
+        FontFactory.setAssetBasePath("font/");
+        final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
+        font.load();
+    }
 
 
 
     /* stub out resource loaders */
 
     /* prep manager */
-    public static void prepareManager(Engine engine, MainActivity activity, BoundCamera boundCamera, VertexBufferObjectManager vertexBufferObjectManager) {
+    public static void prepareManager(Engine engine, MainActivity activity, BoundCamera boundCamera, VertexBufferObjectManager vertexBufferObjectManager, Context myContext) {
         getInstance().engine = engine;
         getInstance().activity = activity;
         getInstance().boundCamera = boundCamera;
         getInstance().vertexBufferObjectManager = vertexBufferObjectManager;
+        getInstance().myContext = myContext;
     }
     public static ResourceManager getInstance() {
         return INSTANCE;
     }
-
 
 }

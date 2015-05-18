@@ -22,13 +22,13 @@ public class SplashScene extends BaseScene {
             }
         };
         splash.setScale(1.5f);
-        splash.setPosition(400,240);
+        splash.setPosition(350,200);
         attachChild(splash);
     }
 
     @Override
     public void onBackKeyPressed() {
-
+        System.exit(0);
     }
     @Override
     public SceneType getSceneType() {

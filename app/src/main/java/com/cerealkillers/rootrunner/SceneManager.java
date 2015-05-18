@@ -5,7 +5,10 @@ package com.cerealkillers.rootrunner;
  */
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
+
 public class SceneManager {
 
     /* Different Scenes */
@@ -70,12 +73,42 @@ public class SceneManager {
     public void createMenuScene() {
         ResourceManager.getInstance().loadMenuResources();
         menuScene = new MainMenuScene();
-        setScene(menuScene);
+        loadScene = new LoadingScene();
+        SceneManager.getInstance().setScene(menuScene);
+        //setScene(menuScene);
         disposeSplashScene();
     }
     private void disposeSplashScene() {
         ResourceManager.getInstance().unloadSplashScreen();
         splashScene.disposeScene();
         splashScene = null;
+    }
+
+    public void loadGameScene(final Engine engine) {
+        setScene(loadScene);
+        ResourceManager.getInstance().unloadMenuTextures();
+        engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+            public void onTimePassed(final TimerHandler timerHandler) {
+                engine.unregisterUpdateHandler(timerHandler);
+                ResourceManager.getInstance().loadGameResources();
+                gameScene = new GameScene();
+                setScene(gameScene);
+            }
+        }));
+    }
+
+    public void loadMenuScene(final Engine engine) {
+        setScene(loadScene);
+        gameScene.disposeScene();
+        ResourceManager.getInstance().unloadGameTextures();
+        engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler timerHandler) {
+                engine.registerUpdateHandler(timerHandler);
+                ResourceManager.getInstance().loadMenuTextures();
+                setScene(menuScene);
+            }
+        }));
+
     }
 }
