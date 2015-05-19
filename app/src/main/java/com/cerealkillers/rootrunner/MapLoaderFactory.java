@@ -18,6 +18,6 @@ public class MapLoaderFactory {
         TextureManager textureManager = engine.getTextureManager();
         VertexBufferObjectManager bufferObjectManager = engine.getVertexBufferObjectManager();
         TMXLoader loader = new TMXLoader(assets, textureManager, bufferObjectManager);
-        return new MapLoader(loader);
+        return new MapLoader(loader, bufferObjectManager);
     }
 }
