@@ -2,7 +2,7 @@ package com.cerealkillers.rootrunner.GameWorld;
 
 import android.util.SparseArray;
 
-import com.cerealkillers.rootrunner.GameObjects.Characters.Character;
+import com.cerealkillers.rootrunner.GameObjects.Characters.GameCharacter;
 import com.cerealkillers.rootrunner.GameObjects.Items.Item;
 import com.cerealkillers.rootrunner.GameObjects.Structures.Portal;
 
@@ -13,7 +13,7 @@ public class Map {
 
     SparseArray<Portal> mPortals;
     SparseArray<Item> mItemsOnMap;
-    SparseArray<Character> mCharacters;
+    SparseArray<GameCharacter> mCharacters;
 
     public Portal getPortal(int portalId){
         return mPortals.get(portalId);
@@ -23,11 +23,11 @@ public class Map {
         return mItemsOnMap.get(itemId);
     }
 
-    public Character getCharacter(int characterId){
+    public GameCharacter getCharacter(int characterId){
         return mCharacters.get(characterId);
     }
 
-    public void addCharacter(Character character){
+    public void addCharacter(GameCharacter character){
         if(mCharacters.indexOfKey(character.getID()) < 0){
             mCharacters.put(character.getID(), character);
         }
@@ -57,8 +57,8 @@ public class Map {
         return deleted;
     }
 
-    public Character removeCharacter(int characterId){
-        Character deleted = getCharacter(characterId);
+    public GameCharacter removeCharacter(int characterId){
+        GameCharacter deleted = getCharacter(characterId);
         mCharacters.remove(characterId);
         return deleted;
     }
