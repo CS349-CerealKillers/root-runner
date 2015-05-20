@@ -1,4 +1,6 @@
-package com.cerealkillers.rootrunner;
+package com.cerealkillers.rootrunner.GameWorld;
+
+import com.cerealkillers.rootrunner.GameWorld.Map;
 
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
@@ -6,16 +8,10 @@ import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXObjectGroup;
-import org.andengine.extension.tmx.TMXProperties;
-import org.andengine.extension.tmx.TMXProperty;
-import org.andengine.extension.tmx.TMXTile;
-import org.andengine.extension.tmx.TMXTileProperty;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
-import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.debug.Debug;
 
 import java.util.ArrayList;
 
@@ -38,7 +34,7 @@ public class MapLoader {
         mVertexBuffer = bufferObjectManager;
     }
 
-    public GameMap load(String mapName, Scene scene){
+    public Map load(String mapName, Scene scene){
 
         TMXTiledMap map = null;
         try {
