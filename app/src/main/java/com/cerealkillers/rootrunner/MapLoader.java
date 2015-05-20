@@ -54,13 +54,14 @@ public class MapLoader {
             scene.attachChild(layer);
         }
 
-        /*
-            TODO
-            Not sure what to do yet with the objects.  Still need
-            to figure out how to convert these into entities.
-         */
+
         ArrayList<TMXObjectGroup> objectGroups = map.getTMXObjectGroups();
 
+
+        /*
+            This section creates sprites for each of the "entities" on the map.
+            //TODO: also create physics bounds for detecting collisions btwn the player and objects.
+         */
         for(TMXObjectGroup group: objectGroups){
             //some group level logic here
             for (TMXObject object: group.getTMXObjects()){
@@ -70,23 +71,10 @@ public class MapLoader {
                 ITextureRegion texture = map.getTextureRegionFromGlobalTileID(gid);
                 Sprite sprite = new Sprite(object.getX(), object.getY(), texture, mVertexBuffer);
                 scene.attachChild(sprite);
-
             }
         }
 
-        //map.getTextureRegionFromGlobalTileID(); //might be useful here
 
-        /* Copied from MainActivity
-            BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-
-            this.mBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
-            this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "player.png", 0, 0, 3, 4);
-
-            this.mBitmapTextureAtlas.load();
-
-            final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
-            this.mBoundChaseCamera.setChaseEntity(player);
-         */
 
         return null;
     }
