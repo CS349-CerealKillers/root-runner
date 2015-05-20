@@ -1,40 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="17">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="25">
  <tileset firstgid="1" name="grass-tiles-2-small" tilewidth="32" tileheight="32">
   <image source="gfx/grass-tiles-2-small.png" width="384" height="192"/>
  </tileset>
- <tileset firstgid="73" name="folders" tilewidth="64" tileheight="64">
-  <tile id="0">
-   <image width="32" height="32" source="gfx/folder.png"/>
-  </tile>
-  <tile id="1">
-   <image width="64" height="64" source="gfx/folder_64.png"/>
-  </tile>
- </tileset>
- <tileset firstgid="75" name="file_icons" tilewidth="56" tileheight="56">
+ <tileset firstgid="73" name="file_icons" tilewidth="56" tileheight="56">
   <image source="gfx/file_icons.png" width="560" height="560"/>
  </tileset>
- <tileset firstgid="175" name="desert_tiled" tilewidth="35" tileheight="35">
+ <tileset firstgid="173" name="desert_tiled" tilewidth="35" tileheight="35">
   <image source="gfx/desert_tiled.png" width="281" height="211"/>
  </tileset>
- <layer name="Tile Layer 1" width="50" height="50">
+ <tileset firstgid="221" name="folders" tilewidth="32" tileheight="32">
+  <image source="gfx/folders.png" width="64" height="32"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJztlbEKwCAMBWN3/f/P7VIhiItFeC9wQziok3fEtoho3/SPT5pWhD3N/DbS9CJc/T/pzMHzKUfU7LD2qLoXuz3JbdR+//TIU7nH7r1S+/3D3dvl4Pd0L+Z9KvfI92qh93qjRw+911v/j6pUe6QHPZyp9kgPejhT7ZEe9HCm2iM96OFMtUd60MOZao/0oIcz1R7pQQ9nqj3Sgx7OVHukBz2cqfZ4iy9PR0jr
+   eJztkjsKADAIQ7V7ev/jdqkQikP9TKVDCCjoI6oiolvYPkgadJCsNkkI+skzqJfh85gyXCdfNTcvR2at8LE6+Lz7Zvkg/q0rudncrvxsvl7sj/DhYn/0/zr5Ovzzvc23ANOjC2U=
   </data>
  </layer>
  <objectgroup name="portals">
-  <object id="4" name="parent" gid="74" x="780" y="872"/>
-  <object id="5" name="/etc/nginx" gid="74" x="211" y="568"/>
-  <object id="6" name="/etc/apache" gid="74" x="1369" y="1323"/>
+  <object id="23" gid="221" x="503" y="368"/>
+  <object id="24" gid="221" x="121" y="134"/>
  </objectgroup>
  <objectgroup name="items">
-  <object id="10" name="readme" type="static" gid="128" x="1135" y="891"/>
-  <object id="11" name="homework4" type="static" gid="131" x="252" y="1227"/>
-  <object id="12" name="Sort.java" type="pickup" gid="129" x="770" y="299"/>
-  <object id="13" name="index.php" type="interactive" gid="165" x="948" y="1486"/>
+  <object id="10" name="readme" type="static" gid="126" x="72" y="320"/>
+  <object id="11" name="homework4" type="static" gid="129" x="316" y="474"/>
+  <object id="12" name="Sort.java" type="pickup" gid="127" x="326" y="118"/>
+  <object id="13" name="index.php" type="interactive" gid="163" x="231" y="262"/>
  </objectgroup>
  <objectgroup name="characters">
-  <object id="15" name="EnemySpawn1" gid="220" x="425" y="1430" visible="0">
+  <object id="15" name="EnemySpawn1" gid="218" x="119" y="477">
    <properties>
     <property name="Enemy" value="1"/>
    </properties>
