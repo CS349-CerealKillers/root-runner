@@ -6,4 +6,7 @@ package com.cerealkillers.rootrunner.GameObjects.Characters;
 public class Enemy extends Character
 {
 
+    public Enemy(int id) {
+        super(id);
+    }
 }

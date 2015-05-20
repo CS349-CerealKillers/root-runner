@@ -1,9 +1,10 @@
 package com.cerealkillers.rootrunner;
 
-import android.app.Activity;
 import android.graphics.Point;
 import android.view.Display;
-import android.widget.Toast;
+
+import com.cerealkillers.rootrunner.GameWorld.MapLoader;
+import com.cerealkillers.rootrunner.GameWorld.MapLoaderFactory;
 
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.options.EngineOptions;
@@ -11,7 +12,6 @@ import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.ui.IGameInterface;
 import org.andengine.ui.activity.BaseGameActivity;
 
 /**
