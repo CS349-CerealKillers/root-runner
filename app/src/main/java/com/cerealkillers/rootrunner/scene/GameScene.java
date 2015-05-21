@@ -105,7 +105,10 @@ public class GameScene extends BaseScene {
     }
 
     public void initDOSC(final Player player, final PhysicsHandler physicsHandler) {
-        digitalOnScreenControl = new DigitalOnScreenControl(MainActivity.CAMERA_WIDTH - (resourceManager.onScreenControlBaseRegion.getWidth() + 40), MainActivity.CAMERA_HEIGHT - resourceManager.onScreenControlBaseRegion.getHeight(), boundCamera, resourceManager.onScreenControlBaseRegion, resourceManager.onScreenControlKnobRegion, 0.1f, vertexBufferObjectManager, new BaseOnScreenControl.IOnScreenControlListener() {
+        digitalOnScreenControl = new DigitalOnScreenControl(MainActivity.CAMERA_WIDTH - (resourceManager.onScreenControlBaseRegion.getWidth() + 40),
+                MainActivity.CAMERA_HEIGHT - resourceManager.onScreenControlBaseRegion.getHeight(),
+                boundCamera, resourceManager.onScreenControlBaseRegion, resourceManager.onScreenControlKnobRegion, 0.1f,
+                vertexBufferObjectManager, new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
             public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
                 if(v2 == 1) {
