@@ -1,9 +1,10 @@
-package com.cerealkillers.rootrunner;
+package com.cerealkillers.rootrunner.scene;
 
 /**
  * Created by jharshman on 5/14/15.
  */
 
+import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
 
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -75,10 +76,12 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
     public void onBackKeyPressed() {
         System.exit(0);
     }
+
     @Override
     public SceneType getSceneType() {
         return SceneType.MENU;
     }
+
     @Override
     public void disposeScene() {
 

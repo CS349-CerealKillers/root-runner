@@ -1,4 +1,4 @@
-package com.cerealkillers.rootrunner;
+package com.cerealkillers.rootrunner.scene;
 
 /**
  * Created by jharshman on 5/13/15.
@@ -10,6 +10,8 @@ import org.andengine.engine.camera.BoundCamera;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import android.app.Activity;
+
+import com.cerealkillers.rootrunner.ResourceManager;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
 import org.andengine.engine.camera.Camera;
 

@@ -1,4 +1,4 @@
-package com.cerealkillers.rootrunner;
+package com.cerealkillers.rootrunner.scene;
 
 /**
  * Created by jharshman on 5/14/15.
@@ -12,6 +12,7 @@ public class SplashScene extends BaseScene {
 
     /* variables */
     private Sprite splash;
+
     @Override
     public void createScene() {
         splash = new Sprite(0, 0, resourceManager.splashTextureRegion, vertexBufferObjectManager) {
@@ -30,10 +31,12 @@ public class SplashScene extends BaseScene {
     public void onBackKeyPressed() {
         System.exit(0);
     }
+
     @Override
     public SceneType getSceneType() {
         return SceneType.SPLASH;
     }
+
     @Override
     public void disposeScene() {
         splash.detachSelf();

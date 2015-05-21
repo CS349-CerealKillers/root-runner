@@ -4,6 +4,12 @@ package com.cerealkillers.rootrunner;
  * Created by jharshman on 5/13/15.
  */
 
+import com.cerealkillers.rootrunner.scene.BaseScene;
+import com.cerealkillers.rootrunner.scene.GameScene;
+import com.cerealkillers.rootrunner.scene.LoadingScene;
+import com.cerealkillers.rootrunner.scene.MainMenuScene;
+import com.cerealkillers.rootrunner.scene.SplashScene;
+
 import org.andengine.engine.Engine;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
@@ -58,18 +64,22 @@ public class SceneManager {
     public static SceneManager getInstance() {
         return INSTANCE;
     }
+
     public SceneType getCurrentSceneType() {
         return currentSceneType;
     }
+
     public BaseScene getCurrentScene() {
         return currentScene;
     }
+
     public void createSplashScene(OnCreateSceneCallback onCreateSceneCallback) {
         ResourceManager.getInstance().loadSplashScreen();
         splashScene = new SplashScene();
         currentScene = splashScene;
         onCreateSceneCallback.onCreateSceneFinished(splashScene);
     }
+
     public void createMenuScene() {
         ResourceManager.getInstance().loadMenuResources();
         menuScene = new MainMenuScene();

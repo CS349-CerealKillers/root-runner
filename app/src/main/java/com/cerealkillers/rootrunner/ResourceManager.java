@@ -71,30 +71,37 @@ public class ResourceManager {
         loadMenuFonts();
         //loadMenuAudio();
     }
+
     public void loadGameResources() {
         loadGameGraphics();
         //loadGameFonts();
         //loadGameAudio();
     }
+
     public void loadSplashScreen() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
         splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
         splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "i_love_8_bit.png", 0, 0);
         splashTextureAtlas.load();
     }
+
     public void unloadSplashScreen() {
         splashTextureAtlas.unload();
         splashTextureRegion = null;
     }
+
     public void unloadMenuTextures() {
         menuTextureAtlas.unload();
     }
+
     public void unloadGameTextures() {
         //todo
     }
+
     public void loadMenuTextures() {
         menuTextureAtlas.load();
     }
+
     private void loadMenuGraphics() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
         menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
@@ -113,6 +120,7 @@ public class ResourceManager {
     private void loadMenuAudio() {
 
     }
+
     private void loadGameGraphics() {
         //load tmx
         try {
@@ -139,18 +147,17 @@ public class ResourceManager {
     private void loadGameFonts() {
 
     }
+
     private void loadGameAudio() {
 
     }
+
     private void loadMenuFonts() {
         FontFactory.setAssetBasePath("font/");
         final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
         font.load();
     }
-
-
-
     /* stub out resource loaders */
 
     /* prep manager */
@@ -169,6 +176,7 @@ public class ResourceManager {
     public float getPlayerTextureWidth() {
         return playerTiledTextureRegion.getWidth();
     }
+
     public float getPlayerTextureHeight() {
         return playerTiledTextureRegion.getHeight();
     }
