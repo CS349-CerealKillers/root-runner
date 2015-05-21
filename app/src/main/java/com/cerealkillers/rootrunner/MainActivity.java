@@ -22,18 +22,14 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.engine.handler.timer.TimerHandler;
 
+import android.graphics.Point;
+import android.view.Display;
 import android.view.KeyEvent;
 
 import java.io.IOException;
 
 public class MainActivity extends BaseGameActivity {
 
-    // Camera height and width values
-    public static int CAMERA_WIDTH = 800;
-    public static int CAMERA_HEIGHT = 480;
-
-    // Define variables needed for the scene
-    private BoundCamera mBoundChaseCamera;
     private BitmapTextureAtlas mBitmapTextureAtlas;
     private TiledTextureRegion mPlayerTextureRegion;
     private TMXTiledMap mTMXTiledMap;
@@ -81,8 +77,11 @@ public class MainActivity extends BaseGameActivity {
      * */
     @Override
     public EngineOptions onCreateEngineOptions() {
-        this.mBoundChaseCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mBoundChaseCamera);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        BoundCamera boundChaseCamera = new BoundCamera(0, 0, size.x, size.y);
+        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(size.x, size.y), boundChaseCamera);
     }
 
     /**

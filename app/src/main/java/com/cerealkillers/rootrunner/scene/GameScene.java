@@ -3,8 +3,6 @@ package com.cerealkillers.rootrunner.scene;
 /**
  * Created by jharshman on 5/15/15.
  *
- * TODO: REMOVE static references to main activity. The camera should be able to tell its own width
- *
  */
 
 import android.opengl.GLES20;
@@ -92,8 +90,8 @@ public class GameScene extends BaseScene {
 //        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
 
         //initPlayer
-        float centerX = (MainActivity.CAMERA_WIDTH - resourceManager.getPlayerTextureWidth()) / 2;
-        float centerY = (MainActivity.CAMERA_HEIGHT - resourceManager.getPlayerTextureHeight()) / 2;
+        float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
+        float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
         player = new Player(centerX, centerY, resourceManager.playerTiledTextureRegion, vertexBufferObjectManager);
         attachChild(player);
 
@@ -105,8 +103,8 @@ public class GameScene extends BaseScene {
     }
 
     public void initDOSC(final Player player, final PhysicsHandler physicsHandler) {
-        digitalOnScreenControl = new DigitalOnScreenControl(MainActivity.CAMERA_WIDTH - (resourceManager.onScreenControlBaseRegion.getWidth() + 40),
-                MainActivity.CAMERA_HEIGHT - resourceManager.onScreenControlBaseRegion.getHeight(),
+        digitalOnScreenControl = new DigitalOnScreenControl(boundCamera.getWidth() - (resourceManager.onScreenControlBaseRegion.getWidth() + 40),
+                boundCamera.getHeight() - resourceManager.onScreenControlBaseRegion.getHeight(),
                 boundCamera, resourceManager.onScreenControlBaseRegion, resourceManager.onScreenControlKnobRegion, 0.1f,
                 vertexBufferObjectManager, new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
