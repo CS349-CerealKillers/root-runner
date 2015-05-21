@@ -18,7 +18,6 @@ import org.andengine.engine.camera.Camera;
 public abstract class BaseScene extends Scene {
 
     /* variables */
-    protected Engine engine;
     protected Activity activity;
     protected ResourceManager resourceManager;
     protected VertexBufferObjectManager vertexBufferObjectManager;
@@ -27,7 +26,6 @@ public abstract class BaseScene extends Scene {
     /* constructor */
     public BaseScene() {
         this.resourceManager = ResourceManager.getInstance();
-        this.engine = resourceManager.engine;
         this.activity = resourceManager.activity;
         this.vertexBufferObjectManager = resourceManager.vertexBufferObjectManager;
         this.boundCamera = resourceManager.boundCamera;

@@ -94,7 +94,7 @@ public class SceneManager {
         splashScene = null;
     }
 
-    public void loadGameScene(final Engine engine) {
+    public void loadGameScene() {
         setScene(loadScene);
         ResourceManager.getInstance().unloadMenuTextures();
         engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
@@ -108,7 +108,7 @@ public class SceneManager {
 
     }
 
-    public void loadMenuScene(final Engine engine) {
+    public void loadMenuScene() {
         setScene(loadScene);
         gameScene.disposeScene();
         ResourceManager.getInstance().unloadGameTextures();
