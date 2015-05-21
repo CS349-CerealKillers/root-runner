@@ -1,7 +1,9 @@
-package com.cerealkillers.rootrunner;
+package com.cerealkillers.rootrunner.GameWorld;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+
+import com.cerealkillers.rootrunner.GameWorld.MapLoader;
 
 import org.andengine.engine.Engine;
 import org.andengine.extension.tmx.TMXLoader;
