@@ -6,11 +6,13 @@ package com.cerealkillers.rootrunner;
  *
  * */
 
-
+import org.andengine.engine.Engine;
+import org.andengine.engine.LimitedFPSEngine;
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.andengine.engine.handler.physics.PhysicsHandler;
+import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -29,14 +31,21 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-import org.andengine.ui.activity.SimpleBaseGameActivity;
+import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.debug.Debug;
+import org.andengine.engine.handler.timer.TimerHandler;
+
+import android.content.res.AssetManager;
 import android.opengl.GLES20;
+import android.view.KeyEvent;
 
+import java.io.IOException;
 
-public class MainActivity extends SimpleBaseGameActivity {
+public class MainActivity extends BaseGameActivity {
+
 
     /*Define Player Direction*/
+    /*
     private enum PlayerDirection {
         NONE,
         UP,
@@ -45,11 +54,10 @@ public class MainActivity extends SimpleBaseGameActivity {
         RIGHT
     }
     private PlayerDirection playerDirection;
-
-
+*/
     // Camera height and width values
-    private static int CAMERA_WIDTH = 800;
-    private static int CAMERA_HEIGHT = 480;
+    public static int CAMERA_WIDTH = 800;
+    public static int CAMERA_HEIGHT = 480;
 
     // Define variables needed for the scene
     private BoundCamera mBoundChaseCamera;
@@ -64,13 +72,39 @@ public class MainActivity extends SimpleBaseGameActivity {
     private ITextureRegion mOnScreenControlBaseTextureRegion;
     private ITextureRegion mOnScreenControlKnobTextureRegion;
 
+    private ResourceManager mResourceManager;
 
     /**
+     * onCreateEngine
+     * @return Engine
+     *
+     * Description:
+     *              Return new Engine
+     * */
+    @Override
+    public Engine onCreateEngine(EngineOptions mEngineOptions) {
+        return new LimitedFPSEngine(mEngineOptions, 60);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+        }
+        return false;
+    }
+
+     /**
      * onCreateEngineOptions
      * @return EngineOptions
      *
      * Description:
-     *      Set global game engine options.
+     *              Set global game engine options.
      * */
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -82,11 +116,19 @@ public class MainActivity extends SimpleBaseGameActivity {
      * onCreateResources
      *
      * Description:
-     *      Loads all requested resources from assets folder.
-     *      Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
+     *              Loads all requested resources from assets folder.
+     *              Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
      * */
     @Override
-    public void onCreateResources() {
+    public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws IOException {
+
+        // delegate to resource manager
+        ResourceManager.prepareManager(mEngine, this, mBoundChaseCamera, getVertexBufferObjectManager(), MainActivity.this);
+        mResourceManager = mResourceManager.getInstance();
+        onCreateResourcesCallback.onCreateResourcesFinished();
+        // end delegation to Resource manager
+
+        /*
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
         // load player from asset
@@ -99,7 +141,7 @@ public class MainActivity extends SimpleBaseGameActivity {
         this.mOnScreenControlBaseTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_base.png", 0, 0);
         this.mOnScreenControlKnobTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mOnScreenControlTexture, this, "onscreen_control_knob.png", 128, 0);
         this.mOnScreenControlTexture.load();
-
+        */
     }
 
     /**
@@ -107,10 +149,15 @@ public class MainActivity extends SimpleBaseGameActivity {
      * @return Scene
      *
      * Description:
-     *      Calling function for init* routines pertaining to the current scene.
+     *              Calling function for init* routines pertaining to the current scene.
      * */
     @Override
-    public Scene onCreateScene() {
+    public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws IOException {
+
+        /* create splash screen */
+        SceneManager.getInstance().createSplashScene(onCreateSceneCallback);
+
+        /*
         this.mEngine.registerUpdateHandler(new FPSLogger());
         this.mScene = new Scene();
         initMap();
@@ -119,16 +166,30 @@ public class MainActivity extends SimpleBaseGameActivity {
         player.registerUpdateHandler(physicsHandler);
         initDOSC(player, physicsHandler);
         return mScene;
+        */
+
+    }
+
+    public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws IOException {
+        mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
+            public void onTimePassed(final TimerHandler timeHandler) {
+                mEngine.unregisterUpdateHandler(timeHandler);
+                SceneManager.getInstance().createMenuScene();
+                //load shit here
+            }
+        }));
+        onPopulateSceneCallback.onPopulateSceneFinished();
+
     }
 
     /**
      * initMap
      *
      * Description:
-     *      Initializes TMX Tiled Map and attaches it to the scene.
-     *      Throws a TMXLoadException if Map fails to load.
+     *              Initializes TMX Tiled Map and attaches it to the scene.
+     *              Throws a TMXLoadException if Map fails to load.
      * */
-    void initMap() {
+  /*  void initMap() {
         try {
             final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
                 @Override
@@ -148,36 +209,36 @@ public class MainActivity extends SimpleBaseGameActivity {
         this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
         this.mBoundChaseCamera.setBoundsEnabled(true);
     }
-
+*/
     /**
      * initPlayer
      * @return: Returns initialized object of type AnimatedSprite to calling function.
      *
      * Description:
-     *      Initializes player of type AnimatedSprite and attaches the object to the scene.
+     *              Initializes player of type AnimatedSprite and attaches the object to the scene.
      * */
-    AnimatedSprite initPlayer() {
+  /*  AnimatedSprite initPlayer() {
 
-        final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
-        final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
+        final float centerX = (CAMERA_WIDTH - mPlayerTextureRegion.getWidth()) / 2;
+        final float centerY = (CAMERA_HEIGHT - mPlayerTextureRegion.getHeight()) / 2;
 
-        final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
+        final AnimatedSprite player = new AnimatedSprite(200, 200, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
         this.mBoundChaseCamera.setChaseEntity(player);
 
         mScene.attachChild(player);
         return player;
     }
-
+*/
     /**
      * initDOSC
      * @param player: object of type AnimatedSprite
      * @param physicsHandler: object of type PhysicsHandler
      *
      * Description:
-     *      Initializes Digital On Screen Controls for the player.
-     *      Controls changes in animation throughout runtime.
+     *              Initializes Digital On Screen Controls for the player.
+     *              Controls changes in animation throughout runtime.
      * */
-    void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
+   /* void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
                this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
             public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
@@ -185,25 +246,25 @@ public class MainActivity extends SimpleBaseGameActivity {
                 if(v2 == 1) {
                     //up
                     if(playerDirection != PlayerDirection.UP) {
-                        player.animate(new long[]{200,200,200},6,8,true);
+                        player.animate(new long[]{100,100,100},6,8,true);
                         playerDirection = PlayerDirection.UP;
                     }
                 } else if(v2 == -1) {
                     //down
                     if(playerDirection != PlayerDirection.DOWN) {
-                        player.animate(new long[]{200,200,200},0,2,true);
+                        player.animate(new long[]{100,100,100},0,2,true);
                         playerDirection = PlayerDirection.DOWN;
                     }
                 } else if(v == -1) {
                     //left
                     if(playerDirection != PlayerDirection.LEFT) {
-                        player.animate(new long[]{200,200,200},9,11,true);
+                        player.animate(new long[]{100,100,100},9,11,true);
                         playerDirection = PlayerDirection.LEFT;
                     }
                 } else if(v == 1) {
                     //right
                     if(playerDirection != PlayerDirection.RIGHT) {
-                        player.animate(new long[]{200,200,200},3,5,true);
+                        player.animate(new long[]{100,100,100},3,5,true);
                         playerDirection = PlayerDirection.RIGHT;
                     }
                 } else {
@@ -214,6 +275,7 @@ public class MainActivity extends SimpleBaseGameActivity {
                 }
 
                 physicsHandler.setVelocity(v*100, v2*100);
+                adjustToSceneBoundary(player);
             }
         });
 	    this.mDigitalOnScreenControl.getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
@@ -226,5 +288,33 @@ public class MainActivity extends SimpleBaseGameActivity {
         mScene.setChildScene(mDigitalOnScreenControl);
 
     }
+    */
+    /**
+     * adjustToSceneBoundary
+     * @param player: object of type AnimatedSprite
+     *
+     * Description:
+     *              Keeps sprite entity bound by dimensions of the TMX Layer.
+     * */
+  /* public void adjustToSceneBoundary(AnimatedSprite player) {
 
+        TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
+        int tmxWidth = tmxLayer.getWidth();
+        int tmxHeight = tmxLayer.getHeight();
+
+        // adjust X
+        if(player.getX() < 0)
+            player.setX(0);
+        else if(player.getX() + player.getWidth() > tmxWidth)
+            player.setX(tmxWidth - player.getWidth());
+
+        // adjust Y
+        if(player.getY() < 0)
+            player.setY(0);
+        else if(player.getY() + player.getHeight() > tmxHeight)
+            player.setY(tmxHeight - player.getHeight());
+
+
+    }
+*/
 }
