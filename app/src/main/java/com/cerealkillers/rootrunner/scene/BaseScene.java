@@ -32,9 +32,14 @@ public abstract class BaseScene extends Scene {
         createScene();
     }
 
+    public  void onBackKeyPressed(){
+        //todo: signal scene manager to change state based on scene. This might be a good place
+        //to apply the state pattern (to the scene manager that is)
+    }
+
     /* abstract methods */
     public abstract void createScene();
-    public abstract void onBackKeyPressed();
+
     public abstract SceneType getSceneType();
     public abstract void disposeScene();
 

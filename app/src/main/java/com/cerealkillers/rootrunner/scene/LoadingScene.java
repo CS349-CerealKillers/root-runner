@@ -19,11 +19,6 @@ public class LoadingScene extends BaseScene {
     }
 
     @Override
-    public void onBackKeyPressed() {
-        return; // don't really want to exit during load
-    }
-
-    @Override
     public SceneType getSceneType() {
         return SceneType.LOAD;
     }

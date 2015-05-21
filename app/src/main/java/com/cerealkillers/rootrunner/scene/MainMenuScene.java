@@ -73,11 +73,6 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
     }
 
     @Override
-    public void onBackKeyPressed() {
-        System.exit(0);
-    }
-
-    @Override
     public SceneType getSceneType() {
         return SceneType.MENU;
     }

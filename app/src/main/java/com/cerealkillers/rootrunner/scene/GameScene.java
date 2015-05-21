@@ -49,13 +49,12 @@ public class GameScene extends BaseScene {
         createHUD();
         //createPhysics();
     }
-    @Override
-    public void onBackKeyPressed() {
-    }
+
     @Override
     public SceneType getSceneType() {
         return SceneType.GAME;
     }
+
     @Override
     public void disposeScene() {
         boundCamera.setHUD(null);
