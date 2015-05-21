@@ -19,6 +19,5 @@ public class ItemFactory {
     public Item itemFromTmxObject(TMXObject item) {
         // TODO: we probably want to use reflection here to load classes based on a TMX attribute
        throw new RuntimeException("Method not implemented yet!");
-        return null;
     }
 }
