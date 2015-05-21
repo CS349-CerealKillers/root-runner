@@ -4,10 +4,13 @@ package com.cerealkillers.rootrunner;
  * Created by jharshman on 5/13/15.
  */
 
+import android.transition.Scene;
+
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.GameScene;
 import com.cerealkillers.rootrunner.scene.LoadingScene;
 import com.cerealkillers.rootrunner.scene.MainMenuScene;
+import com.cerealkillers.rootrunner.scene.SceneFactory;
 import com.cerealkillers.rootrunner.scene.SplashScene;
 
 import org.andengine.engine.Engine;
@@ -75,15 +78,15 @@ public class SceneManager {
 
     public void createSplashScene(OnCreateSceneCallback onCreateSceneCallback) {
         ResourceManager.getInstance().loadSplashScreen();
-        splashScene = new SplashScene();
+        splashScene = SceneFactory.createScene(SceneType.SPLASH, engine, engine.getCamera());
         currentScene = splashScene;
         onCreateSceneCallback.onCreateSceneFinished(splashScene);
     }
 
     public void createMenuScene() {
         ResourceManager.getInstance().loadMenuResources();
-        menuScene = new MainMenuScene();
-        loadScene = new LoadingScene();
+        menuScene = SceneFactory.createScene(SceneType.MENU, engine, engine.getCamera());
+        loadScene = SceneFactory.createScene(SceneType.LOAD, engine, engine.getCamera());
         //SceneManager.getInstance().setScene(menuScene);
         setScene(menuScene);
         disposeSplashScene();
@@ -101,7 +104,7 @@ public class SceneManager {
             public void onTimePassed(final TimerHandler timerHandler) {
                 engine.unregisterUpdateHandler(timerHandler);
                 ResourceManager.getInstance().loadGameResources();
-                gameScene = new GameScene();
+                gameScene = SceneFactory.createScene(SceneType.GAME, engine, engine.getCamera());
                 setScene(gameScene);
             }
         }));

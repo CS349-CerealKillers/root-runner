@@ -22,7 +22,6 @@ public abstract class BaseScene extends Scene {
     /* constructor */
     protected BaseScene() {
         this.resourceManager = ResourceManager.getInstance();
-        createScene();
     }
 
     public  void onBackKeyPressed(){
