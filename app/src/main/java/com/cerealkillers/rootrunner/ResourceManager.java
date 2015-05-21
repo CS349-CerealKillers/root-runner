@@ -34,6 +34,7 @@ import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.util.debug.Debug;
 import org.andengine.opengl.font.Font;
+import org.andengine.opengl.texture.region.TextureRegionFactory;
 import android.content.Context;
 
 public class ResourceManager {
@@ -41,27 +42,27 @@ public class ResourceManager {
     /* Variables */
     private static final ResourceManager INSTANCE = new ResourceManager();
 
+    /* Assorted */
     public Engine engine;
     public MainActivity activity;
     public BoundCamera boundCamera;
     public VertexBufferObjectManager vertexBufferObjectManager;
     public Font font;
+
     /* Textures and Regions */
     public ITextureRegion splashTextureRegion;
     private BitmapTextureAtlas splashTextureAtlas;
-
     public ITextureRegion menuBackgroundRegion;
     public ITextureRegion playRegion;
     public ITextureRegion optionRegion;
-
     private BuildableBitmapTextureAtlas menuTextureAtlas;
-    private AssetManager am;
     private Context myContext;
-
     private BitmapTextureAtlas playerBitmapTextureAtlas;
     public TiledTextureRegion playerTiledTextureRegion;
+    public BitmapTextureAtlas onScreenControlTexture;
+    public ITextureRegion onScreenControlBaseRegion;
+    public ITextureRegion onScreenControlKnobRegion;
 
-    /* tmx */
     public TMXTiledMap tmxTiledMap;
 
     /* Logic */
@@ -126,6 +127,12 @@ public class ResourceManager {
         playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, activity, "player.png", 0, 0, 3, 4);
         playerBitmapTextureAtlas.load();
 
+        // load digital on screen control
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        onScreenControlTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 128, TextureOptions.BILINEAR);
+        onScreenControlBaseRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, activity, "onscreen_control_base.png", 0, 0);
+        onScreenControlKnobRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, activity, "onscreen_control_knob.png", 128, 0);
+        onScreenControlTexture.load();
 
         //todo load other game graphics
     }
@@ -156,6 +163,14 @@ public class ResourceManager {
     }
     public static ResourceManager getInstance() {
         return INSTANCE;
+    }
+
+    /* Gets and Sets */
+    public float getPlayerTextureWidth() {
+        return playerTiledTextureRegion.getWidth();
+    }
+    public float getPlayerTextureHeight() {
+        return playerTiledTextureRegion.getHeight();
     }
 
 }

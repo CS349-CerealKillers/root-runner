@@ -43,7 +43,9 @@ import java.io.IOException;
 
 public class MainActivity extends BaseGameActivity {
 
+
     /*Define Player Direction*/
+    /*
     private enum PlayerDirection {
         NONE,
         UP,
@@ -52,8 +54,7 @@ public class MainActivity extends BaseGameActivity {
         RIGHT
     }
     private PlayerDirection playerDirection;
-
-
+*/
     // Camera height and width values
     public static int CAMERA_WIDTH = 800;
     public static int CAMERA_HEIGHT = 480;
@@ -167,6 +168,7 @@ public class MainActivity extends BaseGameActivity {
         initDOSC(player, physicsHandler);
         return mScene;
         */
+
     }
 
     public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws IOException {
@@ -188,7 +190,7 @@ public class MainActivity extends BaseGameActivity {
      *              Initializes TMX Tiled Map and attaches it to the scene.
      *              Throws a TMXLoadException if Map fails to load.
      * */
-    void initMap() {
+  /*  void initMap() {
         try {
             final TMXLoader tmxLoader = new TMXLoader(this.getAssets(), this.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, this.getVertexBufferObjectManager(), new TMXLoader.ITMXTilePropertiesListener() {
                 @Override
@@ -208,7 +210,7 @@ public class MainActivity extends BaseGameActivity {
         this.mBoundChaseCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
         this.mBoundChaseCamera.setBoundsEnabled(true);
     }
-
+*/
     /**
      * initPlayer
      * @return: Returns initialized object of type AnimatedSprite to calling function.
@@ -216,18 +218,18 @@ public class MainActivity extends BaseGameActivity {
      * Description:
      *              Initializes player of type AnimatedSprite and attaches the object to the scene.
      * */
-    AnimatedSprite initPlayer() {
+  /*  AnimatedSprite initPlayer() {
 
-        final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
-        final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
+        final float centerX = (CAMERA_WIDTH - mPlayerTextureRegion.getWidth()) / 2;
+        final float centerY = (CAMERA_HEIGHT - mPlayerTextureRegion.getHeight()) / 2;
 
-        final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
+        final AnimatedSprite player = new AnimatedSprite(200, 200, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
         this.mBoundChaseCamera.setChaseEntity(player);
 
         mScene.attachChild(player);
         return player;
     }
-
+*/
     /**
      * initDOSC
      * @param player: object of type AnimatedSprite
@@ -237,7 +239,7 @@ public class MainActivity extends BaseGameActivity {
      *              Initializes Digital On Screen Controls for the player.
      *              Controls changes in animation throughout runtime.
      * */
-    void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
+   /* void initDOSC(final AnimatedSprite player, final PhysicsHandler physicsHandler) {
                this.mDigitalOnScreenControl = new DigitalOnScreenControl(0, CAMERA_HEIGHT - this.mOnScreenControlBaseTextureRegion.getHeight(), this.mBoundChaseCamera, this.mOnScreenControlBaseTextureRegion, this.mOnScreenControlKnobTextureRegion, 0.1f, this.getVertexBufferObjectManager(), new BaseOnScreenControl.IOnScreenControlListener() {
             @Override
             public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
@@ -287,7 +289,7 @@ public class MainActivity extends BaseGameActivity {
         mScene.setChildScene(mDigitalOnScreenControl);
 
     }
-
+    */
     /**
      * adjustToSceneBoundary
      * @param player: object of type AnimatedSprite
@@ -295,7 +297,7 @@ public class MainActivity extends BaseGameActivity {
      * Description:
      *              Keeps sprite entity bound by dimensions of the TMX Layer.
      * */
-    public void adjustToSceneBoundary(AnimatedSprite player) {
+  /* public void adjustToSceneBoundary(AnimatedSprite player) {
 
         TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
         int tmxWidth = tmxLayer.getWidth();
@@ -315,6 +317,5 @@ public class MainActivity extends BaseGameActivity {
 
 
     }
-
-
+*/
 }
