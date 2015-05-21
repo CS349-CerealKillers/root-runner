@@ -10,13 +10,9 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
  */
 public class Player extends AnimatedSprite {
 
-    /* Variables */
-    BoundCamera boundCamera = ResourceManager.getInstance().boundCamera;
-
     /* Constructor */
     public Player(float centerX, float centerY, ITiledTextureRegion playerTextureRegion, VertexBufferObjectManager vertexBufferObjectManager) {
         super(centerX, centerY, playerTextureRegion, vertexBufferObjectManager);
-        this.boundCamera.setChaseEntity(this);
     }
 
     /*
