@@ -20,6 +20,10 @@ import java.util.ArrayList;
  */
 public class MapLoader {
 
+    private static final String MAP_PORTALS = "portals";
+    private static final String MAP_ITEMS = "items";
+    private static final String MAP_CHARACTERS = "characters";
+
     private VertexBufferObjectManager mVertexBuffer;
     private TMXLoader mTmxLoader;
 
@@ -54,11 +58,21 @@ public class MapLoader {
         ArrayList<TMXObjectGroup> objectGroups = map.getTMXObjectGroups();
 
 
+        MapBuilder mapBuilder = new MapBuilder();
+
         /*
             This section creates sprites for each of the "entities" on the map.
             //TODO: also create physics bounds for detecting collisions btwn the player and objects.
          */
         for(TMXObjectGroup group: objectGroups){
+            if(group.getName().equals(MAP_PORTALS)){
+                mapBuilder.addPortals(group);
+            }else if (group.getName().equals(MAP_ITEMS)){
+                mapBuilder.addItems(group);
+            }else if(group.getName().equals(MAP_CHARACTERS)){
+                mapBuilder.addCharacters(group);
+            }
+
             //some group level logic here
             for (TMXObject object: group.getTMXObjects()){
                 //load sprites for individual entities
