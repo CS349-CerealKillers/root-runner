@@ -2,6 +2,9 @@ package com.cerealkillers.rootrunner.scene;
 
 /**
  * Created by jharshman on 5/15/15.
+ *
+ * TODO: REMOVE static references to main activity. The camera should be able to tell its own width
+ *
  */
 
 import android.opengl.GLES20;
@@ -86,8 +89,8 @@ public class GameScene extends BaseScene {
     private void loadMap() {
         final TMXLayer tmxLayer = ResourceManager.getInstance().tmxTiledMap.getTMXLayers().get(0);
         attachChild(tmxLayer); // attach child to scene
-        ResourceManager.getInstance().boundCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
-        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
+//        ResourceManager.getInstance().boundCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
+//        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
 
         //initPlayer
         float centerX = (MainActivity.CAMERA_WIDTH - resourceManager.getPlayerTextureWidth()) / 2;
