@@ -147,7 +147,7 @@ public class GameScene extends BaseScene {
         this.digitalOnScreenControl.getControlKnob().setScale(1.25f);
         this.digitalOnScreenControl.refreshControlKnobPosition();
 
-        attachChild(digitalOnScreenControl);
+        setChildScene(digitalOnScreenControl);
     }
 
 
