@@ -4,6 +4,7 @@ import android.util.SparseArray;
 
 import com.cerealkillers.rootrunner.GameObjects.Characters.GameCharacter;
 import com.cerealkillers.rootrunner.GameObjects.Items.Item;
+import com.cerealkillers.rootrunner.GameObjects.Items.ItemFactory;
 import com.cerealkillers.rootrunner.GameObjects.Structures.Portal;
 
 import org.andengine.extension.tmx.TMXObject;
@@ -24,15 +25,22 @@ public class MapBuilder {
 
         SparseArray<Portal> portalArray = sparseArrayForObjects(portals, Portal.class);
         for(TMXObject portal: portals.getTMXObjects()){
-        
+            Portal mapPortal = new Portal(portal.getGid(), portal.getName());
+            portalArray.put(portal.getGid(), mapPortal);
         }
     }
 
     public void addItems(TMXObjectGroup items){
 
         SparseArray<Item> itemsArray = sparseArrayForObjects(items, Item.class);
+
+        ItemFactory itemFactory = ItemFactory.getInstance();
         for(TMXObject item: items.getTMXObjects()){
 
+            //TODO: create item objects for various in game objects
+            // There's no convention in this project yet for how to do this.
+            // Talk to Ben to discuss details on implementing this.
+//            Item mapItem = itemFactory.itemFromTmxObject(item);
         }
     }
 
