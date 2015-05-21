@@ -2,6 +2,7 @@ package com.cerealkillers.rootrunner.scene;
 
 /**
  * Created by jharshman on 5/13/15.
+ * TODO: remove references to resource manager directly.
  */
 
 import org.andengine.entity.scene.Scene;
@@ -18,17 +19,13 @@ import org.andengine.engine.camera.Camera;
 public abstract class BaseScene extends Scene {
 
     /* variables */
-    protected Activity activity;
     protected ResourceManager resourceManager;
     protected VertexBufferObjectManager vertexBufferObjectManager;
-    protected BoundCamera boundCamera;
+    protected Camera boundCamera;
 
     /* constructor */
-    public BaseScene() {
+    protected BaseScene() {
         this.resourceManager = ResourceManager.getInstance();
-        this.activity = resourceManager.activity;
-        this.vertexBufferObjectManager = resourceManager.vertexBufferObjectManager;
-        this.boundCamera = resourceManager.boundCamera;
         createScene();
     }
 
