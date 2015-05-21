@@ -8,7 +8,6 @@ import org.andengine.entity.scene.background.Background;
 import org.andengine.util.color.Color;
 import org.andengine.entity.text.Text;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
-import com.cerealkillers.rootrunner.scene.BaseScene;
 
 public class LoadingScene extends BaseScene {
 

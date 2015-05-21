@@ -12,7 +12,6 @@ import android.opengl.GLES20;
 import com.cerealkillers.rootrunner.MainActivity;
 import com.cerealkillers.rootrunner.Player;
 import com.cerealkillers.rootrunner.ResourceManager;
-import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
 
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;

@@ -7,16 +7,10 @@ package com.cerealkillers.rootrunner;
  */
 
 
-import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 
 import org.andengine.engine.Engine;
-import org.andengine.engine.camera.BoundCamera;
-import org.andengine.extension.tmx.TMXLayer;
-import org.andengine.extension.tmx.TMXProperties;
-import org.andengine.extension.tmx.TMXTile;
-import org.andengine.extension.tmx.TMXTileProperty;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
@@ -27,7 +21,6 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
-import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -35,7 +28,7 @@ import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.util.debug.Debug;
 import org.andengine.opengl.font.Font;
-import org.andengine.opengl.texture.region.TextureRegionFactory;
+
 import android.content.Context;
 
 public class ResourceManager {
