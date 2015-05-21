@@ -7,6 +7,7 @@ package com.cerealkillers.rootrunner;
  */
 
 
+import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 
@@ -44,8 +45,6 @@ public class ResourceManager {
 
     /* Assorted */
     public Engine engine;
-    public MainActivity activity;
-    public BoundCamera boundCamera;
     public VertexBufferObjectManager vertexBufferObjectManager;
     public Font font;
 
@@ -64,6 +63,7 @@ public class ResourceManager {
     public ITextureRegion onScreenControlKnobRegion;
 
     public TMXTiledMap tmxTiledMap;
+    private AssetManager assetManager;
 
     /* Logic */
     public void loadMenuResources() {
@@ -80,8 +80,8 @@ public class ResourceManager {
 
     public void loadSplashScreen() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
-        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "i_love_8_bit.png", 0, 0);
+        splashTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, assetManager, "i_love_8_bit.png", 0, 0);
         splashTextureAtlas.load();
     }
 
@@ -104,10 +104,10 @@ public class ResourceManager {
 
     private void loadMenuGraphics() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
-        menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-        menuBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_background.png");
-        playRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_ok.png");
-        optionRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_back.png");
+        menuTextureAtlas = new BuildableBitmapTextureAtlas(engine.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+        menuBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, assetManager, "menu_background.png");
+        playRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, assetManager, "menu_ok.png");
+        optionRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, assetManager, "menu_back.png");
 
         try {
             this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,1,0));
@@ -131,15 +131,15 @@ public class ResourceManager {
         }
 
         // load player
-        playerBitmapTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
-        playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, activity, "player.png", 0, 0, 3, 4);
+        playerBitmapTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
+        playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, assetManager, "player.png", 0, 0, 3, 4);
         playerBitmapTextureAtlas.load();
 
         // load digital on screen control
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        onScreenControlTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 128, TextureOptions.BILINEAR);
-        onScreenControlBaseRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, activity, "onscreen_control_base.png", 0, 0);
-        onScreenControlKnobRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, activity, "onscreen_control_knob.png", 128, 0);
+        onScreenControlTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 128, TextureOptions.BILINEAR);
+        onScreenControlBaseRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, assetManager, "onscreen_control_base.png", 0, 0);
+        onScreenControlKnobRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, assetManager, "onscreen_control_knob.png", 128, 0);
         onScreenControlTexture.load();
 
         //todo load other game graphics
@@ -154,19 +154,18 @@ public class ResourceManager {
 
     private void loadMenuFonts() {
         FontFactory.setAssetBasePath("font/");
-        final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
+        final ITexture mainFontTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        font = FontFactory.createStrokeFromAsset(engine.getFontManager(), mainFontTexture, assetManager, "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
         font.load();
     }
     /* stub out resource loaders */
 
     /* prep manager */
-    public static void prepareManager(Engine engine, MainActivity activity, BoundCamera boundCamera, VertexBufferObjectManager vertexBufferObjectManager, Context myContext) {
+    public static void prepareManager(Engine engine, Context context) {
         getInstance().engine = engine;
-        getInstance().activity = activity;
-        getInstance().boundCamera = boundCamera;
-        getInstance().vertexBufferObjectManager = vertexBufferObjectManager;
-        getInstance().myContext = myContext;
+        getInstance().assetManager = context.getAssets();
+        getInstance().vertexBufferObjectManager = engine.getVertexBufferObjectManager();
+        getInstance().myContext = context;
     }
     public static ResourceManager getInstance() {
         return INSTANCE;

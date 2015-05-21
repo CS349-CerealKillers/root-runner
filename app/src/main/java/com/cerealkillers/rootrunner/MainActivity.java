@@ -90,7 +90,7 @@ public class MainActivity extends BaseGameActivity {
      /**
      * onCreateEngineOptions
      * @return EngineOptions
-     *
+     *  TODO: Let's make the camera width/ height match the screen of the device instead of fixed.
      * Description:
      *              Set global game engine options.
      * */
@@ -111,7 +111,7 @@ public class MainActivity extends BaseGameActivity {
     public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws IOException {
 
         // delegate to resource manager
-        ResourceManager.prepareManager(mEngine, this, mBoundChaseCamera, getVertexBufferObjectManager(), MainActivity.this);
+        ResourceManager.prepareManager(mEngine, this);
         mResourceManager = mResourceManager.getInstance();
         onCreateResourcesCallback.onCreateResourcesFinished();
         // end delegation to Resource manager
