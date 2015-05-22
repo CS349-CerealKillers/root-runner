@@ -5,9 +5,9 @@ import com.cerealkillers.rootrunner.GameObjects.GameObject;
 /**
  * Created by Tyler Herrin on 5/14/2015.
  */
-public class Character extends GameObject
+public class GameCharacter extends GameObject
 {
-    public Character(int id)
+    public GameCharacter(int id)
     {
         super(id);
     }

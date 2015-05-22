@@ -1,4 +1,6 @@
-package com.cerealkillers.rootrunner;
+package com.cerealkillers.rootrunner.GameWorld;
+
+import com.cerealkillers.rootrunner.GameWorld.Map;
 
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
@@ -6,16 +8,10 @@ import org.andengine.extension.tmx.TMXLayer;
 import org.andengine.extension.tmx.TMXLoader;
 import org.andengine.extension.tmx.TMXObject;
 import org.andengine.extension.tmx.TMXObjectGroup;
-import org.andengine.extension.tmx.TMXProperties;
-import org.andengine.extension.tmx.TMXProperty;
-import org.andengine.extension.tmx.TMXTile;
-import org.andengine.extension.tmx.TMXTileProperty;
 import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
-import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.debug.Debug;
 
 import java.util.ArrayList;
 
@@ -23,6 +19,10 @@ import java.util.ArrayList;
  * Loads a TMX file into a Map used by the game.
  */
 public class MapLoader {
+
+    private static final String MAP_PORTALS = "portals";
+    private static final String MAP_ITEMS = "items";
+    private static final String MAP_CHARACTERS = "characters";
 
     private VertexBufferObjectManager mVertexBuffer;
     private TMXLoader mTmxLoader;
@@ -38,7 +38,7 @@ public class MapLoader {
         mVertexBuffer = bufferObjectManager;
     }
 
-    public GameMap load(String mapName, Scene scene){
+    public Map load(String mapName, Scene scene){
 
         TMXTiledMap map = null;
         try {
@@ -58,11 +58,21 @@ public class MapLoader {
         ArrayList<TMXObjectGroup> objectGroups = map.getTMXObjectGroups();
 
 
+        MapBuilder mapBuilder = new MapBuilder();
+
         /*
             This section creates sprites for each of the "entities" on the map.
             //TODO: also create physics bounds for detecting collisions btwn the player and objects.
          */
         for(TMXObjectGroup group: objectGroups){
+            if(group.getName().equals(MAP_PORTALS)){
+                mapBuilder.addPortals(group);
+            }else if (group.getName().equals(MAP_ITEMS)){
+                mapBuilder.addItems(group);
+            }else if(group.getName().equals(MAP_CHARACTERS)){
+                mapBuilder.addCharacters(group);
+            }
+
             //some group level logic here
             for (TMXObject object: group.getTMXObjects()){
                 //load sprites for individual entities
