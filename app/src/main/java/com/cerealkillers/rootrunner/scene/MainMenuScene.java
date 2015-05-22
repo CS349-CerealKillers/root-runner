@@ -25,7 +25,7 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
     private void createMenuChildScene() {
 
         menuChildScene = new MenuScene(boundCamera);
-        menuChildScene.setPosition(10, 140);
+        menuChildScene.setPosition(boundCamera.getCenterX(), boundCamera.getCenterY());
 
         final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourceManager.playRegion, vertexBufferObjectManager), 1.2f, 1);
         final IMenuItem optionMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourceManager.optionRegion, vertexBufferObjectManager), 1.2f, 1);

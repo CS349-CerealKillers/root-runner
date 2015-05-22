@@ -23,7 +23,7 @@ public class SplashScene extends BaseScene {
             }
         };
         splash.setScale(1.5f);
-        splash.setPosition(350,200);
+        splash.setPosition(boundCamera.getCenterX(), boundCamera.getCenterY());
         attachChild(splash);
     }
 
