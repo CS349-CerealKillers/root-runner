@@ -7,13 +7,13 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public class ln extends Tool
+public class Ln extends Tool
 {
     /**
      * Class constructor for the ln tool.
      * @param id The id of the tool.
      */
-    public ln(int id)
+    public Ln(int id)
     {
         super("ln", "Create a link to TARGET in the current directory.", id);
     }
@@ -26,6 +26,6 @@ public class ln extends Tool
     public void use(int id, Map map)
     {
         // TODO Implement me plz.
-        Log.d(ln.class.getSimpleName(), "Used ln.");
+        Log.d(Ln.class.getSimpleName(), "Used ln.");
     }
 }

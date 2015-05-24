@@ -2,6 +2,8 @@ package com.cerealkillers.rootrunner.GameObjects.Items;
 
 import org.andengine.extension.tmx.TMXObject;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Created by Benjamin Daschel on 5/21/15.
  */
@@ -16,8 +18,17 @@ public class ItemFactory {
         return sInstance;
     }
 
-    public Item itemFromTmxObject(TMXObject item) {
-        // TODO: we probably want to use reflection here to load classes based on a TMX attribute
-       throw new RuntimeException("Method not implemented yet!");
+    public Item itemFromTmxObject(TMXObject tmxObject) {
+
+        String className = tmxObject.getTMXObjectProperty("class");
+        if(className != null){
+            try {
+                Class itemClass = Class.forName(className);
+                return  (Item) itemClass.newInstance();
+            } catch (ReflectiveOperationException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

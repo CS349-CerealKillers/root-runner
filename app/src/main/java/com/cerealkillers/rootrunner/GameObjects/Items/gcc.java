@@ -7,13 +7,13 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public class gcc extends Tool
+public class Gcc extends Tool
 {
     /**
      * Class constructor for the gcc tool.
      * @param id The id of the tool.
      */
-    public gcc(int id)
+    public Gcc(int id)
     {
         super("gcc", "When you invoke GCC, it does preprocessing, compilation, assembly and linking.", id);
     }
@@ -26,6 +26,6 @@ public class gcc extends Tool
     public void use(int id, Map map)
     {
         //TODO Implement me plz
-        Log.d(gcc.class.getSimpleName(), "Used gcc.");
+        Log.d(Gcc.class.getSimpleName(), "Used gcc.");
     }
 }

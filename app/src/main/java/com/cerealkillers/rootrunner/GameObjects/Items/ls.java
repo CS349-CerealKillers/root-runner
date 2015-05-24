@@ -7,13 +7,13 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public class ls extends  Tool
+public class Ls extends  Tool
 {
     /**
      * Class constructor for the ls tool.
      * @param id The id of the tool.
      */
-    public ls(int id)
+    public Ls(int id)
     {
         super("ls", "Reveal information  about  the FILEs in the current directory.", id);
     }
@@ -26,6 +26,6 @@ public class ls extends  Tool
     public void use(int id, Map map)
     {
         // TODO Implement me plz.
-        Log.d(ls.class.getSimpleName(), "Used ls.");
+        Log.d(Ls.class.getSimpleName(), "Used ls.");
     }
 }

@@ -5,7 +5,7 @@ package com.cerealkillers.rootrunner.GameObjects.Items;
  */
 
 
-public class concreteItem extends Item
+public class ConcreteItem extends Item
 {
     private boolean isStatic;
 
@@ -16,7 +16,7 @@ public class concreteItem extends Item
      * @param id The id of the item.
      * @param isStatic Whether or not the item should be able to be picked up or not.
      */
-    public concreteItem(String name, String description, int id, boolean isStatic)
+    public ConcreteItem(String name, String description, int id, boolean isStatic)
     {
         super(name, description, id);
         this.isStatic = isStatic;
