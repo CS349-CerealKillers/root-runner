@@ -36,11 +36,8 @@ public class MapBuilder {
 
         ItemFactory itemFactory = ItemFactory.getInstance();
         for(TMXObject item: items.getTMXObjects()){
-
-            //TODO: create item objects for various in game objects
-            // There's no convention in this project yet for how to do this.
-            // Talk to Ben to discuss details on implementing this.
-//            Item mapItem = itemFactory.itemFromTmxObject(item);
+            Item mapItem = itemFactory.itemFromTmxObject(item);
+            mMap.addItem(mapItem);
         }
     }
 
