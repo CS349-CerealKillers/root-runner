@@ -7,13 +7,13 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public class rm extends Tool
+public class Rm extends Tool
 {
     /**
      * Class constructor for the rm tool.
      * @param id The id of the tool.
      */
-    public rm(int id)
+    public Rm(int id)
     {
         super("rm", "Remove files or directories.", id);
     }
@@ -26,6 +26,6 @@ public class rm extends Tool
     public void use(int id, Map map)
     {
         //TODO Implement me plz.
-        Log.d(rm.class.getSimpleName(), "Used rm.");
+        Log.d(Rm.class.getSimpleName(), "Used rm.");
     }
 }

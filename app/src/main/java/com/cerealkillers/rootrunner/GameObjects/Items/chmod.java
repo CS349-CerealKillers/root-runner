@@ -7,13 +7,13 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public class chmod extends Tool
+public class Chmod extends Tool
 {
     /**
      * Class constructor for the chmod tool.
      * @param id The id of the tool.
      */
-    public chmod(int id)
+    public Chmod(int id)
     {
         super("chmod", "Change file access permissions.", id);
     }
@@ -26,6 +26,6 @@ public class chmod extends Tool
     public void use(int id, Map map)
     {
         //TODO Implement me plz.
-        Log.d(chmod.class.getSimpleName(), "Used chmod.");
+        Log.d(Chmod.class.getSimpleName(), "Used chmod.");
     }
 }

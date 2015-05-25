@@ -7,13 +7,13 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 /**
  * Created by Tyler Herrin on 5/10/2015.
  */
-public class adduser extends Tool
+public class Adduser extends Tool
 {
     /**
      * Class constructor for the adduser tool.
      * @param id The id of the tool.
      */
-    public adduser(int id)
+    public Adduser(int id)
     {
         super("adduser", "", id);
     }
@@ -26,6 +26,6 @@ public class adduser extends Tool
     public void use(int id, Map map)
     {
         //TODO Implement me plz.
-        Log.d(adduser.class.getSimpleName(), "Used adduser.");
+        Log.d(Adduser.class.getSimpleName(), "Used adduser.");
     }
 }
