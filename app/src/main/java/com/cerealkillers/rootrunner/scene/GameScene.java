@@ -40,6 +40,8 @@ public class GameScene extends BaseScene {
     private PlayerDirection playerDirection;
     private Player player;
     private DigitalOnScreenControl digitalOnScreenControl;
+    private float layerHeight;
+    private float layerWidth;
 
     @Override
     public void createScene() {
@@ -175,6 +177,12 @@ public class GameScene extends BaseScene {
 
     }
 
+    /* Bound Camera to TMX Layer */
+    public void onMapLoad() {
+        boundCamera.setBounds(0, 0, layerHeight, layerWidth);
+        boundCamera.setBoundsEnabled(true);
+    }
+
     //keep track of score.  This is an example.  Tweak slightly to keep track of health
     private void addToScore(int i) {
         score += i;
@@ -186,5 +194,12 @@ public class GameScene extends BaseScene {
         //need PhysicsWorld Extension
     }
 
+    /* Getters and Setters */
+    public void setLayerHeight(float layerHeight) {
+        this.layerHeight = layerHeight;
+    }
+    public void setLayerWidth(float layerWidth) {
+        this.layerWidth = layerWidth;
+    }
 
 }
