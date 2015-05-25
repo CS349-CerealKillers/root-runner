@@ -35,8 +35,8 @@ public class GameScene extends BaseScene {
 
     /* variables */
     private HUD gameHUD;
-    private Text scoreText;
-    private int score;
+    private Text healthText;
+    private int health;
     private PlayerDirection playerDirection;
     private Player player;
     private DigitalOnScreenControl digitalOnScreenControl;
@@ -73,9 +73,9 @@ public class GameScene extends BaseScene {
     public void createHUD() {
         gameHUD = new HUD();
 
-        scoreText = new Text(20, 420, resourceManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
-        scoreText.setText("Score: 0");
-        gameHUD.attachChild(scoreText);
+        healthText = new Text(20, 420, resourceManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
+        healthText.setText("Score: 0");
+        gameHUD.attachChild(healthText);
 
         boundCamera.setHUD(gameHUD);
 
@@ -104,6 +104,7 @@ public class GameScene extends BaseScene {
 
     }
 
+    /* initialize the digital on screen controls */
     public void initDOSC(final Player player, final PhysicsHandler physicsHandler) {
         digitalOnScreenControl = new DigitalOnScreenControl(boundCamera.getWidth() - (resourceManager.onScreenControlBaseRegion.getWidth() + 40),
                 boundCamera.getHeight() - resourceManager.onScreenControlBaseRegion.getHeight(),
@@ -157,7 +158,7 @@ public class GameScene extends BaseScene {
         setChildScene(digitalOnScreenControl);
     }
 
-
+    /* Trap player within TMX map boundaries */
     public void adjustToSceneBoundary() {
         TMXLayer tmxLayer = resourceManager.tmxTiledMap.getTMXLayers().get(0);
         int tmxWidth = tmxLayer.getWidth();
@@ -183,23 +184,22 @@ public class GameScene extends BaseScene {
         boundCamera.setBoundsEnabled(true);
     }
 
-    //keep track of score.  This is an example.  Tweak slightly to keep track of health
-    private void addToScore(int i) {
-        score += i;
-        scoreText.setText("Score: " + score);
+    /* Health Tracking */
+    private void addToHealth(int i) {
+        health += i;
+        healthText.setText("Health: " + health);
     }
-
-    /* create physics */
-    private void createPhysics() {
-        //need PhysicsWorld Extension
+    private void subtractFromHealth(int i) {
+        health -= i;
+        healthText.setText("Health: " + health);
     }
 
     /* Getters and Setters */
     public void setLayerHeight(float layerHeight) {
-        this.layerHeight = layerHeight;
+        this.layerHeight = (layerHeight >= 0)?layerHeight:DEFAULT;
     }
     public void setLayerWidth(float layerWidth) {
-        this.layerWidth = layerWidth;
+        this.layerWidth = (layerWidth >= 0)?layerWidth:DEFAULT;
     }
 
 }

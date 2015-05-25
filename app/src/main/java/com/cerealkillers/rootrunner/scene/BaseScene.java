@@ -19,6 +19,7 @@ public abstract class BaseScene extends Scene {
     protected ResourceManager resourceManager;
     protected VertexBufferObjectManager vertexBufferObjectManager;
     protected BoundCamera boundCamera;
+    protected final int DEFAULT = 100;
 
     /* constructor */
     protected BaseScene() {

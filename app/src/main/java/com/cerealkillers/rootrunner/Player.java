@@ -15,16 +15,6 @@ public class Player extends AnimatedSprite {
         super(centerX, centerY, playerTextureRegion, vertexBufferObjectManager);
     }
 
-    /*
-    //basics on creating an animated sprite:
-    final float centerX = (CAMERA_WIDTH - this.mPlayerTextureRegion.getWidth()) / 2;
-    final float centerY = (CAMERA_HEIGHT - this.mPlayerTextureRegion.getHeight()) / 2;
-     final AnimatedSprite player = new AnimatedSprite(centerX, centerY, this.mPlayerTextureRegion, this.getVertexBufferObjectManager());
-        this.mBoundChaseCamera.setChaseEntity(player);
-        mScene.attachChild(player);
-        return player;
-    */
-
     //todo stub out needed methods for player
 
     /* abstract methods */
