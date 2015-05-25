@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="25">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="27">
  <tileset firstgid="1" name="grass-tiles-2-small" tilewidth="32" tileheight="32">
   <image source="gfx/grass-tiles-2-small.png" width="384" height="192"/>
  </tileset>
@@ -12,6 +12,9 @@
  <tileset firstgid="221" name="folders" tilewidth="32" tileheight="32">
   <image source="gfx/folders.png" width="64" height="32"/>
  </tileset>
+ <tileset firstgid="223" name="file_icons_2" tilewidth="56" tileheight="56">
+  <image source="gfx/file_icons_2.png" width="616" height="616"/>
+ </tileset>
  <layer name="Tile Layer 1" width="20" height="20">
   <data encoding="base64" compression="zlib">
    eJztkjsKADAIQ7V7ev/jdqkQikP9TKVDCCjoI6oiolvYPkgadJCsNkkI+skzqJfh85gyXCdfNTcvR2at8LE6+Lz7Zvkg/q0rudncrvxsvl7sj/DhYn/0/zr5Ovzzvc23ANOjC2U=
@@ -22,10 +25,15 @@
   <object id="24" gid="221" x="121" y="134"/>
  </objectgroup>
  <objectgroup name="items">
-  <object id="10" name="readme" type="static" gid="126" x="72" y="320"/>
-  <object id="11" name="homework4" type="static" gid="129" x="316" y="474"/>
+  <object id="10" name="readme" type="interactive" gid="126" x="72" y="320"/>
+  <object id="11" name="homework4" type="interactive" gid="129" x="316" y="474"/>
   <object id="12" name="Sort.java" type="pickup" gid="127" x="326" y="118"/>
   <object id="13" name="index.php" type="interactive" gid="163" x="231" y="262"/>
+  <object id="25" name="gcc" type="tool" gid="342" x="444" y="235">
+   <properties>
+    <property name="class" value="Gcc"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="characters">
   <object id="15" name="EnemySpawn1" gid="218" x="119" y="477">
