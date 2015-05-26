@@ -33,9 +33,6 @@ import android.content.Context;
 
 public class ResourceManager {
 
-    /* Variables */
-    private static final ResourceManager INSTANCE = new ResourceManager();
-
     /* Assorted */
     public Engine engine;
     public VertexBufferObjectManager vertexBufferObjectManager;
@@ -48,14 +45,12 @@ public class ResourceManager {
     public ITextureRegion playRegion;
     public ITextureRegion optionRegion;
     private BuildableBitmapTextureAtlas menuTextureAtlas;
-    private Context myContext;
     private BitmapTextureAtlas playerBitmapTextureAtlas;
     public TiledTextureRegion playerTiledTextureRegion;
     public BitmapTextureAtlas onScreenControlTexture;
     public ITextureRegion onScreenControlBaseRegion;
     public ITextureRegion onScreenControlKnobRegion;
 
-    public TMXTiledMap tmxTiledMap;
     private AssetManager assetManager;
 
     /* Logic */
@@ -115,13 +110,6 @@ public class ResourceManager {
     }
 
     private void loadGameGraphics() {
-        //load tmx
-        try {
-            final TMXLoader tmxLoader = new TMXLoader(myContext.getAssets(), engine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, vertexBufferObjectManager);
-            this.tmxTiledMap = tmxLoader.loadFromAsset("tmx/desert.tmx");
-        } catch (TMXLoadException e) {
-            Debug.e(e);
-        }
 
         // load player
         playerBitmapTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
@@ -152,17 +140,6 @@ public class ResourceManager {
         font.load();
     }
     /* stub out resource loaders */
-
-    /* prep manager */
-    public static void prepareManager(Engine engine, Context context) {
-        getInstance().engine = engine;
-        getInstance().assetManager = context.getAssets();
-        getInstance().vertexBufferObjectManager = engine.getVertexBufferObjectManager();
-        getInstance().myContext = context;
-    }
-    public static ResourceManager getInstance() {
-        return INSTANCE;
-    }
 
     /* Gets and Sets */
     public float getPlayerTextureWidth() {
