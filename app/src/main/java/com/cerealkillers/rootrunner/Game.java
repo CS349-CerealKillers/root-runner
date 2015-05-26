@@ -6,6 +6,7 @@ import com.cerealkillers.rootrunner.GameWorld.MapLoader;
 import com.cerealkillers.rootrunner.GameWorld.MapLoaderFactory;
 import com.cerealkillers.rootrunner.GameWorld.World;
 import com.cerealkillers.rootrunner.scene.GameScene;
+import com.cerealkillers.rootrunner.scene.SceneFactory;
 import com.cerealkillers.rootrunner.scene.SceneListener;
 
 import org.andengine.engine.Engine;
@@ -15,12 +16,19 @@ import org.andengine.engine.Engine;
  */
 public class Game {
 
-    private final MapLoader mMapLoader;
+    private final Engine mEngine;
+    private MapLoader mMapLoader;
+    private SceneManager mSceneManager;
+    private ResourceManager mResourceManager;
     private World mWorld;
     private SceneListener.SceneChangeListener<GameScene> mGameSceneSceneChangeListener;
 
     public Game(Context context, Engine engine){
         mMapLoader = MapLoaderFactory.getMapLoader(context, engine);
+        mGameSceneSceneChangeListener = new GameSceneListener();
+        mEngine = engine;
+        createResourceManager();
+        createSceneManager();
     }
 
     private class GameSceneListener implements SceneListener.SceneChangeListener<GameScene>{
@@ -36,4 +44,15 @@ public class Game {
             // TODO save the game state in preparation for shutdown
         }
     }
+
+    private void createResourceManager(){
+        mResourceManager = new ResourceManager();
+    }
+
+    private void createSceneManager(){
+        SceneFactory sceneFactory = new SceneFactory(mResourceManager);
+        mSceneManager = new SceneManager(mEngine, mResourceManager, sceneFactory);
+        mSceneManager.registerGameSceneChangeListener(mGameSceneSceneChangeListener);
+    }
+
 }
