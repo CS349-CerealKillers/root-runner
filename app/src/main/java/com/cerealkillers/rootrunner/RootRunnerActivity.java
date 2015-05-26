@@ -41,7 +41,7 @@ public class RootRunnerActivity extends BaseGameActivity {
     public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws Exception {
         final Scene scene = new Scene();
         MapLoader mapLoader = MapLoaderFactory.getMapLoader(this, mEngine);
-        mapLoader.load("map.tmx", scene);
+        mapLoader.load("newtmx.tmx", scene);
         onCreateSceneCallback.onCreateSceneFinished(scene);
     }
 
