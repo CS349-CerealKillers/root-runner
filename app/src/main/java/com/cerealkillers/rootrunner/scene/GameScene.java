@@ -160,21 +160,21 @@ public class GameScene extends BaseScene {
 
     /* Trap player within TMX map boundaries */
     public void adjustToSceneBoundary() {
-        TMXLayer tmxLayer = resourceManager.tmxTiledMap.getTMXLayers().get(0);
-        int tmxWidth = tmxLayer.getWidth();
-        int tmxHeight = tmxLayer.getHeight();
+//        TMXLayer tmxLayer = resourceManager.tmxTiledMap.getTMXLayers().get(0);
+//        int tmxWidth = tmxLayer.getWidth();
+//        int tmxHeight = tmxLayer.getHeight();
 
         // adjust X
-        if(player.getX() < 0)
-            player.setX(0);
-        else if(player.getX() + player.getWidth() > tmxWidth)
-            player.setX(tmxWidth - player.getWidth());
-
-        // adjust Y
-        if(player.getY() < 0)
-            player.setY(0);
-        else if(player.getY() + player.getHeight() > tmxHeight)
-            player.setY(tmxHeight - player.getHeight());
+//        if(player.getX() < 0)
+//            player.setX(0);
+//        else if(player.getX() + player.getWidth() > tmxWidth)
+//            player.setX(tmxWidth - player.getWidth());
+//
+//        // adjust Y
+//        if(player.getY() < 0)
+//            player.setY(0);
+//        else if(player.getY() + player.getHeight() > tmxHeight)
+//            player.setY(tmxHeight - player.getHeight());
 
     }
 
