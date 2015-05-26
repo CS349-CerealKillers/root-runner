@@ -11,11 +11,10 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 
 import org.andengine.engine.Engine;
-import org.andengine.extension.tmx.TMXTiledMap;
-import org.andengine.extension.tmx.TMXLoader;
-import org.andengine.extension.tmx.util.exception.TMXLoadException;
 import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.ITexture;
+import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -29,14 +28,15 @@ import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder
 import org.andengine.util.debug.Debug;
 import org.andengine.opengl.font.Font;
 
-import android.content.Context;
-
 public class ResourceManager {
 
     /* Assorted */
     public Engine engine;
     public VertexBufferObjectManager vertexBufferObjectManager;
     public Font font;
+    private TextureManager mTextureManager;
+    private AssetManager mAssetManager;
+    private FontManager mFontManager;
 
     /* Textures and Regions */
     public ITextureRegion splashTextureRegion;
@@ -51,7 +51,11 @@ public class ResourceManager {
     public ITextureRegion onScreenControlBaseRegion;
     public ITextureRegion onScreenControlKnobRegion;
 
-    private AssetManager assetManager;
+    public ResourceManager(TextureManager textureManager, AssetManager assetManager, FontManager fontManager) {
+        mTextureManager = textureManager;
+        mAssetManager = assetManager;
+        mFontManager = fontManager;
+    }
 
     /* Logic */
     public void loadMenuResources() {
@@ -68,8 +72,8 @@ public class ResourceManager {
 
     public void loadSplashScreen() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        splashTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
-        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, assetManager, "i_love_8_bit.png", 0, 0);
+        splashTextureAtlas = new BitmapTextureAtlas(mTextureManager, 256, 256, TextureOptions.BILINEAR);
+        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, mAssetManager, "i_love_8_bit.png", 0, 0);
         splashTextureAtlas.load();
     }
 
@@ -92,10 +96,10 @@ public class ResourceManager {
 
     private void loadMenuGraphics() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
-        menuTextureAtlas = new BuildableBitmapTextureAtlas(engine.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-        menuBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, assetManager, "menu_background.png");
-        playRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, assetManager, "menu_ok.png");
-        optionRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, assetManager, "menu_back.png");
+        menuTextureAtlas = new BuildableBitmapTextureAtlas(mTextureManager, 1024, 1024, TextureOptions.BILINEAR);
+        menuBackgroundRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, mAssetManager, "menu_background.png");
+        playRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, mAssetManager, "menu_ok.png");
+        optionRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, mAssetManager, "menu_back.png");
 
         try {
             this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0,1,0));
@@ -112,15 +116,15 @@ public class ResourceManager {
     private void loadGameGraphics() {
 
         // load player
-        playerBitmapTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 72, 128, TextureOptions.DEFAULT);
-        playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, assetManager, "player.png", 0, 0, 3, 4);
+        playerBitmapTextureAtlas = new BitmapTextureAtlas(mTextureManager, 72, 128, TextureOptions.DEFAULT);
+        playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, mAssetManager, "player.png", 0, 0, 3, 4);
         playerBitmapTextureAtlas.load();
 
         // load digital on screen control
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        onScreenControlTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 128, TextureOptions.BILINEAR);
-        onScreenControlBaseRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, assetManager, "onscreen_control_base.png", 0, 0);
-        onScreenControlKnobRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, assetManager, "onscreen_control_knob.png", 128, 0);
+        onScreenControlTexture = new BitmapTextureAtlas(mTextureManager, 256, 128, TextureOptions.BILINEAR);
+        onScreenControlBaseRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, mAssetManager, "onscreen_control_base.png", 0, 0);
+        onScreenControlKnobRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(onScreenControlTexture, mAssetManager, "onscreen_control_knob.png", 128, 0);
         onScreenControlTexture.load();
 
         //todo load other game graphics
@@ -135,8 +139,8 @@ public class ResourceManager {
 
     private void loadMenuFonts() {
         FontFactory.setAssetBasePath("font/");
-        final ITexture mainFontTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        font = FontFactory.createStrokeFromAsset(engine.getFontManager(), mainFontTexture, assetManager, "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
+        final ITexture mainFontTexture = new BitmapTextureAtlas(mTextureManager, 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        font = FontFactory.createStrokeFromAsset(mFontManager, mainFontTexture, mAssetManager, "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
         font.load();
     }
     /* stub out resource loaders */

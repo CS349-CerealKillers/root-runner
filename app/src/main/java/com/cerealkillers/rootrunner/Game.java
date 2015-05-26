@@ -10,6 +10,7 @@ import com.cerealkillers.rootrunner.scene.SceneFactory;
 import com.cerealkillers.rootrunner.scene.SceneListener;
 
 import org.andengine.engine.Engine;
+import org.andengine.entity.scene.Scene;
 
 /**
  * Created by Benjamin Daschel on 5/25/15.
@@ -27,8 +28,13 @@ public class Game {
         mMapLoader = MapLoaderFactory.getMapLoader(context, engine);
         mGameSceneSceneChangeListener = new GameSceneListener();
         mEngine = engine;
-        createResourceManager();
+        createResourceManager(context);
         createSceneManager();
+    }
+
+    public Scene getInitialScene(){
+        mSceneManager.createSplashScene();
+        return mSceneManager.getCurrentScene();
     }
 
     private class GameSceneListener implements SceneListener.SceneChangeListener<GameScene>{
@@ -45,8 +51,9 @@ public class Game {
         }
     }
 
-    private void createResourceManager(){
-        mResourceManager = new ResourceManager();
+    private void createResourceManager(Context context){
+        mResourceManager = new ResourceManager(mEngine.getTextureManager(),
+                context.getAssets(), mEngine.getFontManager());
     }
 
     private void createSceneManager(){
