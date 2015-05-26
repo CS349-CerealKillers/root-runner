@@ -97,6 +97,7 @@ public class MainActivity extends BaseGameActivity {
         //TODO: delegate scene creation to scene manager through Game facade
         /* create splash screen */
 //        SceneManager.getInstance().createSplashScene(onCreateSceneCallback);
+        onCreateSceneCallback.onCreateSceneFinished(mGame.getInitialScene());
 
     }
 
