@@ -1,5 +1,6 @@
 package com.cerealkillers.rootrunner.scene;
 
+import com.cerealkillers.rootrunner.ResourceManager;
 import com.cerealkillers.rootrunner.SceneManager;
 
 import org.andengine.engine.Engine;
@@ -10,7 +11,13 @@ import org.andengine.engine.camera.Camera;
  */
 public class SceneFactory {
 
-    public static BaseScene createScene(SceneManager.SceneType type, Engine engine, Camera camera){
+    private final ResourceManager mResourceManager;
+
+    public SceneFactory(ResourceManager resourceManager){
+        mResourceManager = resourceManager;
+    }
+
+    public BaseScene createScene(SceneManager.SceneType type, Engine engine, Camera camera){
 
         BaseScene scene = null;
         switch (type){
@@ -28,6 +35,7 @@ public class SceneFactory {
                 break;
         }
 
+        scene.resourceManager = mResourceManager;
         scene.boundCamera = camera;
         scene.vertexBufferObjectManager = engine.getVertexBufferObjectManager();
         scene.createScene();
