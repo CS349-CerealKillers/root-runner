@@ -23,7 +23,7 @@ public abstract class BaseScene extends Scene {
 
     /* constructor */
     protected BaseScene() {
-        this.resourceManager = ResourceManager.getInstance();
+//        this.resourceManager = ResourceManager.getInstance();
     }
 
     public  void onBackKeyPressed(){
