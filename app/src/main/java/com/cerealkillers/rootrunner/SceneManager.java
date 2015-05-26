@@ -77,10 +77,6 @@ public class SceneManager {
         }
     }
 
-//    public static SceneManager getInstance() {
-//        return INSTANCE;
-//    }
-
     public SceneType getCurrentSceneType() {
         return currentSceneType;
     }
@@ -89,11 +85,10 @@ public class SceneManager {
         return currentScene;
     }
 
-    public void createSplashScene(OnCreateSceneCallback onCreateSceneCallback) {
+    public void createSplashScene() {
         mResourceManager.loadSplashScreen();
         splashScene = mSceneFactory.createScene(SceneType.SPLASH, mEngine, mEngine.getCamera());
         currentScene = splashScene;
-        onCreateSceneCallback.onCreateSceneFinished(splashScene);
     }
 
     public void createMenuScene() {
