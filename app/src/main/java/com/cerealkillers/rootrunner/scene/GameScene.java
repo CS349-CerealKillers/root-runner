@@ -86,8 +86,8 @@ public class GameScene extends BaseScene {
     }
 
     private void loadMap() {
-        final TMXLayer tmxLayer = ResourceManager.getInstance().tmxTiledMap.getTMXLayers().get(0);
-        attachChild(tmxLayer); // attach child to scene
+//        final TMXLayer tmxLayer = ResourceManager.getInstance().tmxTiledMap.getTMXLayers().get(0);
+//        attachChild(tmxLayer); // attach child to scene
 //        ResourceManager.getInstance().boundCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
 //        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
 
