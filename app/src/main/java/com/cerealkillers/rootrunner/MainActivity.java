@@ -30,18 +30,7 @@ import java.io.IOException;
 
 public class MainActivity extends BaseGameActivity {
 
-    private BitmapTextureAtlas mBitmapTextureAtlas;
-    private TiledTextureRegion mPlayerTextureRegion;
-    private TMXTiledMap mTMXTiledMap;
-    private Scene mScene;
-
-    // Define variables needed for digital on screen control
-    private DigitalOnScreenControl mDigitalOnScreenControl;
-    private BitmapTextureAtlas mOnScreenControlTexture;
-    private ITextureRegion mOnScreenControlBaseTextureRegion;
-    private ITextureRegion mOnScreenControlKnobTextureRegion;
-
-    private ResourceManager mResourceManager;
+    private Game mGame;
 
     /**
      * onCreateEngine
@@ -52,18 +41,16 @@ public class MainActivity extends BaseGameActivity {
      * */
     @Override
     public Engine onCreateEngine(EngineOptions mEngineOptions) {
-        return new LimitedFPSEngine(mEngineOptions, 60);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        Engine engine =  new LimitedFPSEngine(mEngineOptions, 60);
+        mGame = new Game(this, engine);
+        return engine;
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-            SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+//            SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+            //TODO: dispatch back key pressed event to scene manager
         }
         return false;
     }
@@ -93,12 +80,8 @@ public class MainActivity extends BaseGameActivity {
      * */
     @Override
     public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws IOException {
-
-        // delegate to resource manager
-        ResourceManager.prepareManager(mEngine, this);
-        mResourceManager = mResourceManager.getInstance();
+        //TODO: delegate initial resource loading to resource manager through GAME facade
         onCreateResourcesCallback.onCreateResourcesFinished();
-        // end delegation to Resource manager
 
     }
 
@@ -111,20 +94,14 @@ public class MainActivity extends BaseGameActivity {
      * */
     @Override
     public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws IOException {
-
+        //TODO: delegate scene creation to scene manager through Game facade
         /* create splash screen */
-        SceneManager.getInstance().createSplashScene(onCreateSceneCallback);
+//        SceneManager.getInstance().createSplashScene(onCreateSceneCallback);
 
     }
 
     public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws IOException {
-        mEngine.registerUpdateHandler(new TimerHandler(2f, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler timeHandler) {
-                mEngine.unregisterUpdateHandler(timeHandler);
-                SceneManager.getInstance().createMenuScene();
-                //load shit here
-            }
-        }));
+        //TODO: delegate scene population to scene manager though Game facade, maybe. This might not even be necessary.
         onPopulateSceneCallback.onPopulateSceneFinished();
 
     }
