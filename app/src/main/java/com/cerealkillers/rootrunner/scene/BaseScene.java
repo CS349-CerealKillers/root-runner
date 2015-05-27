@@ -5,6 +5,7 @@ package com.cerealkillers.rootrunner.scene;
  * TODO: remove references to resource manager directly.
  */
 
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.entity.scene.Scene;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
@@ -17,7 +18,8 @@ public abstract class BaseScene extends Scene {
     /* variables */
     protected ResourceManager resourceManager;
     protected VertexBufferObjectManager vertexBufferObjectManager;
-    protected Camera boundCamera;
+    protected BoundCamera boundCamera;
+    protected final int DEFAULT = 100;
 
     /* constructor */
     protected BaseScene() {
