@@ -3,14 +3,14 @@ package com.cerealkillers.rootrunner.scene;
 import com.cerealkillers.rootrunner.SceneManager;
 
 import org.andengine.engine.Engine;
-import org.andengine.engine.camera.Camera;
+import org.andengine.engine.camera.BoundCamera;
 
 /**
  * Created by Benjamin Daschel on 5/21/15.
  */
 public class SceneFactory {
 
-    public static BaseScene createScene(SceneManager.SceneType type, Engine engine, Camera camera){
+    public static BaseScene createScene(SceneManager.SceneType type, Engine engine, BoundCamera camera){
 
         BaseScene scene = null;
         switch (type){
