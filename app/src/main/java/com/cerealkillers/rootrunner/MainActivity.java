@@ -19,6 +19,7 @@ import org.andengine.extension.tmx.TMXTiledMap;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
+import org.andengine.ui.IGameInterface;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.engine.handler.timer.TimerHandler;
 
@@ -33,29 +34,6 @@ public class MainActivity extends BaseGameActivity {
     private Game mGame;
 
     /**
-     * onCreateEngine
-     * @return Engine
-     *
-     * Description:
-     *              Return new Engine
-     * */
-    @Override
-    public Engine onCreateEngine(EngineOptions mEngineOptions) {
-        Engine engine =  new LimitedFPSEngine(mEngineOptions, 60);
-        mGame = new Game(this, engine);
-        return engine;
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-//            SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
-            //TODO: dispatch back key pressed event to scene manager
-        }
-        return false;
-    }
-
-     /**
      * onCreateEngineOptions
      * @return EngineOptions
      *  TODO: Let's make the camera width/ height match the screen of the device instead of fixed.
@@ -72,40 +50,45 @@ public class MainActivity extends BaseGameActivity {
     }
 
     /**
-     * onCreateResources
+     * onCreateEngine
+     * @return Engine
      *
      * Description:
-     *              Loads all requested resources from assets folder.
-     *              Assets loaded here exclude the TMX map as that is part of the scene and is handled in a different method call.
+     *              Return new Engine
      * */
     @Override
-    public void onCreateResources(OnCreateResourcesCallback onCreateResourcesCallback) throws IOException {
-        //TODO: delegate initial resource loading to resource manager through GAME facade
-        onCreateResourcesCallback.onCreateResourcesFinished();
-
+    public Engine onCreateEngine(EngineOptions mEngineOptions) {
+        return  new LimitedFPSEngine(mEngineOptions, 60);
     }
 
-    /**
-     * onCreateScene
-     * @return Scene
-     *
-     * Description:
-     *              Calling function for init* routines pertaining to the current scene.
-     * */
     @Override
-    public void onCreateScene(OnCreateSceneCallback onCreateSceneCallback) throws IOException {
-        //TODO: delegate scene creation to scene manager through Game facade
-        /* create splash screen */
-//        SceneManager.getInstance().createSplashScene(onCreateSceneCallback);
-        onCreateSceneCallback.onCreateSceneFinished(mGame.getInitialScene());
-
+    protected synchronized void onCreateGame() {
+        mGame = new Game(this, this.mEngine);
+        mGame.start();
     }
 
-    public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws IOException {
-        //TODO: delegate scene population to scene manager though Game facade, maybe. This might not even be necessary.
-        onPopulateSceneCallback.onPopulateSceneFinished();
-
+    @Override
+    public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {
+        //not used, handled by game
     }
 
+    @Override
+    public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) throws Exception {
+        //not used, handled by game
+    }
+
+    @Override
+    public void onPopulateScene(Scene scene, OnPopulateSceneCallback onPopulateSceneCallback) throws Exception {
+        //not used handled by Game
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+//            SceneManager.getInstance().getCurrentScene().onBackKeyPressed();
+            //TODO: dispatch back key pressed event to scene manager
+        }
+        return false;
+    }
 
 }

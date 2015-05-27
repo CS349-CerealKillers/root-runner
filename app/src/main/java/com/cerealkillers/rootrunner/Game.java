@@ -32,11 +32,6 @@ public class Game {
         createSceneManager();
     }
 
-    public Scene getInitialScene(){
-        mSceneManager.createSplashScene();
-        return mSceneManager.getCurrentScene();
-    }
-
     private class GameSceneListener implements SceneListener.SceneChangeListener<GameScene>{
 
         @Override
@@ -62,4 +57,7 @@ public class Game {
         mSceneManager.registerGameSceneChangeListener(mGameSceneSceneChangeListener);
     }
 
+    public void start() {
+        mSceneManager.loadGameScene();
+    }
 }
