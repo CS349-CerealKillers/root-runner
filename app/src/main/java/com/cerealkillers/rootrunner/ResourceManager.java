@@ -33,7 +33,7 @@ public class ResourceManager {
     /* Assorted */
     public Engine engine;
     public VertexBufferObjectManager vertexBufferObjectManager;
-    public Font font;
+    private Font menuFont;
     private TextureManager mTextureManager;
     private AssetManager mAssetManager;
     private FontManager mFontManager;
@@ -46,7 +46,7 @@ public class ResourceManager {
     public ITextureRegion optionRegion;
     private BuildableBitmapTextureAtlas menuTextureAtlas;
     private BitmapTextureAtlas playerBitmapTextureAtlas;
-    public TiledTextureRegion playerTiledTextureRegion;
+    private TiledTextureRegion playerTiledTextureRegion;
     public BitmapTextureAtlas onScreenControlTexture;
     public ITextureRegion onScreenControlBaseRegion;
     public ITextureRegion onScreenControlKnobRegion;
@@ -55,6 +55,7 @@ public class ResourceManager {
         mTextureManager = textureManager;
         mAssetManager = assetManager;
         mFontManager = fontManager;
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
     }
 
     /* Logic */
@@ -71,7 +72,6 @@ public class ResourceManager {
     }
 
     public void loadSplashScreen() {
-        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
         splashTextureAtlas = new BitmapTextureAtlas(mTextureManager, 256, 256, TextureOptions.BILINEAR);
         splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, mAssetManager, "i_love_8_bit.png", 0, 0);
         splashTextureAtlas.load();
@@ -129,6 +129,7 @@ public class ResourceManager {
 
         //todo load other game graphics
     }
+
     private void loadGameFonts() {
 
     }
@@ -140,18 +141,31 @@ public class ResourceManager {
     private void loadMenuFonts() {
         FontFactory.setAssetBasePath("font/");
         final ITexture mainFontTexture = new BitmapTextureAtlas(mTextureManager, 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        font = FontFactory.createStrokeFromAsset(mFontManager, mainFontTexture, mAssetManager, "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
-        font.load();
+        menuFont = FontFactory.createStrokeFromAsset(mFontManager, mainFontTexture, mAssetManager, "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
+        getMenuFont().load();
     }
     /* stub out resource loaders */
 
     /* Gets and Sets */
     public float getPlayerTextureWidth() {
-        return playerTiledTextureRegion.getWidth();
+        return getPlayerTiledTextureRegion().getWidth();
     }
 
     public float getPlayerTextureHeight() {
-        return playerTiledTextureRegion.getHeight();
+        return getPlayerTiledTextureRegion().getHeight();
     }
 
+    public Font getMenuFont() {
+        if(menuFont == null){
+            loadMenuFonts();
+        }
+        return menuFont;
+    }
+
+    public TiledTextureRegion getPlayerTiledTextureRegion() {
+        if(playerTiledTextureRegion == null){
+            loadGameGraphics();
+        }
+        return playerTiledTextureRegion;
+    }
 }

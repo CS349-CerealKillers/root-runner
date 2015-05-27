@@ -7,9 +7,7 @@ package com.cerealkillers.rootrunner.scene;
 
 import android.opengl.GLES20;
 
-import com.cerealkillers.rootrunner.MainActivity;
 import com.cerealkillers.rootrunner.Player;
-import com.cerealkillers.rootrunner.ResourceManager;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
 
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
@@ -21,7 +19,6 @@ import org.andengine.util.color.Color;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.text.Text;
-import org.andengine.extension.tmx.TMXLayer;
 
 public class GameScene extends BaseScene {
 
@@ -72,13 +69,10 @@ public class GameScene extends BaseScene {
     /* init HUD */
     public void createHUD() {
         gameHUD = new HUD();
-
-        healthText = new Text(20, 420, resourceManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
+        healthText = new Text(20, 420, resourceManager.getMenuFont(), "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
         healthText.setText("Score: 0");
         gameHUD.attachChild(healthText);
-
         boundCamera.setHUD(gameHUD);
-
     }
 
     private void createBackground() {
@@ -94,7 +88,7 @@ public class GameScene extends BaseScene {
         //initPlayer
         float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
         float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
-        player = new Player(centerX, centerY, resourceManager.playerTiledTextureRegion, vertexBufferObjectManager);
+        player = new Player(centerX, centerY, resourceManager.getPlayerTiledTextureRegion(), vertexBufferObjectManager);
         attachChild(player);
 
         //load DOSC

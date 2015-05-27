@@ -106,18 +106,18 @@ public class SceneManager {
     }
 
     public void loadGameScene() {
-        setScene(loadScene);
-        mResourceManager.unloadMenuTextures();
-        mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler timerHandler) {
-                mEngine.unregisterUpdateHandler(timerHandler);
+//        setScene(loadScene);
+//        mResourceManager.unloadMenuTextures();
+//        mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+//            public void onTimePassed(final TimerHandler timerHandler) {
+//                mEngine.unregisterUpdateHandler(timerHandler);
                 mResourceManager.loadGameResources();
                 gameScene = mSceneFactory.createScene(SceneType.GAME, mEngine, mEngine.getCamera());
                 setScene(gameScene);
                 //ugh, casting sucks, will rewrite later to avoid nastiness
-                notifyGameSceneListeners((GameScene) gameScene, true);
-            }
-        }));
+//                notifyGameSceneListeners((GameScene) gameScene, true);
+//            }
+//        }));
 
     }
 
