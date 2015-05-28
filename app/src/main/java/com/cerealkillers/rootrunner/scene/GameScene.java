@@ -174,7 +174,7 @@ public class GameScene extends BaseScene {
 
     /* Bound Camera to TMX Layer */
     public void onMapLoad() {
-        boundCamera.setBounds(0, 0, layerHeight, layerWidth);
+        boundCamera.setBounds(0, 0, layerWidth, layerHeight);
         boundCamera.setBoundsEnabled(true);
     }
 
