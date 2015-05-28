@@ -7,9 +7,7 @@ package com.cerealkillers.rootrunner.scene;
 
 import android.opengl.GLES20;
 
-import com.cerealkillers.rootrunner.MainActivity;
 import com.cerealkillers.rootrunner.Player;
-import com.cerealkillers.rootrunner.ResourceManager;
 import com.cerealkillers.rootrunner.SceneManager.SceneType;
 
 import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
@@ -21,7 +19,6 @@ import org.andengine.util.color.Color;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.text.Text;
-import org.andengine.extension.tmx.TMXLayer;
 
 public class GameScene extends BaseScene {
 
@@ -49,7 +46,7 @@ public class GameScene extends BaseScene {
         //createBackground();
         loadMap();
         createHUD();
-        //createPhysics();
+        onMapLoad();
     }
 
     @Override
@@ -72,13 +69,10 @@ public class GameScene extends BaseScene {
     /* init HUD */
     public void createHUD() {
         gameHUD = new HUD();
-
-        healthText = new Text(20, 420, resourceManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
+        healthText = new Text(20, 420, resourceManager.getMenuFont(), "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
         healthText.setText("Score: 0");
         gameHUD.attachChild(healthText);
-
         boundCamera.setHUD(gameHUD);
-
     }
 
     private void createBackground() {
@@ -86,15 +80,15 @@ public class GameScene extends BaseScene {
     }
 
     private void loadMap() {
-        final TMXLayer tmxLayer = ResourceManager.getInstance().tmxTiledMap.getTMXLayers().get(0);
-        attachChild(tmxLayer); // attach child to scene
+//        final TMXLayer tmxLayer = ResourceManager.getInstance().tmxTiledMap.getTMXLayers().get(0);
+//        attachChild(tmxLayer); // attach child to scene
 //        ResourceManager.getInstance().boundCamera.setBounds(0, 0, tmxLayer.getHeight(), tmxLayer.getWidth());
 //        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
 
         //initPlayer
         float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
         float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
-        player = new Player(centerX, centerY, resourceManager.playerTiledTextureRegion, vertexBufferObjectManager);
+        player = new Player(centerX, centerY, resourceManager.getPlayerTiledTextureRegion(), vertexBufferObjectManager);
         attachChild(player);
 
         //load DOSC
@@ -160,27 +154,28 @@ public class GameScene extends BaseScene {
 
     /* Trap player within TMX map boundaries */
     public void adjustToSceneBoundary() {
-        TMXLayer tmxLayer = resourceManager.tmxTiledMap.getTMXLayers().get(0);
-        int tmxWidth = tmxLayer.getWidth();
-        int tmxHeight = tmxLayer.getHeight();
+//        TMXLayer tmxLayer = resourceManager.tmxTiledMap.getTMXLayers().get(0);
+//        int tmxWidth = tmxLayer.getWidth();
+//        int tmxHeight = tmxLayer.getHeight();
 
         // adjust X
-        if(player.getX() < 0)
-            player.setX(0);
-        else if(player.getX() + player.getWidth() > tmxWidth)
-            player.setX(tmxWidth - player.getWidth());
-
-        // adjust Y
-        if(player.getY() < 0)
-            player.setY(0);
-        else if(player.getY() + player.getHeight() > tmxHeight)
-            player.setY(tmxHeight - player.getHeight());
+//        if(player.getX() < 0)
+//            player.setX(0);
+//        else if(player.getX() + player.getWidth() > tmxWidth)
+//            player.setX(tmxWidth - player.getWidth());
+//
+//        // adjust Y
+//        if(player.getY() < 0)
+//            player.setY(0);
+//        else if(player.getY() + player.getHeight() > tmxHeight)
+//            player.setY(tmxHeight - player.getHeight());
 
     }
 
     /* Bound Camera to TMX Layer */
     public void onMapLoad() {
-        boundCamera.setBounds(0, 0, layerHeight, layerWidth);
+        boundCamera.setBounds(0, 0, layerWidth, layerHeight);
+        boundCamera.setChaseEntity(player);
         boundCamera.setBoundsEnabled(true);
     }
 

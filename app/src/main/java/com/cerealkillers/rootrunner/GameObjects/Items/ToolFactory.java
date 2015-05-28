@@ -15,11 +15,12 @@ public class ToolFactory {
         /*
             Tools only have on constructor that takes an int id.
          */
-
+        Package currentPackage = ToolFactory.class.getPackage();
+        String packagePrefix = currentPackage.getName();
         String className = tmxObject.getTMXObjectProperty("class");
-
+        String fullClassName = String.format("%s.%s", packagePrefix, className);
         try {
-            Class toolClass = Class.forName(className);
+            Class toolClass = Class.forName(fullClassName);
             Constructor[] constructors = toolClass.getConstructors();
 
             for(Constructor constructor: constructors){

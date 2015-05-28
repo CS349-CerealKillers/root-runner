@@ -15,6 +15,12 @@ public class Map {
     SparseArray<Item> mItemsOnMap;
     SparseArray<GameCharacter> mCharacters;
 
+    public Map() {
+        mPortals = new SparseArray<>(5);
+        mItemsOnMap = new SparseArray<>(10);
+        mCharacters = new SparseArray<>(5);
+    }
+
     public Portal getPortal(int portalId){
         return mPortals.get(portalId);
     }

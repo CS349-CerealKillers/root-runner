@@ -11,12 +11,15 @@ import com.cerealkillers.rootrunner.scene.GameScene;
 import com.cerealkillers.rootrunner.scene.LoadingScene;
 import com.cerealkillers.rootrunner.scene.MainMenuScene;
 import com.cerealkillers.rootrunner.scene.SceneFactory;
+import com.cerealkillers.rootrunner.scene.SceneListener;
 import com.cerealkillers.rootrunner.scene.SplashScene;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+
+import java.util.ArrayList;
 
 public class SceneManager {
 
@@ -27,10 +30,20 @@ public class SceneManager {
     private BaseScene loadScene;
 
     /* variables */
-    private static final SceneManager INSTANCE = new SceneManager();
     private SceneType currentSceneType = SceneType.SPLASH;
     private BaseScene currentScene;
-    private Engine engine = ResourceManager.getInstance().engine;
+    private Engine mEngine;
+    private ResourceManager mResourceManager;
+    private SceneFactory mSceneFactory;
+
+    private ArrayList<SceneListener.SceneChangeListener<GameScene>> mGameSceneListeners;
+
+    public SceneManager(Engine engine, ResourceManager resourceManager, SceneFactory sceneFactory) {
+        mGameSceneListeners = new ArrayList<>();
+        mEngine = engine;
+        mResourceManager = resourceManager;
+        mSceneFactory = sceneFactory;
+    }
 
     public enum SceneType {
         SPLASH,
@@ -41,7 +54,7 @@ public class SceneManager {
 
     /* class logic */
     public void setScene(BaseScene scene) {
-        engine.setScene(scene);
+        mEngine.setScene(scene);
         currentScene = scene;
         currentSceneType = scene.getSceneType();
     }
@@ -64,10 +77,6 @@ public class SceneManager {
         }
     }
 
-    public static SceneManager getInstance() {
-        return INSTANCE;
-    }
-
     public SceneType getCurrentSceneType() {
         return currentSceneType;
     }
@@ -76,53 +85,73 @@ public class SceneManager {
         return currentScene;
     }
 
-    public void createSplashScene(OnCreateSceneCallback onCreateSceneCallback) {
-        ResourceManager.getInstance().loadSplashScreen();
-        splashScene = SceneFactory.createScene(SceneType.SPLASH, engine, engine.getCamera());
+    public void createSplashScene() {
+        mResourceManager.loadSplashScreen();
+        splashScene = mSceneFactory.createScene(SceneType.SPLASH, mEngine, mEngine.getCamera());
         currentScene = splashScene;
-        onCreateSceneCallback.onCreateSceneFinished(splashScene);
     }
 
     public void createMenuScene() {
-        ResourceManager.getInstance().loadMenuResources();
-        menuScene = SceneFactory.createScene(SceneType.MENU, engine, engine.getCamera());
-        loadScene = SceneFactory.createScene(SceneType.LOAD, engine, engine.getCamera());
+        mResourceManager.loadMenuResources();
+        menuScene = mSceneFactory.createScene(SceneType.MENU, mEngine, mEngine.getCamera());
+        loadScene = mSceneFactory.createScene(SceneType.LOAD, mEngine, mEngine.getCamera());
         //SceneManager.getInstance().setScene(menuScene);
         setScene(menuScene);
         disposeSplashScene();
     }
     private void disposeSplashScene() {
-        ResourceManager.getInstance().unloadSplashScreen();
+        mResourceManager.unloadSplashScreen();
         splashScene.disposeScene();
         splashScene = null;
     }
 
     public void loadGameScene() {
-        setScene(loadScene);
-        ResourceManager.getInstance().unloadMenuTextures();
-        engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler timerHandler) {
-                engine.unregisterUpdateHandler(timerHandler);
-                ResourceManager.getInstance().loadGameResources();
-                gameScene = SceneFactory.createScene(SceneType.GAME, engine, engine.getCamera());
+//        setScene(loadScene);
+//        mResourceManager.unloadMenuTextures();
+//        mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+//            public void onTimePassed(final TimerHandler timerHandler) {
+//                mEngine.unregisterUpdateHandler(timerHandler);
+                mResourceManager.loadGameResources();
+                gameScene = mSceneFactory.createScene(SceneType.GAME, mEngine, mEngine.getCamera());
                 setScene(gameScene);
-            }
-        }));
+                //ugh, casting sucks, will rewrite later to avoid nastiness
+                notifyGameSceneListeners((GameScene) gameScene, true);
+//            }
+//        }));
 
     }
 
     public void loadMenuScene() {
         setScene(loadScene);
         gameScene.disposeScene();
-        ResourceManager.getInstance().unloadGameTextures();
-        engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+        mResourceManager.unloadGameTextures();
+        mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler timerHandler) {
-                engine.registerUpdateHandler(timerHandler);
-                ResourceManager.getInstance().loadMenuTextures();
+                mEngine.registerUpdateHandler(timerHandler);
+                mResourceManager.loadMenuTextures();
                 setScene(menuScene);
             }
         }));
 
     }
+
+    private void notifyGameSceneListeners(GameScene scene, boolean loaded){
+        for(SceneListener.SceneChangeListener<GameScene> listener: mGameSceneListeners){
+            if(loaded){
+                listener.onSceneLoaded(scene);
+            }else{
+                listener.onSceneUnloaded(scene);
+            }
+        }
+    }
+
+    public void registerGameSceneChangeListener(SceneListener.SceneChangeListener<GameScene> listener){
+        mGameSceneListeners.add(listener);
+    }
+
+    public void unregisterGameSceneChangeListener(SceneListener.SceneChangeListener<GameScene> listener){
+        mGameSceneListeners.remove(listener);
+    }
+
 }

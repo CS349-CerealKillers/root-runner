@@ -1,6 +1,7 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
 import com.cerealkillers.rootrunner.GameWorld.Map;
+import com.cerealkillers.rootrunner.scene.GameScene;
 
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
@@ -38,7 +39,7 @@ public class MapLoader {
         mVertexBuffer = bufferObjectManager;
     }
 
-    public Map load(String mapName, Scene scene){
+    public Map load(String mapName, GameScene scene){
 
         TMXTiledMap map = null;
         try {
@@ -50,8 +51,11 @@ public class MapLoader {
 
         ArrayList<TMXLayer> layers = map.getTMXLayers();
 
-        for(TMXLayer layer: layers){
-            scene.attachChild(layer);
+        if(layers.size() > 0){
+            TMXLayer baseLayer = layers.get(0);
+            scene.attachChild(baseLayer);
+            scene.setLayerHeight(baseLayer.getHeight());
+            scene.setLayerWidth(baseLayer.getWidth());
         }
 
 
@@ -84,7 +88,7 @@ public class MapLoader {
             }
         }
 
-
+        scene.createScene();
 
         return null;
     }

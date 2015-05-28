@@ -1,8 +1,10 @@
 package com.cerealkillers.rootrunner.scene;
 
+import com.cerealkillers.rootrunner.ResourceManager;
 import com.cerealkillers.rootrunner.SceneManager;
 
 import org.andengine.engine.Engine;
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
 
 /**
@@ -10,7 +12,13 @@ import org.andengine.engine.camera.Camera;
  */
 public class SceneFactory {
 
-    public static BaseScene createScene(SceneManager.SceneType type, Engine engine, Camera camera){
+    private final ResourceManager mResourceManager;
+
+    public SceneFactory(ResourceManager resourceManager){
+        mResourceManager = resourceManager;
+    }
+
+    public BaseScene createScene(SceneManager.SceneType type, Engine engine, Camera camera){
 
         BaseScene scene = null;
         switch (type){
@@ -28,10 +36,12 @@ public class SceneFactory {
                 break;
         }
 
-        engine.getCamera();
-        scene.boundCamera = camera;
+
+        scene.resourceManager = mResourceManager;
+        //TODO: Redo this to avoid casting. Camera will have to be passed down from main activity where it was created.
+        scene.boundCamera = (BoundCamera)camera;
         scene.vertexBufferObjectManager = engine.getVertexBufferObjectManager();
-        scene.createScene();
+//        scene.createScene();
 
         return scene;
     }

@@ -47,7 +47,8 @@ public class MainMenuScene extends BaseScene implements MenuScene.IOnMenuItemCli
     public boolean onMenuItemClicked(MenuScene menuScene, IMenuItem iMenuItem, float menuItemLocalX, float menuItemLocalY) {
         switch(iMenuItem.getID()) {
             case MENU_PLAY:
-                SceneManager.getInstance().loadGameScene(); // load game
+                //TODO: Trigger scene manager to load next scene
+//                SceneManager.getInstance().loadGameScene(); // load game
                 return true;
             case MENU_OPTIONS: return true;
             default: return false;
