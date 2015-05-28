@@ -45,7 +45,7 @@ public class MainActivity extends BaseGameActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        BoundCamera boundChaseCamera = new BoundCamera(0, 0, size.x, size.y);
+        BoundCamera boundChaseCamera = new BoundCamera(0, 0, size.x / 2, size.y / 2);
         return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(size.x, size.y), boundChaseCamera);
     }
 
