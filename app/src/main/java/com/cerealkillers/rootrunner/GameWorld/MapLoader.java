@@ -56,7 +56,6 @@ public class MapLoader {
             scene.attachChild(baseLayer);
             scene.setLayerHeight(baseLayer.getHeight());
             scene.setLayerWidth(baseLayer.getWidth());
-            scene.onMapLoad();
         }
 
 
@@ -89,7 +88,7 @@ public class MapLoader {
             }
         }
 
-
+        scene.createScene();
 
         return null;
     }

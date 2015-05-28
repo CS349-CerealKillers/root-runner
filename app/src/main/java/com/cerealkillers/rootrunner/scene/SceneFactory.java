@@ -40,7 +40,7 @@ public class SceneFactory {
         //TODO: Redo this to avoid casting. Camera will have to be passed down from main activity where it was created.
         scene.boundCamera = (BoundCamera)camera;
         scene.vertexBufferObjectManager = engine.getVertexBufferObjectManager();
-        scene.createScene();
+//        scene.createScene();
 
         return scene;
     }

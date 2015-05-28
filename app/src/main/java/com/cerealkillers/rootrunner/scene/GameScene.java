@@ -46,7 +46,7 @@ public class GameScene extends BaseScene {
         //createBackground();
         loadMap();
         createHUD();
-        //createPhysics();
+        onMapLoad();
     }
 
     @Override
@@ -175,6 +175,7 @@ public class GameScene extends BaseScene {
     /* Bound Camera to TMX Layer */
     public void onMapLoad() {
         boundCamera.setBounds(0, 0, layerWidth, layerHeight);
+        boundCamera.setChaseEntity(player);
         boundCamera.setBoundsEnabled(true);
     }
 
