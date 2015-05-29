@@ -1,10 +1,9 @@
 package com.cerealkillers.rootrunner.GameObjects.Items;
 
 /**
- * Created by Tyler Herrin on 5/10/2015.
+ * Author: Tyler Herrin
+ * Date: 5/10/2015
  */
-
-
 public class ConcreteItem extends Item
 {
     private boolean isStatic;
@@ -17,7 +16,8 @@ public class ConcreteItem extends Item
      */
     public ConcreteItem(String name, String description, int id, boolean isStatic)
     {
-        super(name, description, id);
+        super(name, description, id, false);
+        this.isStatic = isStatic;
     }
 
     /**

@@ -6,7 +6,8 @@ import com.cerealkillers.rootrunner.GameObjects.Structures.Portal;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
 /**
- * Created by Tyler Herrin on 5/10/2015.
+ * Author: Tyler Herrin
+ * Date: 5/10/2015
  */
 public class Ln extends Tool
 {
@@ -26,7 +27,8 @@ public class Ln extends Tool
      */
     public void use(int id, Map map)
     {
-        // TODO: map.addPortal(new Portal(id, "destination"));
+        // TODO: Create a way of selecting different destinations
+        map.addPortal(new Portal(map.getPortalID(), "destination"));
 
         Log.d(Ln.class.getSimpleName(), "Used ln.");
     }

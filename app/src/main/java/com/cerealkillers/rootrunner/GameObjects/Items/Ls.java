@@ -5,7 +5,8 @@ import android.util.Log;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
 /**
- * Created by Tyler Herrin on 5/10/2015.
+ * Author: Tyler Herrin
+ * Date: 5/10/2015
  */
 public class Ls extends  Tool
 {

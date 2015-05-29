@@ -5,7 +5,8 @@ import android.util.Log;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
 /**
- * Created by Tyler Herrin on 5/10/2015.
+ * Author: Tyler Herrin
+ * Date: 5/10/2015
  */
 public class Chmod extends Tool
 {
@@ -25,9 +26,8 @@ public class Chmod extends Tool
      */
     public void use(int id, Map map)
     {
-        //TODO Implement me plz.
         Item target = map.getItem(id);
-
+        target.unlock();
 
         Log.d(Chmod.class.getSimpleName(), "Used chmod.");
     }

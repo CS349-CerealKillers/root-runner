@@ -3,7 +3,8 @@ package com.cerealkillers.rootrunner.GameObjects.Items;
 import com.cerealkillers.rootrunner.GameObjects.GameObject;
 
 /**
- * Created by Tyler Herrin on 5/10/2015.
+ * Author: Tyler Herrin
+ * Date: 5/10/2015
  */
 public abstract class Item extends GameObject
 {
@@ -24,6 +25,16 @@ public abstract class Item extends GameObject
         this.name = name;
         this.description = description;
         this.isLocked = isLocked;
+    }
+
+    public void lock()
+    {
+        this.isLocked = true;
+    }
+
+    public void unlock()
+    {
+        this.isLocked = false;
     }
 
     /**

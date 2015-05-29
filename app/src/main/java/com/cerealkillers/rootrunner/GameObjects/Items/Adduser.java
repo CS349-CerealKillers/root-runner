@@ -2,10 +2,12 @@ package com.cerealkillers.rootrunner.GameObjects.Items;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameObjects.Characters.NPC;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
 /**
- * Created by Tyler Herrin on 5/10/2015.
+ * Author: Tyler Herrin
+ * Date: 5/10/2015
  */
 public class Adduser extends Tool
 {
@@ -25,7 +27,11 @@ public class Adduser extends Tool
      */
     public void use(int id, Map map)
     {
-        //TODO: map.addCharacter(new NPC(id, health));
+        /*
+        TODO: Add in more robust options for adding in new users on the map
+              once different NPC types are established.
+        */
+        map.addCharacter(new NPC(map.getCharacterID(), 10));
 
         Log.d(Adduser.class.getSimpleName(), "Used adduser.");
     }
