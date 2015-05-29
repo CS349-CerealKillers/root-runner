@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Benjamin Daschel on 5/29/15.
  */
-class MapObjectTouchDetector implements IUpdateHandler {
+public class MapObjectCollisionDetector implements IUpdateHandler {
 
     public interface CollisionDetectedListener{
         public void onCollisionDetected(MapObject subject, List<MapObject> touching);
@@ -21,19 +21,28 @@ class MapObjectTouchDetector implements IUpdateHandler {
     private List<MapObject> touchResults;
     private List<CollisionDetectedListener> mCollisionDetectedListeners;
 
-    public MapObjectTouchDetector(MapObject mapObject, Map attachedMap) {
+    public MapObjectCollisionDetector(MapObject mapObject, Map attachedMap) {
         mMapObject = mapObject;
         mAttachedMap = attachedMap;
         touchResults = new ArrayList<>();
         mCollisionDetectedListeners = new ArrayList<>();
     }
 
+    /**
+     * Register to be notified when a collision is detected
+     * @param listener
+     */
     public void registerCollisionListener(CollisionDetectedListener listener){
         if(listener != null && ! mCollisionDetectedListeners.contains(listener)){
             mCollisionDetectedListeners.add(listener);
         }
     }
 
+    /**
+     * Stop listening for collision detections. Collision detection will continue,
+     * but the listener will no longer receive any notification.
+     * @param listener
+     */
     public void unregisterCollisionListener(CollisionDetectedListener listener){
         if(listener != null){
             mCollisionDetectedListeners.remove(listener);
