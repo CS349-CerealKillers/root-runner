@@ -17,7 +17,6 @@ public abstract class GameObject
         mSprite = sprite;
     }
 
-
     public Sprite getSprite(){
         return mSprite;
     }
