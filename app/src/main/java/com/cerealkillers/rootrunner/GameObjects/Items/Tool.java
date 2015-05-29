@@ -13,6 +13,6 @@ public abstract class Tool extends Item implements ToolBehavior
      */
     public Tool(String name, String description, int id)
     {
-        super(name, description, id);
+        super(name, description, id, false);
     }
 }

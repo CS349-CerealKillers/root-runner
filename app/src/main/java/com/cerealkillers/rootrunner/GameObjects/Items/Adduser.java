@@ -15,7 +15,7 @@ public class Adduser extends Tool
      */
     public Adduser(int id)
     {
-        super("adduser", "", id);
+        super("adduser", "Add a new user to the system", id);
     }
 
     /**
@@ -25,7 +25,8 @@ public class Adduser extends Tool
      */
     public void use(int id, Map map)
     {
-        //TODO Implement me plz.
+        //TODO: map.addCharacter(new NPC(id, health));
+
         Log.d(Adduser.class.getSimpleName(), "Used adduser.");
     }
 }

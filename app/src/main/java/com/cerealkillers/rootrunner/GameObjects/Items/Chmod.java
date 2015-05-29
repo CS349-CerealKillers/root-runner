@@ -26,6 +26,9 @@ public class Chmod extends Tool
     public void use(int id, Map map)
     {
         //TODO Implement me plz.
+        Item target = map.getItem(id);
+
+
         Log.d(Chmod.class.getSimpleName(), "Used chmod.");
     }
 }

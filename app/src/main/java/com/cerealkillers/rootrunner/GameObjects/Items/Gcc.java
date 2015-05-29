@@ -25,7 +25,9 @@ public class Gcc extends Tool
      */
     public void use(int id, Map map)
     {
-        //TODO Implement me plz
+        Item target = map.getItem(id);
+        //TODO: Create "compiled" item based on target
+
         Log.d(Gcc.class.getSimpleName(), "Used gcc.");
     }
 }

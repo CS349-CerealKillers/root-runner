@@ -8,7 +8,6 @@ package com.cerealkillers.rootrunner.GameObjects.Items;
 public class ConcreteItem extends Item
 {
     private boolean isStatic;
-
     /**
      * The class constructor for com.ceralkillers.rootrunner.gameobjects.items that have no behavior besides having a description.
      * @param name The name of the item.
@@ -19,7 +18,6 @@ public class ConcreteItem extends Item
     public ConcreteItem(String name, String description, int id, boolean isStatic)
     {
         super(name, description, id);
-        this.isStatic = isStatic;
     }
 
     /**

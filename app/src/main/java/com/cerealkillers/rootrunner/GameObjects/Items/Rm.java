@@ -25,7 +25,7 @@ public class Rm extends Tool
      */
     public void use(int id, Map map)
     {
-        //TODO Implement me plz.
+        map.removeItem(id);
         Log.d(Rm.class.getSimpleName(), "Used rm.");
     }
 }

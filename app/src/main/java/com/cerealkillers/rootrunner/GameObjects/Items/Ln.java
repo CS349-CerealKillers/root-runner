@@ -2,6 +2,7 @@ package com.cerealkillers.rootrunner.GameObjects.Items;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameObjects.Structures.Portal;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
 /**
@@ -25,7 +26,8 @@ public class Ln extends Tool
      */
     public void use(int id, Map map)
     {
-        // TODO Implement me plz.
+        // TODO: map.addPortal(new Portal(id, "destination"));
+
         Log.d(Ln.class.getSimpleName(), "Used ln.");
     }
 }

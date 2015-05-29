@@ -25,7 +25,8 @@ public class Ls extends  Tool
      */
     public void use(int id, Map map)
     {
-        // TODO Implement me plz.
+        // TODO: Display location info
+
         Log.d(Ls.class.getSimpleName(), "Used ls.");
     }
 }
