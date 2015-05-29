@@ -40,11 +40,19 @@ class MapObjectTouchDetector implements IUpdateHandler {
         }
     }
 
+    private void notifyListeners(){
+        for (CollisionDetectedListener listener: mCollisionDetectedListeners){
+            listener.onCollisionDetected(mMapObject, touchResults);
+            touchResults.clear();
+        }
+    }
+
     @Override
     public void onUpdate(float pSecondsElapsed) {
         boolean touching = mAttachedMap.isMapObjectColliding(mMapObject, touchResults);
-
-        //TODO: fire on touching event somewhere??
+        if(touching){
+            notifyListeners();
+        }
     }
 
     @Override
