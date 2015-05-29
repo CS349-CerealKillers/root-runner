@@ -10,8 +10,6 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Player extends MapObject {
 
-    private IUpdateHandler mUpdateHandler;
-
     public Player(int id, Sprite sprite) {
         super(id, sprite);
     }
@@ -19,8 +17,7 @@ public class Player extends MapObject {
     @Override
     public void onAttachToMap(Map attached) {
         super.onAttachToMap(attached);
-        mUpdateHandler = new MapObjectTouchDetector(this, getAttachedMap());
-        getSprite().registerUpdateHandler(mUpdateHandler);
+        setCollisionDetector(new MapObjectCollisionDetector(this, attached));
     }
 
 }
