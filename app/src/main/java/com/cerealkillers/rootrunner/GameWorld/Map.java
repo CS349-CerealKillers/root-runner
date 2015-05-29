@@ -1,86 +1,52 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
-import android.util.SparseArray;
+import com.cerealkillers.rootrunner.GameObjects.MapObject;
 
-import com.cerealkillers.rootrunner.GameObjects.Characters.GameCharacter;
-import com.cerealkillers.rootrunner.GameObjects.Items.Item;
-import com.cerealkillers.rootrunner.GameObjects.Structures.Portal;
+import org.andengine.entity.scene.Scene;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Benjamin Daschel on 5/6/15.
  */
 public class Map {
 
-    SparseArray<Portal> mPortals;
-    SparseArray<Item> mItemsOnMap;
-    SparseArray<GameCharacter> mCharacters;
+    private Scene mScene;
+    private ArrayList<MapObject> mMapObjects;
 
-    public Map() {
-        mPortals = new SparseArray<>(5);
-        mItemsOnMap = new SparseArray<>(10);
-        mCharacters = new SparseArray<>(5);
+    public Map(Scene scene){
+        mScene = scene;
     }
 
-    public int getPortalID()
-    {
-        return mPortals.size();
+    /**
+     * Place a map object on the map for use in game play.
+     * @param m MapObject to be added
+     */
+    public void addMapObject(MapObject m){
+        mMapObjects.add(m);
+        mScene.attachChild(m.getSprite());
+        m.onAttachToMap(this);
     }
 
-    public int getItemID()
-    {
-        return mItemsOnMap.size();
-    }
-
-    public int getCharacterID()
-    {
-        return mCharacters.size();
-    }
-
-    public Portal getPortal(int portalId){
-        return mPortals.get(portalId);
-    }
-
-    public Item getItem(int itemId){
-        return mItemsOnMap.get(itemId);
-    }
-
-    public GameCharacter getCharacter(int characterId){
-        return mCharacters.get(characterId);
-    }
-
-    public void addCharacter(GameCharacter character){
-        if(mCharacters.indexOfKey(character.getID()) < 0){
-            mCharacters.put(character.getID(), character);
+    /**
+     *
+     * @param objectInQuestion
+     * @param touchingResults Objects which are determined to be touching the object in question
+     * @return true if object in question is touching any other map objects
+     */
+    public boolean isMapObjectColliding(MapObject objectInQuestion, List<MapObject> touchingResults){
+        if(objectInQuestion == null){
+            return false;
         }
-    }
-
-    public void addPortal(Portal portal){
-        if(mPortals.indexOfKey(portal.getID()) < 0){
-            mPortals.put(portal.getID(), portal);
+        boolean touching = false;
+        for(MapObject m: mMapObjects){
+            if(m.isTouching(objectInQuestion)){
+                touchingResults.add(m);
+                touching = true;
+            }
         }
+        return touching;
     }
 
-    public void addItem(Item item){
-        if(mItemsOnMap.indexOfKey(item.getID()) < 0){
-            mItemsOnMap.put(item.getID(), item);
-        }
-    }
-
-    public Portal removePortal(int portalId){
-        Portal deleted = getPortal(portalId);
-        mPortals.remove(portalId);
-        return deleted;
-    }
-
-    public Item removeItem(int itemId){
-        Item deleted = getItem(itemId);
-        mItemsOnMap.remove(itemId);
-        return deleted;
-    }
-
-    public GameCharacter removeCharacter(int characterId){
-        GameCharacter deleted = getCharacter(characterId);
-        mCharacters.remove(characterId);
-        return deleted;
-    }
 }

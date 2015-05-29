@@ -1,23 +1,25 @@
 package com.cerealkillers.rootrunner.GameObjects;
 
+import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.sprite.Sprite;
+
 /**
  * Created by Tyler Herrin on 5/14/2015.
  */
-public class GameObject
+public abstract class GameObject
 {
-    int id;
+    private int mId;
+    private Sprite mSprite;
 
-    public GameObject(int id)
+    public GameObject(int id, Sprite sprite)
     {
-        this.id = id;
+        mId = id;
+        mSprite = sprite;
     }
 
-    /**
-     * Returns the id of the item.
-     * @return the id of the item.
-     */
-    public int getID()
-    {
-        return this.id;
+
+    public Sprite getSprite(){
+        return mSprite;
     }
+
 }
