@@ -18,14 +18,19 @@ public class Chmod extends Tool
         super("chmod", "Change file access permissions.", id);
     }
 
-    /**
-     * Unlocks an object on the map.
-     * @param id the id of the object to be unlocked.
-     * @param map the current map.
-     */
+    /* Old way
     public void use(int id, Map map)
     {
         //TODO Implement me plz.
+        Item target = map.getItem(id);
+
         Log.d(Chmod.class.getSimpleName(), "Used chmod.");
+    }
+     */
+
+    // New way?
+    public void use(InteractiveItem item)
+    {
+        item.unlock();
     }
 }
