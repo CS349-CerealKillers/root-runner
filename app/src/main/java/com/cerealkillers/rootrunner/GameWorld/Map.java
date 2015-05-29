@@ -21,6 +21,21 @@ public class Map {
         mCharacters = new SparseArray<>(5);
     }
 
+    public int getPortalID()
+    {
+        return mPortals.size();
+    }
+
+    public int getItemID()
+    {
+        return mItemsOnMap.size();
+    }
+
+    public int getCharacterID()
+    {
+        return mCharacters.size();
+    }
+
     public Portal getPortal(int portalId){
         return mPortals.get(portalId);
     }
