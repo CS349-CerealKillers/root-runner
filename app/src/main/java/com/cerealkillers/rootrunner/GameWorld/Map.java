@@ -1,6 +1,9 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
+import android.util.Log;
+
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
+import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
 
 import org.andengine.entity.scene.Scene;
 
@@ -14,9 +17,11 @@ public class Map {
 
     private Scene mScene;
     private ArrayList<MapObject> mMapObjects;
+    private MapObjectCollisionDetector.CollisionDetectedListener mCollisionDetectedListener;
 
     public Map(Scene scene){
         mScene = scene;
+        mCollisionDetectedListener = new MapCollisionDetectedListener();
     }
 
     /**
@@ -24,9 +29,18 @@ public class Map {
      * @param m MapObject to be added
      */
     public void addMapObject(MapObject m){
-        mMapObjects.add(m);
-        mScene.attachChild(m.getSprite());
-        m.onAttachToMap(this);
+        if(m != null){
+            mMapObjects.add(m);
+            mScene.attachChild(m.getSprite());
+            m.onAttachToMap(this);
+        }
+    }
+
+    public void removeMapObject(MapObject m){
+        if(m != null){
+            mMapObjects.remove(m);
+            m.onDetachedFromMap();
+        }
     }
 
     /**
@@ -41,12 +55,23 @@ public class Map {
         }
         boolean touching = false;
         for(MapObject m: mMapObjects){
-            if(m.isTouching(objectInQuestion)){
+            if(m.isColliding(objectInQuestion)){
                 touchingResults.add(m);
                 touching = true;
             }
         }
         return touching;
+    }
+
+    private class MapCollisionDetectedListener implements MapObjectCollisionDetector.CollisionDetectedListener{
+
+        @Override
+        public void onCollisionDetected(MapObject subject, List<MapObject> touching) {
+            //TODO: figure out what to do based on the touched objects
+            //TODO: should be generic, no switch, typecasting or other horsefuckery
+            //TODO: keep in mind this happens on the rendering thread in all likelyhood
+            Log.d("MAP", "detected player collision");
+        }
     }
 
 }
