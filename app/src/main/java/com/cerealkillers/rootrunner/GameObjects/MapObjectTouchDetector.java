@@ -34,7 +34,7 @@ class MapObjectTouchDetector implements IUpdateHandler {
         }
     }
 
-    public void unregisterCollistionListener(CollisionDetectedListener listener){
+    public void unregisterCollisionListener(CollisionDetectedListener listener){
         if(listener != null){
             mCollisionDetectedListeners.remove(listener);
         }
