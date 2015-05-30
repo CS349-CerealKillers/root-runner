@@ -35,8 +35,9 @@ public class Game {
 
         @Override
         public void onSceneLoaded(BaseScene scene) {
-//            mWorld = new World(mMapLoader, scene);
-//            mWorld.initialize();
+            //TODO: Don't really want to create a new world every time the scene changes
+            mWorld = new World(mMapLoader, mSceneManager);
+            mWorld.initialize();
         }
 
         @Override
