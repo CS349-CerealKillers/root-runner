@@ -18,7 +18,7 @@ public class SceneFactory {
         mResourceManager = resourceManager;
     }
 
-    public BaseScene createScene(SceneManager.SceneType type, Engine engine, Camera camera){
+    public BaseScene createScene(Engine engine, Camera camera, SceneManager.SceneType type){
 
         BaseScene scene = null;
         switch (type){
@@ -41,7 +41,6 @@ public class SceneFactory {
         //TODO: Redo this to avoid casting. Camera will have to be passed down from main activity where it was created.
         scene.boundCamera = (BoundCamera)camera;
         scene.vertexBufferObjectManager = engine.getVertexBufferObjectManager();
-//        scene.createScene();
 
         return scene;
     }
