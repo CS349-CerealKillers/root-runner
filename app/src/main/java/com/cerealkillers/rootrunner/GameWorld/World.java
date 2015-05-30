@@ -1,5 +1,6 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
+import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.scene.GameScene;
 
 /**
@@ -9,14 +10,14 @@ import com.cerealkillers.rootrunner.scene.GameScene;
  */
 public class World {
 
+    private final SceneManager mSceneManager;
     private Map mCurrentMap;
     private MapLoader mMapLoader;
-    private GameScene mGameScene;
     private boolean initialized;
 
-    public World(MapLoader mapLoader, GameScene scene){
+    public World(MapLoader mapLoader, SceneManager sceneManager){
         mMapLoader = mapLoader;
-        mGameScene = scene;
+        mSceneManager = sceneManager;
     }
 
     /**
@@ -31,8 +32,12 @@ public class World {
             initialized = true;
         }
 
+        /*
+            TODO: in the future, this should load up the last saved level that the player
+            was at. Right now, we will always start the game from the beginning.
+         */
         String initialMap = "map.tmx";
-        mCurrentMap = mMapLoader.load(initialMap, mGameScene);
+//        mCurrentMap = mMapLoader.load(initialMap, mGameScene);
 
         //call onMapLoaded on the game scene to finish scene setup
     }
