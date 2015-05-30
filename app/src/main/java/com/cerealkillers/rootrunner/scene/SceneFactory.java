@@ -26,13 +26,13 @@ public class SceneFactory {
                 scene = new GameScene();
                 break;
             case LOAD:
-                scene = new LoadingScene();
+//                scene = new LoadingScene();
                 break;
             case MENU:
-                scene = new MainMenuScene();
+//                scene = new MainMenuScene();
                 break;
             case SPLASH:
-                scene = new SplashScene();
+//                scene = new SplashScene();
                 break;
         }
 
