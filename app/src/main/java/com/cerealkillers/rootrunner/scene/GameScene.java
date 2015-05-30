@@ -37,8 +37,6 @@ public class GameScene extends BaseScene {
     private PlayerDirection playerDirection;
     private Player player;
     private DigitalOnScreenControl digitalOnScreenControl;
-    private float layerHeight;
-    private float layerWidth;
 
     @Override
     public void createScene() {
@@ -47,11 +45,6 @@ public class GameScene extends BaseScene {
         loadMap();
         createHUD();
         onMapLoad();
-    }
-
-    @Override
-    public SceneType getSceneType() {
-        return SceneType.GAME;
     }
 
     @Override
@@ -64,6 +57,16 @@ public class GameScene extends BaseScene {
         this.dispose();
 
         //todo remove all game scene objects
+    }
+
+    @Override
+    public void loadResources() {
+        resourceManager.loadGameResources();
+    }
+
+    @Override
+    public void unloadResources() {
+        resourceManager.unloadGameTextures();
     }
 
     /* init HUD */
@@ -187,14 +190,6 @@ public class GameScene extends BaseScene {
     private void subtractFromHealth(int i) {
         health -= i;
         healthText.setText("Health: " + health);
-    }
-
-    /* Getters and Setters */
-    public void setLayerHeight(float layerHeight) {
-        this.layerHeight = (layerHeight >= 0)?layerHeight:DEFAULT;
-    }
-    public void setLayerWidth(float layerWidth) {
-        this.layerWidth = (layerWidth >= 0)?layerWidth:DEFAULT;
     }
 
 }

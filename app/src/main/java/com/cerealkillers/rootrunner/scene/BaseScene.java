@@ -19,6 +19,8 @@ public abstract class BaseScene extends Scene {
     protected VertexBufferObjectManager vertexBufferObjectManager;
     protected BoundCamera boundCamera;
     protected final int DEFAULT = 100;
+    protected float layerHeight;
+    protected float layerWidth;
 
     /* constructor */
     protected BaseScene() {
@@ -35,4 +37,12 @@ public abstract class BaseScene extends Scene {
 
     public abstract void unloadResources();
 
+    /* Getters and Setters */
+    public void setLayerHeight(float layerHeight) {
+        this.layerHeight = (layerHeight >= 0)?layerHeight:DEFAULT;
+    }
+
+    public void setLayerWidth(float layerWidth) {
+        this.layerWidth = (layerWidth >= 0)?layerWidth:DEFAULT;
+    }
 }
