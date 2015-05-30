@@ -5,12 +5,11 @@ import android.content.Context;
 import com.cerealkillers.rootrunner.GameWorld.MapLoader;
 import com.cerealkillers.rootrunner.GameWorld.MapLoaderFactory;
 import com.cerealkillers.rootrunner.GameWorld.World;
-import com.cerealkillers.rootrunner.scene.GameScene;
+import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.SceneFactory;
 import com.cerealkillers.rootrunner.scene.SceneListener;
 
 import org.andengine.engine.Engine;
-import org.andengine.entity.scene.Scene;
 
 /**
  * Created by Benjamin Daschel on 5/25/15.
@@ -22,7 +21,7 @@ public class Game {
     private SceneManager mSceneManager;
     private ResourceManager mResourceManager;
     private World mWorld;
-    private SceneListener.SceneChangeListener<GameScene> mGameSceneSceneChangeListener;
+    private SceneListener.SceneChangeListener<BaseScene> mGameSceneSceneChangeListener;
 
     public Game(Context context, Engine engine){
         mMapLoader = MapLoaderFactory.getMapLoader(context, engine);
@@ -32,16 +31,16 @@ public class Game {
         createSceneManager();
     }
 
-    private class GameSceneListener implements SceneListener.SceneChangeListener<GameScene>{
+    private class GameSceneListener implements SceneListener.SceneChangeListener<BaseScene>{
 
         @Override
-        public void onSceneLoaded(GameScene scene) {
-            mWorld = new World(mMapLoader, scene);
-            mWorld.initialize();
+        public void onSceneLoaded(BaseScene scene) {
+//            mWorld = new World(mMapLoader, scene);
+//            mWorld.initialize();
         }
 
         @Override
-        public void onSceneUnloaded(GameScene scene) {
+        public void onSceneUnloaded(BaseScene scene) {
             // TODO save the game state in preparation for shutdown
         }
     }
@@ -53,8 +52,8 @@ public class Game {
 
     private void createSceneManager(){
         SceneFactory sceneFactory = new SceneFactory(mResourceManager);
-        mSceneManager = new SceneManager(mEngine, mResourceManager, sceneFactory);
-        mSceneManager.registerGameSceneChangeListener(mGameSceneSceneChangeListener);
+        mSceneManager = new SceneManager(mEngine, sceneFactory);
+        mSceneManager.registerSceneChangeListener(mGameSceneSceneChangeListener);
     }
 
     public void start() {
