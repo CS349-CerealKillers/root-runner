@@ -45,6 +45,10 @@ public class SceneManager {
         notifyGameSceneListeners(mCurrentScene, true);
     }
 
+    public BaseScene getCurrentScene(){
+        return mCurrentScene;
+    }
+
     private void notifyGameSceneListeners(BaseScene scene, boolean loaded){
         for(SceneListener.SceneChangeListener<BaseScene> listener: mSceneChangeListeners){
             if(loaded){
