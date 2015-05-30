@@ -10,7 +10,6 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import com.cerealkillers.rootrunner.ResourceManager;
-import com.cerealkillers.rootrunner.SceneManager.SceneType;
 import org.andengine.engine.camera.Camera;
 
 public abstract class BaseScene extends Scene {
@@ -26,16 +25,14 @@ public abstract class BaseScene extends Scene {
 //        this.resourceManager = ResourceManager.getInstance();
     }
 
-    public  void onBackKeyPressed(){
-        //todo: signal scene manager to change state based on scene. This might be a good place
-        //to apply the state pattern (to the scene manager that is)
-    }
 
     /* abstract methods */
     public abstract void createScene();
 
-    public abstract SceneType getSceneType();
-
     public abstract void disposeScene();
+
+    public abstract void loadResources();
+
+    public abstract void unloadResources();
 
 }
