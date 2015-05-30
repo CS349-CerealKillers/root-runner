@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
+import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.Scene;
 
@@ -15,13 +16,14 @@ import java.util.List;
  */
 public class Map {
 
-    private Scene mScene;
+    private BaseScene mScene;
     private ArrayList<MapObject> mMapObjects;
     private MapObjectCollisionDetector.CollisionDetectedListener mCollisionDetectedListener;
 
-    public Map(Scene scene){
+    public Map(BaseScene scene){
         mScene = scene;
         mCollisionDetectedListener = new MapCollisionDetectedListener();
+        mMapObjects = new ArrayList<>();
     }
 
     /**
