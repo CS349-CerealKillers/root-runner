@@ -1,6 +1,7 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
 import com.cerealkillers.rootrunner.SceneManager;
+import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.GameScene;
 
 /**
@@ -37,7 +38,8 @@ public class World {
             was at. Right now, we will always start the game from the beginning.
          */
         String initialMap = "map.tmx";
-//        mCurrentMap = mMapLoader.load(initialMap, mGameScene);
+        BaseScene gameScene = mSceneManager.getCurrentScene();
+        mCurrentMap = mMapLoader.load(initialMap, gameScene);
 
         //call onMapLoaded on the game scene to finish scene setup
     }
