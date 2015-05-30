@@ -40,8 +40,6 @@ public class GameScene extends BaseScene {
 
     @Override
     public void createScene() {
-        //use simple background placeholder
-        //createBackground();
         loadMap();
         createHUD();
         onMapLoad();
