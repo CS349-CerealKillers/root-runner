@@ -5,7 +5,6 @@ import android.content.Context;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameWorld.MapLoader;
 import com.cerealkillers.rootrunner.GameWorld.MapLoaderFactory;
-import com.cerealkillers.rootrunner.GameWorld.PlayerHolder;
 import com.cerealkillers.rootrunner.GameWorld.World;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.SceneFactory;
