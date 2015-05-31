@@ -7,8 +7,10 @@ package com.cerealkillers.rootrunner.scene;
 
 import org.andengine.engine.camera.BoundCamera;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.ResourceManager;
 import org.andengine.engine.camera.Camera;
 
@@ -44,5 +46,11 @@ public abstract class BaseScene extends Scene {
 
     public void setLayerWidth(float layerWidth) {
         this.layerWidth = (layerWidth >= 0)?layerWidth:DEFAULT;
+    }
+
+    public void setCameraChaseObject(Sprite sprite){
+        if (sprite != null){
+            boundCamera.setChaseEntity(sprite);
+        }
     }
 }
