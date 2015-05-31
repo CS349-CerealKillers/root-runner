@@ -1,6 +1,7 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
+import com.cerealkillers.rootrunner.GameObjects.MapObjectFactory;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.GameScene;
@@ -23,22 +24,17 @@ import java.util.ArrayList;
  */
 public class MapLoader {
 
-    private static final String MAP_PORTALS = "portals";
-    private static final String MAP_ITEMS = "items";
-    private static final String MAP_CHARACTERS = "characters";
+    private final MapObjectFactory mMapObjectFactory;
 
     private VertexBufferObjectManager mVertexBuffer;
     private TMXLoader mTmxLoader;
 
     private static final String TMX_GID  = "gid";
 
-    public MapLoader(TMXLoader loader){
-        mTmxLoader = loader;
-    }
-
     public MapLoader(TMXLoader loader, VertexBufferObjectManager bufferObjectManager) {
         mTmxLoader = loader;
         mVertexBuffer = bufferObjectManager;
+        mMapObjectFactory = new MapObjectFactory();
     }
 
     public Map load(String mapName, BaseScene scene){
@@ -77,8 +73,8 @@ public class MapLoader {
                 ITextureRegion texture = tmxTiledMap.getTextureRegionFromGlobalTileID(gid);
                 Sprite sprite = new Sprite(object.getX(), object.getY(), texture, mVertexBuffer);
 
-                MapObject mapObject = new MapObject(object.getId(), sprite);
-
+                // the group name determines the type of the object
+                MapObject mapObject = mMapObjectFactory.createMapObject(object, sprite, group.getName());
                 gameMap.addMapObject(mapObject);
             }
         }

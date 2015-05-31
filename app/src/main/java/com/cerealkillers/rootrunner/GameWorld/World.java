@@ -2,7 +2,6 @@ package com.cerealkillers.rootrunner.GameWorld;
 
 import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.scene.BaseScene;
-import com.cerealkillers.rootrunner.scene.GameScene;
 
 /**
  * Created by Benjamin Daschel on 5/25/15.
