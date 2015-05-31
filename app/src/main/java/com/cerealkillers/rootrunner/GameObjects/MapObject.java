@@ -36,7 +36,7 @@ public class MapObject extends GameObject {
     }
 
     /**
-     * Determin if this object is colliding with another MapObject.
+     * Determine if this object is colliding with another MapObject.
      * @param other Map object to check for collision with
      * @return true if this object is colliding with other
      */
