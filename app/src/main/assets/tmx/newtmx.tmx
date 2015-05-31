@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="75">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="76">
  <tileset firstgid="1" name="root-runner-bg" tilewidth="32" tileheight="32">
   <image source="gfx/circuit-board.png" width="800" height="400"/>
  </tileset>
@@ -20,5 +20,10 @@
   <object id="67" gid="316" x="393" y="325"/>
   <object id="68" gid="304" x="220" y="504"/>
   <object id="74" gid="302" x="6" y="69"/>
+  <object id="75" name="playerspawn" gid="326" x="102" y="345">
+   <properties>
+    <property name="playerspawn" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
