@@ -28,7 +28,7 @@ public abstract class GameObject
     public void addTag(Tag tag){
         if(tag != null){
             initTags();
-            if(mTags.contains(tag)){
+            if(! mTags.contains(tag)){
                 mTags.add(tag);
             }
         }
