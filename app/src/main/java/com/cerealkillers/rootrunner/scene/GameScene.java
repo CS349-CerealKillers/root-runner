@@ -87,15 +87,15 @@ public class GameScene extends BaseScene {
 //        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
 
         //initPlayer
-        float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
-        float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
-        player = new Player(centerX, centerY, resourceManager.getPlayerTiledTextureRegion(), vertexBufferObjectManager);
-        attachChild(player);
-
-        //load DOSC
-        PhysicsHandler physicsHandler = new PhysicsHandler(player);
-        player.registerUpdateHandler(physicsHandler);
-        initDOSC(player, physicsHandler);
+//        float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
+//        float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
+//        player = new Player(centerX, centerY, resourceManager.getPlayerTiledTextureRegion(), vertexBufferObjectManager);
+//        attachChild(player);
+//
+//        //load DOSC
+//        PhysicsHandler physicsHandler = new PhysicsHandler(player);
+//        player.registerUpdateHandler(physicsHandler);
+//        initDOSC(player, physicsHandler);
 
     }
 
