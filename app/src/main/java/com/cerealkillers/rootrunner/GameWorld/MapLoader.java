@@ -1,6 +1,9 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
+import com.cerealkillers.rootrunner.GameObjects.MapObject;
+import com.cerealkillers.rootrunner.GameObjects.MapObjectFactory;
 import com.cerealkillers.rootrunner.GameWorld.Map;
+import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.GameScene;
 
 import org.andengine.entity.scene.Scene;
@@ -21,35 +24,30 @@ import java.util.ArrayList;
  */
 public class MapLoader {
 
-    private static final String MAP_PORTALS = "portals";
-    private static final String MAP_ITEMS = "items";
-    private static final String MAP_CHARACTERS = "characters";
+    private final MapObjectFactory mMapObjectFactory;
 
     private VertexBufferObjectManager mVertexBuffer;
     private TMXLoader mTmxLoader;
 
     private static final String TMX_GID  = "gid";
 
-    public MapLoader(TMXLoader loader){
-        mTmxLoader = loader;
-    }
-
     public MapLoader(TMXLoader loader, VertexBufferObjectManager bufferObjectManager) {
         mTmxLoader = loader;
         mVertexBuffer = bufferObjectManager;
+        mMapObjectFactory = new MapObjectFactory();
     }
 
-    public Map load(String mapName, GameScene scene){
+    public Map load(String mapName, BaseScene scene){
 
-        TMXTiledMap map = null;
+        TMXTiledMap tmxTiledMap = null;
         try {
-             map = mTmxLoader.loadFromAsset("tmx/" + mapName);
+             tmxTiledMap = mTmxLoader.loadFromAsset("tmx/" + mapName);
         } catch (TMXLoadException e) {
             e.printStackTrace();
             return null;
         }
 
-        ArrayList<TMXLayer> layers = map.getTMXLayers();
+        ArrayList<TMXLayer> layers = tmxTiledMap.getTMXLayers();
 
         if(layers.size() > 0){
             TMXLayer baseLayer = layers.get(0);
@@ -58,39 +56,32 @@ public class MapLoader {
             scene.setLayerWidth(baseLayer.getWidth());
         }
 
+        Map gameMap = new Map(scene);
 
-        ArrayList<TMXObjectGroup> objectGroups = map.getTMXObjectGroups();
-
-
-        MapBuilder mapBuilder = new MapBuilder();
+        ArrayList<TMXObjectGroup> objectGroups = tmxTiledMap.getTMXObjectGroups();
 
         /*
             This section creates sprites for each of the "entities" on the map.
             //TODO: also create physics bounds for detecting collisions btwn the player and objects.
          */
         for(TMXObjectGroup group: objectGroups){
-            if(group.getName().equals(MAP_PORTALS)){
-                mapBuilder.addPortals(group);
-            }else if (group.getName().equals(MAP_ITEMS)){
-                mapBuilder.addItems(group);
-            }else if(group.getName().equals(MAP_CHARACTERS)){
-                mapBuilder.addCharacters(group);
-            }
 
             //some group level logic here
             for (TMXObject object: group.getTMXObjects()){
                 //load sprites for individual entities
-
                 int gid = object.getGid();
-                ITextureRegion texture = map.getTextureRegionFromGlobalTileID(gid);
+                ITextureRegion texture = tmxTiledMap.getTextureRegionFromGlobalTileID(gid);
                 Sprite sprite = new Sprite(object.getX(), object.getY(), texture, mVertexBuffer);
-                scene.attachChild(sprite);
+
+                // the group name determines the type of the object
+                MapObject mapObject = mMapObjectFactory.createMapObject(object, sprite, group.getName());
+                gameMap.addMapObject(mapObject);
             }
         }
 
         scene.createScene();
 
-        return null;
+        return gameMap;
     }
 
 }

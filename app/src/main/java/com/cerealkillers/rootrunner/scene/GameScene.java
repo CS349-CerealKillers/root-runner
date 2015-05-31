@@ -37,21 +37,12 @@ public class GameScene extends BaseScene {
     private PlayerDirection playerDirection;
     private Player player;
     private DigitalOnScreenControl digitalOnScreenControl;
-    private float layerHeight;
-    private float layerWidth;
 
     @Override
     public void createScene() {
-        //use simple background placeholder
-        //createBackground();
         loadMap();
         createHUD();
         onMapLoad();
-    }
-
-    @Override
-    public SceneType getSceneType() {
-        return SceneType.GAME;
     }
 
     @Override
@@ -64,6 +55,16 @@ public class GameScene extends BaseScene {
         this.dispose();
 
         //todo remove all game scene objects
+    }
+
+    @Override
+    public void loadResources() {
+        resourceManager.loadGameResources();
+    }
+
+    @Override
+    public void unloadResources() {
+        resourceManager.unloadGameTextures();
     }
 
     /* init HUD */
@@ -86,15 +87,15 @@ public class GameScene extends BaseScene {
 //        ResourceManager.getInstance().boundCamera.setBoundsEnabled(true);
 
         //initPlayer
-        float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
-        float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
-        player = new Player(centerX, centerY, resourceManager.getPlayerTiledTextureRegion(), vertexBufferObjectManager);
-        attachChild(player);
-
-        //load DOSC
-        PhysicsHandler physicsHandler = new PhysicsHandler(player);
-        player.registerUpdateHandler(physicsHandler);
-        initDOSC(player, physicsHandler);
+//        float centerX = (boundCamera.getWidth() - resourceManager.getPlayerTextureWidth()) / 2;
+//        float centerY = (boundCamera.getHeight() - resourceManager.getPlayerTextureHeight()) / 2;
+//        player = new Player(centerX, centerY, resourceManager.getPlayerTiledTextureRegion(), vertexBufferObjectManager);
+//        attachChild(player);
+//
+//        //load DOSC
+//        PhysicsHandler physicsHandler = new PhysicsHandler(player);
+//        player.registerUpdateHandler(physicsHandler);
+//        initDOSC(player, physicsHandler);
 
     }
 
@@ -187,14 +188,6 @@ public class GameScene extends BaseScene {
     private void subtractFromHealth(int i) {
         health -= i;
         healthText.setText("Health: " + health);
-    }
-
-    /* Getters and Setters */
-    public void setLayerHeight(float layerHeight) {
-        this.layerHeight = (layerHeight >= 0)?layerHeight:DEFAULT;
-    }
-    public void setLayerWidth(float layerWidth) {
-        this.layerWidth = (layerWidth >= 0)?layerWidth:DEFAULT;
     }
 
 }

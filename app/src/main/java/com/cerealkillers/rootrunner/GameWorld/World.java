@@ -1,6 +1,11 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
-import com.cerealkillers.rootrunner.scene.GameScene;
+import com.cerealkillers.rootrunner.GameObjects.MapObject;
+import com.cerealkillers.rootrunner.GameObjects.Player;
+import com.cerealkillers.rootrunner.SceneManager;
+import com.cerealkillers.rootrunner.scene.BaseScene;
+
+import java.util.List;
 
 /**
  * Created by Benjamin Daschel on 5/25/15.
@@ -9,14 +14,15 @@ import com.cerealkillers.rootrunner.scene.GameScene;
  */
 public class World {
 
+    private final SceneManager mSceneManager;
     private Map mCurrentMap;
     private MapLoader mMapLoader;
-    private GameScene mGameScene;
     private boolean initialized;
+    private Player mPlayer;
 
-    public World(MapLoader mapLoader, GameScene scene){
+    public World(MapLoader mapLoader, SceneManager sceneManager){
         mMapLoader = mapLoader;
-        mGameScene = scene;
+        mSceneManager = sceneManager;
     }
 
     /**
@@ -31,9 +37,28 @@ public class World {
             initialized = true;
         }
 
-        String initialMap = "map.tmx";
-        mCurrentMap = mMapLoader.load(initialMap, mGameScene);
+        /*
+            TODO: in the future, this should load up the last saved level that the player
+            was at. Right now, we will always start the game from the beginning.
+         */
+        String initialMap = "newtmx.tmx";
+        BaseScene gameScene = mSceneManager.getCurrentScene();
+        mCurrentMap = mMapLoader.load(initialMap, gameScene);
 
-        //call onMapLoaded on the game scene to finish scene setup
+        spawnPlayer();
+    }
+
+    private void spawnPlayer(){
+        //replace the player spawn marker with the player's sprite
+
+        List<MapObject> potentialSpawns = mCurrentMap.findByTag("playerspawn");
+        if (potentialSpawns.size() < 0){
+            MapObject spawnPoint = potentialSpawns.get(0); //there should only ever be one
+            mCurrentMap.replaceMapObject(spawnPoint, mPlayer);
+        }
+    }
+
+    public void setPlayer(Player player) {
+        mPlayer = player;
     }
 }
