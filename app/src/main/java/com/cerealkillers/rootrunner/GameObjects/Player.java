@@ -10,6 +10,10 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Player extends MapObject {
 
+    public interface PlayerSpawnedListener{
+        public void onPlayerSpawned(Player player);
+    }
+
     public Player(int id, Sprite sprite) {
         super(id, sprite);
     }
@@ -18,6 +22,7 @@ public class Player extends MapObject {
     public void onAttachToMap(Map attached) {
         super.onAttachToMap(attached);
         setCollisionDetector(new MapObjectCollisionDetector(this, attached));
+        attached.onPlayerSpawned(this);
     }
 
 }
