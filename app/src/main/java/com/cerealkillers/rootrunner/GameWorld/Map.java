@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
+import com.cerealkillers.rootrunner.GameObjects.Tag;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.Scene;
@@ -74,6 +75,24 @@ public class Map {
             //TODO: keep in mind this happens on the rendering thread in all likelyhood
             Log.d("MAP", "detected player collision");
         }
+    }
+
+    /**
+     * Find all map objects matching a tag key.
+     * @param key match object tags against
+     * @return list of all map objects with tags matching key
+     */
+    public List<MapObject> findByTag(String key){
+        List<MapObject> results = new ArrayList<>();
+
+        for(MapObject mapObject: mMapObjects){
+            Tag tag = mapObject.getTag(key);
+            if(tag != null){
+                results.add(mapObject);
+            }
+        }
+
+        return results;
     }
 
 }
