@@ -8,6 +8,7 @@ import com.cerealkillers.rootrunner.GameObjects.Tag;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.sprite.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,11 @@ public class Map {
         }
     }
 
+    /**
+     * Remove an object from the map.
+     * The objects sprite is also removed from the scene.
+     * @param m map object to be removed
+     */
     public void removeMapObject(MapObject m){
         if(m != null){
             mMapObjects.remove(m);
@@ -93,6 +99,28 @@ public class Map {
         }
 
         return results;
+    }
+
+    /**
+     * Replace the map object in question with another map object.
+     * The position of the original object's sprite will be used to determine where the
+     * new object will be placed on the map.
+     * @param replace object to be replaced
+     * @param replaceWith replaces original map object
+     */
+    public void replaceMapObject(MapObject replace, MapObject replaceWith){
+        if(replace != null && replaceWith != null){
+            Sprite originalSprite = replace.getSprite();
+            Sprite replaceWithSprite = replaceWith.getSprite();
+
+            float x = originalSprite.getX();
+            float y = originalSprite.getY();
+            replaceWithSprite.setX(x);
+            replaceWithSprite.setY(y);
+
+            removeMapObject(replace);
+            addMapObject(replaceWith);
+        }
     }
 
 }
