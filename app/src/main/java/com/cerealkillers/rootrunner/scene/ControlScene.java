@@ -39,6 +39,7 @@ public class ControlScene extends SceneDecorator<BaseScene>{
         BoundCamera boundCamera = getScene().boundCamera;
         ResourceManager resourceManager = getScene().resourceManager;
         VertexBufferObjectManager vertexBufferObjectManager = getScene().vertexBufferObjectManager;
+
         digitalOnScreenControl = new DigitalOnScreenControl(boundCamera.getWidth() - (resourceManager.onScreenControlBaseRegion.getWidth() + 40),
                 boundCamera.getHeight() - resourceManager.onScreenControlBaseRegion.getHeight(),
                 boundCamera, resourceManager.onScreenControlBaseRegion, resourceManager.onScreenControlKnobRegion, 0.1f,

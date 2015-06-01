@@ -2,6 +2,7 @@ package com.cerealkillers.rootrunner.GameObjects;
 
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
+import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.entity.sprite.AnimatedSprite;
 
 /**
@@ -9,6 +10,7 @@ import org.andengine.entity.sprite.AnimatedSprite;
  */
 public class Player extends MapObject<AnimatedSprite> {
 
+    private final PhysicsHandler mPhysicsHandler;
     private IControl mPlayerControls;
 
     public interface PlayerSpawnedListener{
@@ -18,6 +20,8 @@ public class Player extends MapObject<AnimatedSprite> {
     public Player(int id, AnimatedSprite sprite) {
         super(id, sprite);
         mPlayerControls = new PlayerControl();
+        mPhysicsHandler = new PhysicsHandler(sprite);
+        sprite.registerUpdateHandler(mPhysicsHandler);
     }
 
     @Override
@@ -51,7 +55,10 @@ public class Player extends MapObject<AnimatedSprite> {
                 case LEFT:
                     playerSprite.animate(new long[]{100,100,100},9,11,true);
                     break;
+                default:
+                    playerSprite.stopAnimation();
             }
+            mPhysicsHandler.setVelocity(direction.x*100, direction.y*100);
         }
     }
 
