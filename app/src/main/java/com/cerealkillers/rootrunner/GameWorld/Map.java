@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
+import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameObjects.Tag;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Benjamin Daschel on 5/6/15.
  */
-public class Map {
+public class Map implements Player.PlayerSpawnedListener{
 
     private BaseScene mScene;
     private ArrayList<MapObject> mMapObjects;
@@ -70,6 +71,11 @@ public class Map {
             }
         }
         return touching;
+    }
+
+    @Override
+    public void onPlayerSpawned(Player player) {
+        this.mScene.setCameraChaseObject(player.getSprite());
     }
 
     private class MapCollisionDetectedListener implements MapObjectCollisionDetector.CollisionDetectedListener{

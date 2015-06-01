@@ -8,12 +8,12 @@ import org.andengine.entity.sprite.Sprite;
 /**
  * Created by Benjamin Daschel on 5/29/15.
  */
-public class MapObject extends GameObject {
+public class MapObject<S extends Sprite> extends GameObject<S> {
 
     private Map mAttachedMap;
     private MapObjectCollisionDetector mCollisionDetector;
 
-    public MapObject(int id, Sprite sprite) {
+    public MapObject(int id, S sprite) {
         super(id, sprite);
     }
 

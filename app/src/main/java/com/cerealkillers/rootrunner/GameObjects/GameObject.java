@@ -9,26 +9,26 @@ import java.util.List;
 /**
  * Created by Tyler Herrin on 5/14/2015.
  */
-public abstract class GameObject
+public abstract class GameObject <S extends Sprite>
 {
     private int mId;
-    private Sprite mSprite;
+    private S mSprite;
     private List<Tag> mTags;
 
-    public GameObject(int id, Sprite sprite)
+    public GameObject(int id, S sprite)
     {
         mId = id;
         mSprite = sprite;
     }
 
-    public Sprite getSprite(){
+    public S getSprite(){
         return mSprite;
     }
 
     public void addTag(Tag tag){
         if(tag != null){
             initTags();
-            if(mTags.contains(tag)){
+            if(! mTags.contains(tag)){
                 mTags.add(tag);
             }
         }

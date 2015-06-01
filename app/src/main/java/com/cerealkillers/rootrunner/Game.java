@@ -11,6 +11,7 @@ import com.cerealkillers.rootrunner.scene.SceneFactory;
 import com.cerealkillers.rootrunner.scene.SceneListener;
 
 import org.andengine.engine.Engine;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 
 /**
@@ -40,7 +41,7 @@ public class Game {
      * For now, who cares.
      */
     private void createPlayer() {
-        Sprite playerSprite = new Sprite(0, 0, mResourceManager.getPlayerTiledTextureRegion(), mEngine.getVertexBufferObjectManager());
+        AnimatedSprite playerSprite = new AnimatedSprite(0, 0, mResourceManager.getPlayerTiledTextureRegion(), mEngine.getVertexBufferObjectManager());
         mPlayer = new Player(0, playerSprite);
     }
 

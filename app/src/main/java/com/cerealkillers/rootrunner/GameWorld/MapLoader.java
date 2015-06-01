@@ -37,6 +37,13 @@ public class MapLoader {
         mMapObjectFactory = new MapObjectFactory();
     }
 
+    /**
+     * Inflate a TMX map file into a map.
+     * Inflated map includes all objects defined in the TMX file.
+     * @param mapName file name of the TMX file to load without the extension
+     * @param scene backgrounds and sprites will be added to this scene
+     * @return a ready to use map with an attached scene
+     */
     public Map load(String mapName, BaseScene scene){
 
         TMXTiledMap tmxTiledMap = null;

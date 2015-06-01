@@ -4,6 +4,7 @@ import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.scene.BaseScene;
+import com.cerealkillers.rootrunner.scene.ControlScene;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class World {
     private MapLoader mMapLoader;
     private boolean initialized;
     private Player mPlayer;
+    private ControlScene mControlScene;
 
     public World(MapLoader mapLoader, SceneManager sceneManager){
         mMapLoader = mapLoader;
@@ -43,16 +45,22 @@ public class World {
          */
         String initialMap = "newtmx.tmx";
         BaseScene gameScene = mSceneManager.getCurrentScene();
+        mControlScene = new ControlScene(gameScene);
         mCurrentMap = mMapLoader.load(initialMap, gameScene);
 
         spawnPlayer();
+        createControls();
+    }
+
+    private void createControls() {
+        mControlScene.bindControls(mPlayer.getPlayerControls());
     }
 
     private void spawnPlayer(){
         //replace the player spawn marker with the player's sprite
 
         List<MapObject> potentialSpawns = mCurrentMap.findByTag("playerspawn");
-        if (potentialSpawns.size() < 0){
+        if (potentialSpawns.size() > 0){
             MapObject spawnPoint = potentialSpawns.get(0); //there should only ever be one
             mCurrentMap.replaceMapObject(spawnPoint, mPlayer);
         }
