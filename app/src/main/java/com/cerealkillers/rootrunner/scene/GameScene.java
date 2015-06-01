@@ -78,39 +78,7 @@ public class GameScene extends BaseScene {
         setBackground(new Background(Color.BLUE));
     }
 
-    /* initialize the digital on screen controls */
-    public void initDOSC() {
-        digitalOnScreenControl = new DigitalOnScreenControl(boundCamera.getWidth() - (resourceManager.onScreenControlBaseRegion.getWidth() + 40),
-                boundCamera.getHeight() - resourceManager.onScreenControlBaseRegion.getHeight(),
-                boundCamera, resourceManager.onScreenControlBaseRegion, resourceManager.onScreenControlKnobRegion, 0.1f,
-                vertexBufferObjectManager, new BaseOnScreenControl.IOnScreenControlListener() {
-            @Override
-            public void onControlChange(BaseOnScreenControl baseOnScreenControl, float v, float v2) {
-                if(v2 == 1) {
-                    playerDirection = PlayerDirection.UP;
-                } else if(v2 == -1) {
-                    playerDirection = PlayerDirection.DOWN;
-                } else if(v == -1) {
-                    playerDirection = PlayerDirection.LEFT;
-                } else if(v == 1) {
-                    playerDirection = PlayerDirection.RIGHT;
-                } else {
-                    playerDirection = PlayerDirection.NONE;
-                }
 
-                //TODO: call the onMove method of the control interface, to be implemented
-            }
-        });
-
-        this.digitalOnScreenControl.getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
-        this.digitalOnScreenControl.getControlBase().setAlpha(0.5f);
-        this.digitalOnScreenControl.getControlBase().setScaleCenter(0, 128);
-        this.digitalOnScreenControl.getControlBase().setScale(1.25f);
-        this.digitalOnScreenControl.getControlKnob().setScale(1.25f);
-        this.digitalOnScreenControl.refreshControlKnobPosition();
-
-        setChildScene(digitalOnScreenControl);
-    }
 
     /* Bound Camera to TMX Layer */
     public void onMapLoad() {

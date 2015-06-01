@@ -27,6 +27,11 @@ public class Player extends MapObject<AnimatedSprite> {
         attached.onPlayerSpawned(this);
     }
 
+    public IControl getPlayerControls(){
+        return mPlayerControls;
+    }
+
+
     private class PlayerControl implements IControl{
 
         @Override
