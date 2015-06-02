@@ -5,6 +5,7 @@ import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.ControlScene;
+import com.cerealkillers.rootrunner.scene.PlayerHud;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class World {
     private boolean initialized;
     private Player mPlayer;
     private ControlScene mControlScene;
+    private PlayerHud mPlayerHud;
 
     public World(MapLoader mapLoader, SceneManager sceneManager){
         mMapLoader = mapLoader;
