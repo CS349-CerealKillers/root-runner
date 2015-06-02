@@ -1,20 +1,19 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
-import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.SceneManager;
+import com.cerealkillers.rootrunner.command.CommandExecutor;
+import com.cerealkillers.rootrunner.command.GameCommand;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.ControlScene;
 import com.cerealkillers.rootrunner.scene.PlayerHud;
-
-import java.util.List;
 
 /**
  * Created by Benjamin Daschel on 5/25/15.
  * This class is at the root of all the in game models.
  * The world contains maps, which contain items and characters.
  */
-public class World {
+public class World implements CommandExecutor<World>{
 
     private final SceneManager mSceneManager;
     private Map mCurrentMap;
@@ -46,6 +45,7 @@ public class World {
             was at. Right now, we will always start the game from the beginning.
          */
         initializeMap("newtmx.tmx");
+        CommandFacade.registerCommandExecutor(this);
     }
 
     private void initializeMap(String mapName){
@@ -65,5 +65,15 @@ public class World {
 
     public void setPlayer(Player player) {
         mPlayer = player;
+    }
+
+    public PlayerHud getPlayerHud(){
+        return mPlayerHud;
+    }
+
+    public void runCommand(GameCommand<World> command){
+        if(command != null){
+            command.run(this);
+        }
     }
 }
