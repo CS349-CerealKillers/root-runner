@@ -1,10 +1,14 @@
 package com.cerealkillers.rootrunner.scene;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.cerealkillers.rootrunner.Game;
 
 import org.andengine.engine.camera.hud.HUD;
+import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.shape.Shape;
@@ -21,6 +25,7 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
     private Rectangle terminal;
     private Font terminalFont;
     private Text messageText;
+    private TimerHandler hudTimeout;
 
     public PlayerHud(BaseScene scene) {
         super(scene);
@@ -47,7 +52,9 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
                 messageText.detachSelf();
             }
             messageText = new Text(terminalText.getWidth() + 8, 8, terminalFont, message, getScene().vertexBufferObjectManager);
+            showHud();
             terminal.attachChild(messageText);
+            hideHudAfterTime(5);
         }
     }
 
@@ -58,6 +65,30 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
     public void hideHud(){
         terminal.setVisible(false);
     }
+
+    private void hideHudAfterTime(float time){
+        //Cancel the previous timeout if there is one
+        Log.d("PlayerHud", String.format("Hiding hud after %f seconds on Thread %s", time, Thread.currentThread().getName()));
+        if(hudTimeout != null){
+            getScene().unregisterUpdateHandler(hudTimeout);
+        }
+        hudTimeout = new TimerHandler(time, new ITimerCallback() {
+            @Override
+            public void onTimePassed(TimerHandler timerHandler) {
+                onHudTimeout();
+            }
+        });
+        getScene().registerUpdateHandler(hudTimeout);
+    }
+
+    private void onHudTimeout() {
+        Log.d("PlayerHud", String.format("Hiding Hud now on thread %s", Thread.currentThread().getName()));
+        hideHud();
+        getScene().unregisterUpdateHandler(hudTimeout);
+        hudTimeout = null;
+    }
+
+
 
 
 }
