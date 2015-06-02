@@ -143,4 +143,14 @@ public class Map implements Player.PlayerSpawnedListener{
         }
     }
 
+    public void spawnPlayer(Player player){
+        //replace the player spawn marker with the player's sprite
+
+        List<MapObject> potentialSpawns = findByTag("playerspawn");
+        if (potentialSpawns.size() > 0){
+            MapObject spawnPoint = potentialSpawns.get(0);
+            replaceMapObject(spawnPoint, player);
+        }
+    }
+
 }

@@ -56,15 +56,6 @@ public class World {
         mControlScene.bindControls(mPlayer.getPlayerControls());
     }
 
-    private void spawnPlayer(){
-        //replace the player spawn marker with the player's sprite
-
-        List<MapObject> potentialSpawns = mCurrentMap.findByTag("playerspawn");
-        if (potentialSpawns.size() > 0){
-            MapObject spawnPoint = potentialSpawns.get(0); //there should only ever be one
-            mCurrentMap.replaceMapObject(spawnPoint, mPlayer);
-        }
-    }
 
     public void setPlayer(Player player) {
         mPlayer = player;
