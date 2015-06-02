@@ -8,6 +8,7 @@ import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameObjects.Tag;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
+import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
 
@@ -133,6 +134,12 @@ public class Map implements Player.PlayerSpawnedListener{
 
             removeMapObject(replace);
             addMapObject(replaceWith);
+        }
+    }
+
+    public void registerTouchArea(ITouchArea area){
+        if(area != null){
+            mScene.registerTouchArea(area);
         }
     }
 
