@@ -76,6 +76,11 @@ public class Map implements Player.PlayerSpawnedListener{
     @Override
     public void onPlayerSpawned(Player player) {
         this.mScene.setCameraChaseObject(player.getSprite());
+
+        MapObjectCollisionDetector detector = player.getCollisionDetector();
+        if(detector != null) {
+            detector.registerCollisionListener(mCollisionDetectedListener);
+        }
     }
 
     private class MapCollisionDetectedListener implements MapObjectCollisionDetector.CollisionDetectedListener{
