@@ -43,10 +43,14 @@ public class World {
             TODO: in the future, this should load up the last saved level that the player
             was at. Right now, we will always start the game from the beginning.
          */
-        String initialMap = "newtmx.tmx";
+        initializeMap("newtmx.tmx");
+    }
+
+    private void initializeMap(String mapName){
         BaseScene gameScene = mSceneManager.getCurrentScene();
         mControlScene = new ControlScene(gameScene);
-        mCurrentMap = mMapLoader.load(initialMap, gameScene);
+        mPlayerHud = new PlayerHud(gameScene);
+        mCurrentMap = mMapLoader.load(mapName, gameScene);
 
         mCurrentMap.spawnPlayer(mPlayer);
         createControls();
