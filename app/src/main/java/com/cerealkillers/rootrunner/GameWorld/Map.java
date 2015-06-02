@@ -88,10 +88,11 @@ public class Map implements Player.PlayerSpawnedListener{
 
         @Override
         public void onCollisionDetected(MapObject subject, List<MapObject> touching) {
-            //TODO: figure out what to do based on the touched objects
-            //TODO: should be generic, no switch, typecasting or other horsefuckery
-            //TODO: keep in mind this happens on the rendering thread in all likelyhood
             Log.d("MAP", "detected player collision");
+
+            for (MapObject mapObject: touching){
+                mapObject.onCollide(subject);
+            }
         }
     }
 

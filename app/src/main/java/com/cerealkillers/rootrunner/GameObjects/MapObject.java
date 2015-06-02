@@ -57,6 +57,12 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
             mCollisionDetector = collisionDetector;
             getSprite().registerUpdateHandler(collisionDetector);
         }
+    }
+
+    public void onCollide(MapObject collidedWith){
+
+        mAttachedMap.removeMapObject(this);
+
 
     }
 }
