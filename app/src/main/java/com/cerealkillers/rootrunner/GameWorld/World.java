@@ -48,7 +48,7 @@ public class World {
         mControlScene = new ControlScene(gameScene);
         mCurrentMap = mMapLoader.load(initialMap, gameScene);
 
-        spawnPlayer();
+        mCurrentMap.spawnPlayer(mPlayer);
         createControls();
     }
 
