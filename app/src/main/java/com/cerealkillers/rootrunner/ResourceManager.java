@@ -56,6 +56,7 @@ public class ResourceManager {
         mAssetManager = assetManager;
         mFontManager = fontManager;
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        FontFactory.setAssetBasePath("font/");
     }
 
     /* Logic */
@@ -139,7 +140,7 @@ public class ResourceManager {
     }
 
     private void loadMenuFonts() {
-        FontFactory.setAssetBasePath("font/");
+
         final ITexture mainFontTexture = new BitmapTextureAtlas(mTextureManager, 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         menuFont = FontFactory.createStrokeFromAsset(mFontManager, mainFontTexture, mAssetManager, "LCD.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
         getMenuFont().load();
@@ -160,6 +161,17 @@ public class ResourceManager {
             loadMenuFonts();
         }
         return menuFont;
+    }
+
+    public Font createFont(String fontName, int size, int color){
+        try {
+            Font font = FontFactory.createFromAsset(mFontManager, mTextureManager, 256, 256, mAssetManager, fontName, size, true, color);
+            font.load();
+            return font;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public TiledTextureRegion getPlayerTiledTextureRegion() {
