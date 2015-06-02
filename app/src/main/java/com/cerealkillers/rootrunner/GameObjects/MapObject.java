@@ -24,7 +24,7 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
     }
 
     private void createTouchArea(S sprite) {
-        mTouchArea = new MapObjectTouchArea(sprite);
+        mTouchArea = new MapObjectTouchArea();
     }
 
     /**
@@ -71,37 +71,41 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
     }
 
     public void onCollide(MapObject collidedWith){
-        mAttachedMap.removeMapObject(this);
-        CommandFacade.displayMessage("Picked up some kind of a file.");
+//        mAttachedMap.removeMapObject(this);
+//        Tag descriptionTag = getTag("description");
+//        String description = null;
+//        if(descriptionTag == null || descriptionTag.value == null){
+//            description = "No description available";
+//        }else{
+//            description = descriptionTag.value;
+//        }
+//        CommandFacade.displayMessage(String.format("%s : %s", getName(), description));
     }
 
-    private static class MapObjectTouchArea implements ITouchArea{
-
-        private Sprite mSprite;
-
-        public MapObjectTouchArea(Sprite sprite) {
-            mSprite = sprite;
-        }
+    private class MapObjectTouchArea implements ITouchArea{
 
         @Override
         public boolean contains(float pX, float pY) {
-            return mSprite.contains(pX, pY);
+            return getSprite().contains(pX, pY);
         }
 
         @Override
         public float[] convertSceneToLocalCoordinates(float pX, float pY) {
-            return mSprite.convertSceneToLocalCoordinates(pX, pY);
+            return getSprite().convertSceneToLocalCoordinates(pX, pY);
         }
 
         @Override
         public float[] convertLocalToSceneCoordinates(float pX, float pY) {
-            return mSprite.convertLocalToSceneCoordinates(pX, pY);
+            return getSprite().convertLocalToSceneCoordinates(pX, pY);
         }
 
         @Override
         public boolean onAreaTouched(TouchEvent touchEvent, float v, float v1) {
             if(touchEvent.isActionUp()){
-                Log.d("MapObject", "thing was touched");
+                Tag description = getTag("description");
+                if(description != null && description.value != null){
+                    CommandFacade.displayMessage(description.value);
+                }
             }
             return false;
         }
