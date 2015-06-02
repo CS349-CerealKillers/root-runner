@@ -39,7 +39,7 @@ public class GameScene extends BaseScene {
 
     @Override
     public void createScene() {
-        createHUD();
+//        createHUD();
         onMapLoad();
     }
 
