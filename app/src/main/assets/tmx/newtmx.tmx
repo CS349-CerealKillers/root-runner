@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="76">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="80">
  <tileset firstgid="1" name="root-runner-bg" tilewidth="32" tileheight="32">
   <image source="gfx/circuit-board.png" width="800" height="400"/>
  </tileset>
@@ -12,15 +12,47 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="44" gid="301" x="103" y="222"/>
-  <object id="45" gid="303" x="461" y="79"/>
-  <object id="46" gid="315" x="441" y="542"/>
-  <object id="47" gid="317" x="120" y="536"/>
-  <object id="66" gid="305" x="46" y="638"/>
-  <object id="67" gid="316" x="393" y="325"/>
-  <object id="68" gid="304" x="220" y="504"/>
-  <object id="74" gid="302" x="6" y="69"/>
-  <object id="75" name="playerspawn" gid="326" x="102" y="345">
+  <object id="44" name="index.php" gid="301" x="103" y="222">
+   <properties>
+    <property name="description" value="I wonder if there are any exploitable bugs here."/>
+   </properties>
+  </object>
+  <object id="45" name="test.py" gid="303" x="461" y="79">
+   <properties>
+    <property name="description" value="What is this used for?"/>
+   </properties>
+  </object>
+  <object id="46" name="gcc" gid="315" x="441" y="542">
+   <properties>
+    <property name="description" value="Compile C code into executables"/>
+   </properties>
+  </object>
+  <object id="47" name="rm" gid="317" x="120" y="536">
+   <properties>
+    <property name="description" value="Delete files. Use with caution."/>
+   </properties>
+  </object>
+  <object id="66" name="readme.txt" gid="305" x="46" y="638">
+   <properties>
+    <property name="description" value="Your objective is to obtain root access while avoiding detection. "/>
+   </properties>
+  </object>
+  <object id="67" name="ls" gid="316" x="393" y="325">
+   <properties>
+    <property name="description" value="Use this to reveal files that may be hiding"/>
+   </properties>
+  </object>
+  <object id="68" name="main.c" gid="304" x="220" y="504">
+   <properties>
+    <property name="description" value="I wonder what kind of program this becomes..."/>
+   </properties>
+  </object>
+  <object id="74" name="Sort.java" gid="302" x="6" y="69">
+   <properties>
+    <property name="description" value="What the hell would I do with this?"/>
+   </properties>
+  </object>
+  <object id="75" name="playerspawn" gid="326" x="265" y="185">
    <properties>
     <property name="playerspawn" value="1"/>
    </properties>
