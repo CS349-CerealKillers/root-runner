@@ -3,8 +3,8 @@ package com.cerealkillers.rootrunner.GameObjects;
 import android.util.Log;
 
 import com.cerealkillers.rootrunner.GameWorld.Map;
+import com.cerealkillers.rootrunner.GameWorld.CommandFacade;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
@@ -72,6 +72,7 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
 
     public void onCollide(MapObject collidedWith){
         mAttachedMap.removeMapObject(this);
+        CommandFacade.displayMessage("Picked up some kind of a file.");
     }
 
     private static class MapObjectTouchArea implements ITouchArea{
