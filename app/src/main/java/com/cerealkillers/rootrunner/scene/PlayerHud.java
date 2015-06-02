@@ -12,7 +12,9 @@ import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.shape.Shape;
+import org.andengine.entity.text.AutoWrap;
 import org.andengine.entity.text.Text;
+import org.andengine.entity.text.TextOptions;
 import org.andengine.opengl.font.Font;
 
 /**
@@ -51,11 +53,17 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
             if(messageText!= null){
                 messageText.detachSelf();
             }
-            messageText = new Text(terminalText.getWidth() + 8, 8, terminalFont, message, getScene().vertexBufferObjectManager);
+            TextOptions options = new TextOptions(AutoWrap.WORDS, terminal.getWidth() - terminalText.getWidth() - 8);
+            messageText = new Text(terminalText.getWidth() + 8, 8, terminalFont, message, options, getScene().vertexBufferObjectManager);
             showHud();
+            adjustTerminalHeight(messageText.getHeight());
             terminal.attachChild(messageText);
             hideHudAfterTime(5);
         }
+    }
+
+    private void adjustTerminalHeight(float height) {
+        terminal.setHeight(height + 16);
     }
 
     public void showHud(){
@@ -87,8 +95,5 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
         getScene().unregisterUpdateHandler(hudTimeout);
         hudTimeout = null;
     }
-
-
-
 
 }
