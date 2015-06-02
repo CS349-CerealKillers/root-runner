@@ -1,6 +1,5 @@
 package com.cerealkillers.rootrunner.scene;
 
-import android.graphics.Color;
 import android.util.Log;
 
 import com.cerealkillers.rootrunner.Game;
@@ -16,6 +15,7 @@ import org.andengine.entity.text.AutoWrap;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.opengl.font.Font;
+import org.andengine.util.color.Color;
 
 /**
  * Created by Benjamin Daschel on 6/1/15.
@@ -23,11 +23,14 @@ import org.andengine.opengl.font.Font;
 public class PlayerHud extends SceneDecorator<BaseScene>{
 
     private static final int TERMINAL_HEIGHT = 48;
+    private static final int STEALTH_BAR_HEIGHT = 32;
+    private static int STEALTH_BAR_INCREMENT_WIDTH = 16;
     private Text terminalText;
     private Rectangle terminal;
     private Font terminalFont;
     private Text messageText;
     private TimerHandler hudTimeout;
+    private Rectangle stealthbar;
 
     public PlayerHud(BaseScene scene) {
         super(scene);
@@ -37,14 +40,28 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
     private void createHud(BaseScene scene) {
         HUD playerHud = new HUD();
 
+        //set up message terminal
         terminal = new Rectangle(0, 0, scene.boundCamera.getWidth(), TERMINAL_HEIGHT, scene.vertexBufferObjectManager);
         terminal.setColor(org.andengine.util.color.Color.BLACK);
-        terminalFont = scene.resourceManager.createFont("clacon.ttf", 32, Color.GREEN);
+        terminalFont = scene.resourceManager.createFont("clacon.ttf", 32, Color.GREEN.getABGRPackedInt());
         terminalText = new Text(8, 8, terminalFont, ">>>", scene.vertexBufferObjectManager);
 
         terminal.attachChild(terminalText);
         playerHud.attachChild(terminal);
         terminal.setVisible(false);
+
+        //set up stealth bar
+        float stealthBarYPos = scene.boundCamera.getHeight() - STEALTH_BAR_HEIGHT;
+        float stealthBarWidth = scene.boundCamera.getWidth() / 2;
+        stealthbar = new Rectangle(0, stealthBarYPos ,stealthBarWidth , STEALTH_BAR_HEIGHT, scene.vertexBufferObjectManager);
+        stealthbar.setColor(Color.TRANSPARENT);
+        STEALTH_BAR_INCREMENT_WIDTH = (int)stealthBarWidth / 5;
+        playerHud.attachChild(stealthbar);
+
+        //todo remove this line
+        updatePlayerStealth(5);
+
+        //finish setup process
         scene.boundCamera.setHUD(playerHud);
     }
 
@@ -72,6 +89,24 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
 
     public void hideHud(){
         terminal.setVisible(false);
+    }
+
+    public void updatePlayerStealth(int stealth){
+        if(stealth > 5){
+            stealth = 5;
+        }
+        Color color = org.andengine.util.color.Color.GREEN;
+        if(stealth <= 1){
+            color = Color.RED;
+        }else if(stealth < 4 ){
+            color = Color.YELLOW;
+        }
+        stealthbar.detachChildren();
+        for (int i = 0; i < stealth; i++){
+            Rectangle bar = new Rectangle(i * STEALTH_BAR_INCREMENT_WIDTH , 8, STEALTH_BAR_INCREMENT_WIDTH, 16, getScene().vertexBufferObjectManager);
+            bar.setColor(color);
+            stealthbar.attachChild(bar);
+        }
     }
 
     private void hideHudAfterTime(float time){
