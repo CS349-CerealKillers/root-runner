@@ -65,7 +65,8 @@ public class Map implements Player.PlayerSpawnedListener{
         }
         boolean touching = false;
         for(MapObject m: mMapObjects){
-            if(m.isColliding(objectInQuestion)){
+            //don't check if the object is touching itself
+            if(m != objectInQuestion && m.isColliding(objectInQuestion)){
                 touchingResults.add(m);
                 touching = true;
             }
