@@ -8,6 +8,7 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.shape.Shape;
@@ -23,14 +24,17 @@ import org.andengine.util.color.Color;
 public class PlayerHud extends SceneDecorator<BaseScene>{
 
     private static final int TERMINAL_HEIGHT = 48;
-    private static final int STEALTH_BAR_HEIGHT = 32;
-    private static int STEALTH_BAR_INCREMENT_WIDTH = 16;
+    private static final int STEALTH_BAR_HEIGHT = 48;
+    private static final int STEALTH_BAR_WIDTH = 136;
+    private static final int STEALTH_BAR_INCREMENT_WIDTH = 16;
+    private static final int STEALTH_BAR_INCREMENT_PADDING = 8;
     private Text terminalText;
     private Rectangle terminal;
     private Font terminalFont;
     private Text messageText;
     private TimerHandler hudTimeout;
-    private Rectangle stealthbar;
+    private Entity stealthbar;
+    private Text stealthBarText;
 
     public PlayerHud(BaseScene scene) {
         super(scene);
@@ -51,11 +55,12 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
         terminal.setVisible(false);
 
         //set up stealth bar
-        float stealthBarYPos = scene.boundCamera.getHeight() - STEALTH_BAR_HEIGHT;
-        float stealthBarWidth = scene.boundCamera.getWidth() / 2;
-        stealthbar = new Rectangle(0, stealthBarYPos ,stealthBarWidth , STEALTH_BAR_HEIGHT, scene.vertexBufferObjectManager);
+        float stealthBarYPos = scene.boundCamera.getHeight() - STEALTH_BAR_HEIGHT - 8;
+        stealthbar = new Rectangle(0, stealthBarYPos ,STEALTH_BAR_WIDTH , STEALTH_BAR_HEIGHT, scene.vertexBufferObjectManager);
         stealthbar.setColor(Color.TRANSPARENT);
-        STEALTH_BAR_INCREMENT_WIDTH = (int)stealthBarWidth / 5;
+        Font stealthBarFont = scene.resourceManager.createFont("clacon.ttf", 24, Color.GREEN.getABGRPackedInt());
+        stealthBarText = new Text(8, 0, stealthBarFont, "Stealth", scene.vertexBufferObjectManager);
+        stealthbar.attachChild(stealthBarText);
         playerHud.attachChild(stealthbar);
 
         //todo remove this line
@@ -103,10 +108,12 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
         }
         stealthbar.detachChildren();
         for (int i = 0; i < stealth; i++){
-            Rectangle bar = new Rectangle(i * STEALTH_BAR_INCREMENT_WIDTH , 8, STEALTH_BAR_INCREMENT_WIDTH, 16, getScene().vertexBufferObjectManager);
+            float barPosition = (STEALTH_BAR_INCREMENT_PADDING * i) + (STEALTH_BAR_INCREMENT_WIDTH * i) + STEALTH_BAR_INCREMENT_PADDING;
+            Rectangle bar = new Rectangle(barPosition, STEALTH_BAR_HEIGHT - 16, STEALTH_BAR_INCREMENT_WIDTH, 16, getScene().vertexBufferObjectManager);
             bar.setColor(color);
             stealthbar.attachChild(bar);
         }
+        stealthbar.attachChild(stealthBarText);
     }
 
     private void hideHudAfterTime(float time){
