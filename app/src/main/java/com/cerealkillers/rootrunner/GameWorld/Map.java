@@ -145,12 +145,17 @@ public class Map implements Player.PlayerSpawnedListener{
 
     public void spawnPlayer(Player player){
         //replace the player spawn marker with the player's sprite
-
+        //TODO once the the map has save current players progress the re spawn point should
+        //TODO not be removed but rather hidden
         List<MapObject> potentialSpawns = findByTag("playerspawn");
         if (potentialSpawns.size() > 0){
             MapObject spawnPoint = potentialSpawns.get(0);
             replaceMapObject(spawnPoint, player);
         }
+    }
+
+    public BaseScene getBaseScene(){
+        return this.mScene;
     }
 
 }

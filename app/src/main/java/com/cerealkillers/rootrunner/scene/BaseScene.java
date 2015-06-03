@@ -53,4 +53,13 @@ public abstract class BaseScene extends Scene {
             boundCamera.setChaseEntity(sprite);
         }
     }
+
+    public float getLayerHeight(){
+        return this.layerHeight;
+    }
+
+    public float getLayerWidth(){
+        return this.layerWidth;
+    }
+
 }

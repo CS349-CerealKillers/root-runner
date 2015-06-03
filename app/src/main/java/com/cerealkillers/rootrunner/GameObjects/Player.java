@@ -1,6 +1,7 @@
 package com.cerealkillers.rootrunner.GameObjects;
 
 import com.cerealkillers.rootrunner.GameWorld.Map;
+import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.entity.sprite.AnimatedSprite;
@@ -12,6 +13,7 @@ public class Player extends MapObject<AnimatedSprite> {
 
     private final PhysicsHandler mPhysicsHandler;
     private IControl mPlayerControls;
+    private BaseScene myScene;
 
     public interface PlayerSpawnedListener{
         public void onPlayerSpawned(Player player);
@@ -29,6 +31,7 @@ public class Player extends MapObject<AnimatedSprite> {
         super.onAttachToMap(attached);
         setCollisionDetector(new MapObjectCollisionDetector(this, attached));
         attached.onPlayerSpawned(this);
+        myScene = attached.getBaseScene();
     }
 
     public IControl getPlayerControls(){
@@ -59,6 +62,20 @@ public class Player extends MapObject<AnimatedSprite> {
                     playerSprite.stopAnimation();
             }
             mPhysicsHandler.setVelocity(direction.x*100, direction.y*100);
+            adjustToSceneBinding(playerSprite);
+        }
+    }
+
+    public void adjustToSceneBinding(AnimatedSprite player) {
+        // Correct the X Boundaries.
+        if (player.getX() < 0) {
+            player.setX(0);
+        } else if (player.getX() + player.getWidth() > myScene.getLayerWidth()) {
+            player.setX(myScene.getLayerWidth() - player.getWidth());
+        }else if(player.getY() < 0){
+            player.setY(0);
+        }else if (player.getY() + player.getHeight() > myScene.getLayerHeight()){
+            player.setY(myScene.getLayerHeight() - player.getHeight());
         }
     }
 
