@@ -1,5 +1,7 @@
 package com.cerealkillers.rootrunner.GameObjects;
 
+import com.cerealkillers.rootrunner.Game;
+
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.sprite.Sprite;
 
@@ -14,6 +16,7 @@ public abstract class GameObject <S extends Sprite>
     private int mId;
     private S mSprite;
     private List<Tag> mTags;
+    private String mName;
 
     public GameObject(int id, S sprite)
     {
@@ -70,5 +73,11 @@ public abstract class GameObject <S extends Sprite>
     }
 
 
+    public String getName() {
+        return mName;
+    }
 
+    public void setName(String name) {
+        mName = name;
+    }
 }
