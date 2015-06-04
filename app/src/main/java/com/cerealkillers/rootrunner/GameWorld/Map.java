@@ -4,12 +4,13 @@ import android.util.Log;
 
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
+import com.cerealkillers.rootrunner.GameObjects.MapTouchDetector;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameObjects.Tag;
+import com.cerealkillers.rootrunner.GameObjects.MapTool;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.ITouchArea;
-import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
 
 import java.util.ArrayList;
@@ -95,6 +96,25 @@ public class Map implements Player.PlayerSpawnedListener{
                 mapObject.onCollide(subject);
             }
         }
+    }
+
+    private class MapTouchDetectedListener implements MapTouchDetector.TouchDetectedListener
+    {
+        @Override
+        public void onTouchDetected(MapTool mapToolUsed, List<Map> touched)
+        {
+            Log.d("MAP", "detected map touch with tool");
+
+            /*
+            for(coords : touched)
+          */
+        }
+    }
+
+    public boolean isMapTouched(MapTool mapToolUsed, List<Map> touchResults)
+    {
+        //TODO
+        return false;
     }
 
     /**
