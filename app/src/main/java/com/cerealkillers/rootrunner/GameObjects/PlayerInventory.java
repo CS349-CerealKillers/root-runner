@@ -11,6 +11,7 @@ import java.util.List;
 public class PlayerInventory implements I_Inventory {
 
     private List<InventoryItem> mInventoryItems;
+    private InventoryItem mCurrentTool;
 
     public PlayerInventory(List<InventoryItem> items){
         mInventoryItems = items;
@@ -39,6 +40,12 @@ public class PlayerInventory implements I_Inventory {
         }
     }
 
+    /**
+     * Find an item in the inventory by tag.
+     * Tags are searched by key only.
+     * @param tag
+     * @return
+     */
     @Override
     public List<InventoryItem> findByTag(Tag tag) {
         List<InventoryItem> results = new ArrayList<>();
@@ -50,5 +57,26 @@ public class PlayerInventory implements I_Inventory {
             }
         }
         return results;
+    }
+
+    /**
+     * Select a tool from the player's inventory as the current tool.
+     * The item must already be in the inventory.
+     * @param item
+     */
+    public void setCurrentTool(InventoryItem item){
+        if(item != null){
+            if(mInventoryItems.contains(item)){
+                mCurrentTool = item;
+            }
+        }
+    }
+
+    /**
+     * Returns default tool if no current tool is selected.
+     * @return
+     */
+    public InventoryItem getCurrentTool(){
+        return mCurrentTool;
     }
 }
