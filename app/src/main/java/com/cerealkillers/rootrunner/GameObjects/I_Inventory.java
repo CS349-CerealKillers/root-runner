@@ -7,6 +7,10 @@ import java.util.List;
  */
 public interface I_Inventory {
 
+    public interface PlayerInventoryListener{
+        public void onInventoryChanged(I_Inventory inventory);
+    }
+
     public List<InventoryItem> getInventory();
 
     public void addItem(InventoryItem item);
