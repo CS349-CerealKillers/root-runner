@@ -18,5 +18,11 @@ public class Gcc extends ObjectTool
     {
         //TODO
         Log.d("GCC", "detected gcc tool use");
+
+        Tag itemType = mapObject.getTag("source code");
+        if(itemType != null)
+        {
+
+        }
     }
 }

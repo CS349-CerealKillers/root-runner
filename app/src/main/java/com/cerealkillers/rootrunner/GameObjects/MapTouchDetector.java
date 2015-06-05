@@ -32,7 +32,7 @@ public class MapTouchDetector implements IOnSceneTouchListener
     @Override
     public boolean onSceneTouchEvent(Scene scene, TouchEvent touchEvent)
     {
-        if(touchEvent.isActionDown())
+        if(touchEvent.isActionUp())
         {
             mX = touchEvent.getX();
             mY = touchEvent.getY();
