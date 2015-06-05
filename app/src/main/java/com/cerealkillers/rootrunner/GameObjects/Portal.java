@@ -9,8 +9,8 @@ public class Portal extends MapObject {
 
     private String mDestination;
 
-    public Portal(int id, Sprite sprite) {
-        super(id, sprite);
+    public Portal(Sprite sprite) {
+        super(sprite);
     }
 
     void setDestination(String destinationMap){

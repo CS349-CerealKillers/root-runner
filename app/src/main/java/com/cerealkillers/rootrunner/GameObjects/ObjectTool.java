@@ -10,9 +10,9 @@ public abstract class ObjectTool extends InventoryItem implements ObjectToolBeha
     String name;
     String desc;
 
-    public ObjectTool(int id, Sprite sprite, String name, String desc)
+    public ObjectTool(Sprite sprite, String name, String desc)
     {
-        super(id, sprite);
+        super(sprite);
         this.name = name;
         this.desc = desc;
     }

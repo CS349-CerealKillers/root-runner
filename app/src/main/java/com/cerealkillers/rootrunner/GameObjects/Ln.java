@@ -7,9 +7,9 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Ln extends MapTool
 {
-    public Ln(int id, Sprite sprite, String name, String desc)
+    public Ln(Sprite sprite, String name, String desc)
     {
-        super(id, sprite, "ln", "Create links to other directories.");
+        super(sprite, "ln", "Create links to other directories.");
     }
 
     public void use(float x, float y)

@@ -17,7 +17,7 @@ public abstract class GameObject <S extends Sprite>
     private List<Tag> mTags;
     private String mName;
 
-    public GameObject(int id, S sprite)
+    public GameObject(S sprite)
     {
         mSprite = sprite;
     }

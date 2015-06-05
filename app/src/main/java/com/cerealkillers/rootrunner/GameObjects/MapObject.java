@@ -18,8 +18,8 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
     private MapObjectCollisionDetector mCollisionDetector;
     private ITouchArea mTouchArea;
 
-    public MapObject(int id, S sprite) {
-        super(id, sprite);
+    public MapObject(S sprite) {
+        super(sprite);
         createTouchArea(sprite);
     }
 

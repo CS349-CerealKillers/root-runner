@@ -14,9 +14,9 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior, 
     String name;
     String desc;
 
-    public MapTool(int id, Sprite sprite, String name, String desc)
+    public MapTool(Sprite sprite, String name, String desc)
     {
-        super(id, sprite);
+        super(sprite);
         this.name = name;
         this.desc = desc;
     }
