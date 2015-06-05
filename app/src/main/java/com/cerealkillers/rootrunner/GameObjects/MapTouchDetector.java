@@ -1,7 +1,9 @@
 package com.cerealkillers.rootrunner.GameObjects;
 import com.cerealkillers.rootrunner.GameWorld.Map;
 
-import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.scene.IOnSceneTouchListener;
+import org.andengine.entity.scene.Scene;
+import org.andengine.input.touch.TouchEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,22 +11,33 @@ import java.util.List;
 /**
  * Created by Tyler Herrin on 6/4/2015.
  */
-public class MapTouchDetector implements IUpdateHandler
+public class MapTouchDetector implements IOnSceneTouchListener
 {
     public interface TouchDetectedListener {
-        public void onTouchDetected(MapTool mapToolUsed, List<Map> touchResults);
+        public void onTouchDetected(Map map, int x, int y);
     }
 
     private final Map mAttachedMap;
-    private MapTool mMapToolUsed;
-    private List<Map> touchResults; // Should be map coordinates maybe?
+    private Scene mAttatchedMapScene;
+    private List<Map> touchResults;
     private List<TouchDetectedListener> mTouchDetectedListeners;
 
-    public MapTouchDetector(MapTool mapToolUsed, Map attachedMap) {
-        mMapToolUsed = mapToolUsed;
+    public MapTouchDetector(Map attachedMap, Scene attatchedMapScene)
+    {
         mAttachedMap = attachedMap;
+        mAttatchedMapScene = attatchedMapScene;
         touchResults = new ArrayList<>();
         mTouchDetectedListeners = new ArrayList<>();
+    }
+
+    @Override
+    public boolean onSceneTouchEvent(Scene scene, TouchEvent touchEvent)
+    {
+        if(touchEvent.isActionDown())
+        {
+            
+        }
+        return false;
     }
 
     /**
@@ -49,22 +62,9 @@ public class MapTouchDetector implements IUpdateHandler
     }
 
     private void notifyListeners(){
-        for (TouchDetectedListener listener: mTouchDetectedListeners){
-            listener.onTouchDetected(mMapToolUsed, touchResults);
+        for (TouchDetectedListener listener : mTouchDetectedListeners){
+            listener.onTouchDetected(mAttachedMap,);
             touchResults.clear();
         }
-    }
-
-    @Override
-    public void onUpdate(float pSecondsElapsed) {
-        boolean touching = mAttachedMap.isMapTouched(mMapToolUsed, touchResults);
-        if(touching){
-            notifyListeners();
-        }
-    }
-
-    @Override
-    public void reset() {
-
     }
 }

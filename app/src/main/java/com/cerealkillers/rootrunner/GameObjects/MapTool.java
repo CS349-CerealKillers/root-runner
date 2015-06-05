@@ -1,5 +1,9 @@
 package com.cerealkillers.rootrunner.GameObjects;
 
+import android.util.Log;
+
+import com.cerealkillers.rootrunner.GameWorld.Map;
+
 import org.andengine.entity.sprite.Sprite;
 
 /**
@@ -15,5 +19,13 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior
         super(id, sprite);
         this.name = name;
         this.desc = desc;
+    }
+
+    private class MapTouchListener
+    {
+        public void onMapTouched(Map map, int x, int y)
+        {
+            Log.d("MAP", "detected map touch");
+        }
     }
 }
