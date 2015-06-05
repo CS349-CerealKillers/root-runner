@@ -1,12 +1,18 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
+import com.cerealkillers.rootrunner.GameObjects.InventoryItem;
+import com.cerealkillers.rootrunner.GameObjects.MapObject;
+import com.cerealkillers.rootrunner.GameObjects.MapTouchDetector;
 import com.cerealkillers.rootrunner.GameObjects.Player;
+import com.cerealkillers.rootrunner.GameObjects.PlayerInventory;
 import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.command.CommandExecutor;
 import com.cerealkillers.rootrunner.command.GameCommand;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.ControlScene;
 import com.cerealkillers.rootrunner.scene.PlayerHud;
+
+import org.andengine.entity.sprite.Sprite;
 
 /**
  * Created by Benjamin Daschel on 5/25/15.
@@ -22,6 +28,7 @@ public class World implements CommandExecutor<World>{
     private Player mPlayer;
     private ControlScene mControlScene;
     private PlayerHud mPlayerHud;
+    private PlayerInventory mPlayerInventory;
 
     public World(MapLoader mapLoader, SceneManager sceneManager){
         mMapLoader = mapLoader;
@@ -76,4 +83,9 @@ public class World implements CommandExecutor<World>{
             command.run(this);
         }
     }
+
+    private void createInventory(){
+        mPlayerInventory = new PlayerInventory();
+    }
+
 }
