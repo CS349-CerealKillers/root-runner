@@ -9,7 +9,7 @@ import org.andengine.entity.sprite.Sprite;
 /**
  * Created by Tyler Herrin on 6/3/2015.
  */
-public abstract class MapTool extends InventoryItem implements MapToolBehavior
+public abstract class MapTool extends InventoryItem implements MapToolBehavior, MapTouchDetector.TouchDetectedListener
 {
     String name;
     String desc;
@@ -21,11 +21,10 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior
         this.desc = desc;
     }
 
-    private class MapTouchListener
+    public void onTouchDetected(Map map, float x, float y)
     {
-        public void onMapTouched(Map map, int x, int y)
-        {
-            Log.d("MAP", "detected map touch");
-        }
+        Log.d("MAP", "detected map touch");
+
+        use(x, y);
     }
 }

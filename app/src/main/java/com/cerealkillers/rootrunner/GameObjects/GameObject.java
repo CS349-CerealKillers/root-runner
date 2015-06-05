@@ -13,14 +13,12 @@ import java.util.List;
  */
 public abstract class GameObject <S extends Sprite>
 {
-    private int mId;
     private S mSprite;
     private List<Tag> mTags;
     private String mName;
 
     public GameObject(int id, S sprite)
     {
-        mId = id;
         mSprite = sprite;
     }
 

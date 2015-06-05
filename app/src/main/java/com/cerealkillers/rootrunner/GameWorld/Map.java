@@ -29,7 +29,7 @@ public class Map implements Player.PlayerSpawnedListener{
         mScene = scene;
         mCollisionDetectedListener = new MapCollisionDetectedListener();
         mMapObjects = new ArrayList<>();
-        mMapTouchDetector = new MapTouchDetector(this, mScene);
+        mMapTouchDetector = new MapTouchDetector(this);
         mScene.setOnSceneTouchListener(mMapTouchDetector);
     }
 

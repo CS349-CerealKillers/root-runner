@@ -14,18 +14,17 @@ import java.util.List;
 public class MapTouchDetector implements IOnSceneTouchListener
 {
     public interface TouchDetectedListener {
-        public void onTouchDetected(Map map, int x, int y);
+        public void onTouchDetected(Map map, float x, float y);
     }
 
     private final Map mAttachedMap;
-    private Scene mAttatchedMapScene;
     private List<Map> touchResults;
     private List<TouchDetectedListener> mTouchDetectedListeners;
+    private float mX, mY;
 
-    public MapTouchDetector(Map attachedMap, Scene attatchedMapScene)
+    public MapTouchDetector(Map attachedMap)
     {
         mAttachedMap = attachedMap;
-        mAttatchedMapScene = attatchedMapScene;
         touchResults = new ArrayList<>();
         mTouchDetectedListeners = new ArrayList<>();
     }
@@ -35,7 +34,8 @@ public class MapTouchDetector implements IOnSceneTouchListener
     {
         if(touchEvent.isActionDown())
         {
-            
+            mX = touchEvent.getX();
+            mY = touchEvent.getY();
         }
         return false;
     }
@@ -63,7 +63,7 @@ public class MapTouchDetector implements IOnSceneTouchListener
 
     private void notifyListeners(){
         for (TouchDetectedListener listener : mTouchDetectedListeners){
-            listener.onTouchDetected(mAttachedMap,);
+            listener.onTouchDetected(mAttachedMap, mX, mY);
             touchResults.clear();
         }
     }

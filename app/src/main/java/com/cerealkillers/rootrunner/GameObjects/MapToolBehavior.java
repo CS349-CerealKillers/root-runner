@@ -5,5 +5,5 @@ package com.cerealkillers.rootrunner.GameObjects;
  */
 public interface MapToolBehavior
 {
-    public void use(int x, int y);
+    public void use(float x, float y);
 }

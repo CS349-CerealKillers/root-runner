@@ -12,9 +12,9 @@ public class Ln extends MapTool
         super(id, sprite, "ln", "Create links to other directories.");
     }
 
-    public void use(int x, int y)
+    public void use(float x, float y)
     {
-        //TODO
-
+        PortalFactory pf = new PortalFactory();
+        Portal portal = pf.getPortal(x, y);
     }
 }
