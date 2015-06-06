@@ -18,14 +18,20 @@ public class Gcc extends ObjectTool
     {
         Log.d("GCC", "detected gcc tool use");
 
+        Tag locked = mapObject.getTag("locked");
         Tag itemType = mapObject.getTag("source code");
-        if(itemType != null && itemType.value != null)
+        if(itemType != null && itemType.value != null && locked.value.equals("unlocked"))
         {
             //TODO Figure out how we are going to get tmxObject and sprite for new MapObjects
-            //TODO as well determine how source code determines the object it creates when compiled.
             MapObjectFactory factory = new MapObjectFactory();
             MapObject newObject = factory.createMapObject(null, null, "items");
-            newObject.addTag(new Tag(itemType.value, null));
+
+            // Set new mapobjects item type
+            newObject.addTag(new Tag("type", itemType.value));
+            // Set to have same permissions as source
+            newObject.addTag(locked);
+
+            //TODO replace source code map object with compiled map object
         }
     }
 }
