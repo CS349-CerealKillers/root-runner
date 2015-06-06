@@ -17,9 +17,9 @@ public class LsUpgrade extends MapTool
     private Ls mLs;
 
     /**
-     *
-     * @param sprite
-     * @param ls
+     * Ls upgrade consturctor.
+     * @param sprite The associated sprite.
+     * @param ls The wrapper ls tool.
      */
     public LsUpgrade(Sprite sprite, Ls ls)
     {
@@ -28,10 +28,10 @@ public class LsUpgrade extends MapTool
     }
 
     /**
-     *
-     * @param map
-     * @param x
-     * @param y
+     * List all files and hidden files in the current map.
+     * @param map The current map
+     * @param x The x coordinate of a touch event.
+     * @param y The y coordinate of a touch event.
      */
     public void use(Map map, float x, float y)
     {

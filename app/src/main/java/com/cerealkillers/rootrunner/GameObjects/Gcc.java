@@ -12,8 +12,8 @@ import org.andengine.entity.sprite.Sprite;
 public class Gcc extends ObjectTool
 {
     /**
-     *
-     * @param sprite
+     * The gcc constructor.
+     * @param sprite The associated sprite.
      */
     public Gcc(Sprite sprite)
     {
@@ -21,9 +21,9 @@ public class Gcc extends ObjectTool
     }
 
     /**
-     *
-     * @param map
-     * @param mapObject
+     * Take the target mapobject and creates a new mapopbject out of it.
+     * @param map The current map.
+     * @param mapObject The target map object.
      */
     public void use(Map map, MapObject mapObject)
     {

@@ -12,8 +12,8 @@ import org.andengine.entity.sprite.Sprite;
 public class Ln extends MapTool
 {
     /**
-     *
-     * @param sprite
+     * Ln constructor.
+     * @param sprite The associated sprite.
      */
     public Ln(Sprite sprite)
     {
@@ -21,10 +21,10 @@ public class Ln extends MapTool
     }
 
     /**
-     *
-     * @param map
-     * @param x
-     * @param y
+     * Create a portal at the designated coordinates.
+     * @param map The current map.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
      */
     public void use(Map map, float x, float y)
     {

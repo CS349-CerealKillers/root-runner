@@ -12,8 +12,8 @@ import org.andengine.entity.sprite.Sprite;
 public class Chmod extends ObjectTool
 {
     /**
-     *
-     * @param sprite
+     * Chmod constructor.
+     * @param sprite The associated sprite.
      */
     public Chmod(Sprite sprite)
     {
@@ -21,9 +21,9 @@ public class Chmod extends ObjectTool
     }
 
     /**
-     *
+     * Change the target map object to be unlocked.
      * @param map The current map
-     * @param mapObject the map object for this to be used on.
+     * @param mapObject the target map object.
      */
     public void use(Map map, MapObject mapObject)
     {

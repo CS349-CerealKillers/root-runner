@@ -11,7 +11,7 @@ public abstract class ObjectTool extends InventoryItem implements ObjectToolBeha
     String desc;
 
     /**
-     *
+     * ObjectTool constructor.
      * @param sprite The tool's sprite
      * @param name name of the tool.
      * @param desc description of the too;

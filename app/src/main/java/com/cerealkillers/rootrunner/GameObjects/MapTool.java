@@ -15,10 +15,10 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior, 
     String desc;
 
     /**
-     *
-     * @param sprite
-     * @param name
-     * @param desc
+     * MapTool constructor.
+     * @param sprite The associated sprite.
+     * @param name The name of the MapTool.
+     * @param desc The description of the MapTool.
      */
     public MapTool(Sprite sprite, String name, String desc)
     {
@@ -28,10 +28,10 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior, 
     }
 
     /**
-     *
-     * @param map
-     * @param x
-     * @param y
+     * When a touch is detected use the tool on the coordinates.
+     * @param map The current map.
+     * @param x The x coordinate of a touch event.
+     * @param y The y coordinate of a touch event.
      */
     public void onTouchDetected(Map map, float x, float y)
     {

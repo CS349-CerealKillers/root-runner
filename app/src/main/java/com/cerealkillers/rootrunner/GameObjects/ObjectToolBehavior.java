@@ -8,7 +8,7 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
 public interface ObjectToolBehavior
 {
     /**
-     *
+     * The behavior of object tools.
      * @param map The current map
      * @param mapObject the map object for this to be used on.
      */

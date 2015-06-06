@@ -15,8 +15,8 @@ import java.util.List;
 public class Ls extends MapTool
 {
     /**
-     *
-     * @param sprite
+     * The Ls constructor.
+     * @param sprite The associated sprite.
      */
     public Ls(Sprite sprite)
     {
@@ -24,10 +24,10 @@ public class Ls extends MapTool
     }
 
     /**
-     *
-     * @param map
-     * @param x
-     * @param y
+     * List all visible files in the current map.
+     * @param map The current map.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
      */
     public void use(Map map, float x, float y)
     {
@@ -38,9 +38,9 @@ public class Ls extends MapTool
     }
 
     /**
-     *
-     * @param map
-     * @return
+     * Gets a string of all the visible files.
+     * @param map The current map.
+     * @return a String of visible files.
      */
     protected String getFiles(Map map)
     {

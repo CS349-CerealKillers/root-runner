@@ -12,8 +12,8 @@ import org.andengine.entity.sprite.Sprite;
 public class AddUser extends MapTool
 {
     /**
-     *
-     * @param sprite
+     * AddUser constructor.
+     * @param sprite The associated spirte.
      */
     public AddUser(Sprite sprite)
     {
@@ -21,10 +21,10 @@ public class AddUser extends MapTool
     }
 
     /**
-     *
-     * @param map
-     * @param x
-     * @param y
+     * Create a user at the specified coordinates.
+     * @param map The associated map.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
      */
     public void use(Map map, float x, float y)
     {

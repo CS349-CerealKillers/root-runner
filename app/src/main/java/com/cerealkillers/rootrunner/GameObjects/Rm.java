@@ -12,7 +12,7 @@ import org.andengine.entity.sprite.Sprite;
 public class Rm extends ObjectTool
 {
     /**
-     *
+     * Rm constructor.
      * @param sprite
      */
     public Rm(Sprite sprite)
@@ -21,7 +21,7 @@ public class Rm extends ObjectTool
     }
 
     /**
-     *
+     * Remove the target map object from the map if access is allowed.
      * @param map The current map
      * @param mapObject the map object for this to be used on.
      */
