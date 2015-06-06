@@ -11,11 +11,20 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Gcc extends ObjectTool
 {
+    /**
+     *
+     * @param sprite
+     */
     public Gcc(Sprite sprite)
     {
         super(sprite, "gcc", "Compiles source code.");
     }
 
+    /**
+     *
+     * @param map
+     * @param mapObject
+     */
     public void use(Map map, MapObject mapObject)
     {
         Log.d("GCC", "detected gcc tool use");

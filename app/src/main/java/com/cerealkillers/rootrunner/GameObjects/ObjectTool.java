@@ -10,6 +10,12 @@ public abstract class ObjectTool extends InventoryItem implements ObjectToolBeha
     String name;
     String desc;
 
+    /**
+     *
+     * @param sprite The tool's sprite
+     * @param name name of the tool.
+     * @param desc description of the too;
+     */
     public ObjectTool(Sprite sprite, String name, String desc)
     {
         super(sprite);

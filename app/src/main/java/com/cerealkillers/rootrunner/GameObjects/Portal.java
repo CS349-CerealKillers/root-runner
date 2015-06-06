@@ -9,10 +9,17 @@ public class Portal extends MapObject {
 
     private String mDestination;
 
+    /**
+     *
+     * @param sprite
+     */
     public Portal(Sprite sprite) {
         super(sprite);
     }
 
+    /**
+     *
+     */
     void setDestination(String destinationMap){
         mDestination = destinationMap;
     }

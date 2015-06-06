@@ -11,11 +11,20 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Rm extends ObjectTool
 {
+    /**
+     *
+     * @param sprite
+     */
     public Rm(Sprite sprite)
     {
         super(sprite, "rm", "Remove a file");
     }
 
+    /**
+     *
+     * @param map The current map
+     * @param mapObject the map object for this to be used on.
+     */
     public void use(Map map, MapObject mapObject)
     {
         Log.d("RM", "detected rm tool use");

@@ -7,5 +7,10 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
  */
 public interface ObjectToolBehavior
 {
+    /**
+     *
+     * @param map The current map
+     * @param mapObject the map object for this to be used on.
+     */
     public void use(Map map, MapObject mapObject);
 }

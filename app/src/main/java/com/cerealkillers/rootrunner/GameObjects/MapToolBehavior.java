@@ -7,5 +7,11 @@ import com.cerealkillers.rootrunner.GameWorld.Map;
  */
 public interface MapToolBehavior
 {
+    /**
+     *
+     * @param map
+     * @param x
+     * @param y
+     */
     public void use(Map map, float x, float y);
 }

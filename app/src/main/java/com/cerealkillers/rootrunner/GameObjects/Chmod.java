@@ -11,11 +11,20 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Chmod extends ObjectTool
 {
+    /**
+     *
+     * @param sprite
+     */
     public Chmod(Sprite sprite)
     {
         super(sprite, "chmod", "Changes file permissions.");
     }
 
+    /**
+     *
+     * @param map The current map
+     * @param mapObject the map object for this to be used on.
+     */
     public void use(Map map, MapObject mapObject)
     {
         Log.d("chmod", "detected chmod tool use");

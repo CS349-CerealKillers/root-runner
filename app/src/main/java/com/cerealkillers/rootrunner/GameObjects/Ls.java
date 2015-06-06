@@ -14,11 +14,21 @@ import java.util.List;
  */
 public class Ls extends MapTool
 {
+    /**
+     *
+     * @param sprite
+     */
     public Ls(Sprite sprite)
     {
         super(sprite, "ls", "Lists information about a file.");
     }
 
+    /**
+     *
+     * @param map
+     * @param x
+     * @param y
+     */
     public void use(Map map, float x, float y)
     {
         Log.d("ls -l", "detected ls tool use");
@@ -27,6 +37,11 @@ public class Ls extends MapTool
         CommandFacade.displayMessage(files);
     }
 
+    /**
+     *
+     * @param map
+     * @return
+     */
     protected String getFiles(Map map)
     {
         List<MapObject> visibleObjects = map.findByTag("visible");

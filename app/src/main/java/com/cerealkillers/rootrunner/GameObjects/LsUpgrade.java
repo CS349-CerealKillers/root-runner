@@ -15,13 +15,24 @@ import java.util.List;
 public class LsUpgrade extends MapTool
 {
     private Ls mLs;
-    
+
+    /**
+     *
+     * @param sprite
+     * @param ls
+     */
     public LsUpgrade(Sprite sprite, Ls ls)
     {
         super(sprite, "ls -la", "Lists even more information about a file.");
         mLs = ls;
     }
 
+    /**
+     *
+     * @param map
+     * @param x
+     * @param y
+     */
     public void use(Map map, float x, float y)
     {
         Log.d("LsUpgrade", "detected ls -la tool use");

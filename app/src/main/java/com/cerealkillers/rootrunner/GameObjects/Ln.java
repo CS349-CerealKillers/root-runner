@@ -11,11 +11,21 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class Ln extends MapTool
 {
+    /**
+     *
+     * @param sprite
+     */
     public Ln(Sprite sprite)
     {
         super(sprite, "ln", "Create links to other directories.");
     }
 
+    /**
+     *
+     * @param map
+     * @param x
+     * @param y
+     */
     public void use(Map map, float x, float y)
     {
         Log.d("LN", "detected ln tool use");

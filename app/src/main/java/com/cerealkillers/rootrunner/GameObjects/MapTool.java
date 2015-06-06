@@ -14,6 +14,12 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior, 
     String name;
     String desc;
 
+    /**
+     *
+     * @param sprite
+     * @param name
+     * @param desc
+     */
     public MapTool(Sprite sprite, String name, String desc)
     {
         super(sprite);
@@ -21,6 +27,12 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior, 
         this.desc = desc;
     }
 
+    /**
+     *
+     * @param map
+     * @param x
+     * @param y
+     */
     public void onTouchDetected(Map map, float x, float y)
     {
         Log.d("MAP", "detected map touch");
