@@ -23,15 +23,9 @@ public class Chmod extends ObjectTool
         Tag locked = mapObject.getTag("locked");
         if(locked != null && locked.value != null)
         {
-            if(locked.value.equals("locked"))
-            {
-                CommandFacade.displayMessage(mapObject.getName() + " is unlocked!");
-            }
-            else // mapobject is unlocked
-            {
-                CommandFacade.displayMessage(mapObject.getName() + " is locked! Perhaps there is someway to unlock it...");
-            }
-
+            mapObject.removeTag(locked);
+            Tag unlocked = new Tag("locked", "unlocked");
+            mapObject.addTag(unlocked);
         }
     }
 }
