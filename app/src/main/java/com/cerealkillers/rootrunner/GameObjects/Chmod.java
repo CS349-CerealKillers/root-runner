@@ -2,7 +2,7 @@ package com.cerealkillers.rootrunner.GameObjects;
 
 import android.util.Log;
 
-import com.cerealkillers.rootrunner.GameWorld.CommandFacade;
+import com.cerealkillers.rootrunner.GameWorld.Map;
 
 import org.andengine.entity.sprite.Sprite;
 
@@ -16,7 +16,7 @@ public class Chmod extends ObjectTool
         super(sprite, "chmod", "Changes file permissions.");
     }
 
-    public void use(MapObject mapObject)
+    public void use(Map map, MapObject mapObject)
     {
         Log.d("chmod", "detected chmod tool use");
 

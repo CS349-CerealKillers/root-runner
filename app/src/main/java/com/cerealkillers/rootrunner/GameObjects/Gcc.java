@@ -2,6 +2,8 @@ package com.cerealkillers.rootrunner.GameObjects;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameWorld.Map;
+
 import org.andengine.entity.sprite.Sprite;
 
 /**
@@ -14,7 +16,7 @@ public class Gcc extends ObjectTool
         super(sprite, "gcc", "Compiles source code.");
     }
 
-    public void use(MapObject mapObject)
+    public void use(Map map, MapObject mapObject)
     {
         Log.d("GCC", "detected gcc tool use");
 
@@ -31,7 +33,7 @@ public class Gcc extends ObjectTool
             // Set to have same permissions as source
             newObject.addTag(locked);
 
-            //TODO replace source code map object with compiled map object
+            map.replaceMapObject(mapObject, newObject);
         }
     }
 }

@@ -2,6 +2,8 @@ package com.cerealkillers.rootrunner.GameObjects;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameWorld.Map;
+
 import org.andengine.entity.sprite.Sprite;
 
 /**
@@ -14,14 +16,14 @@ public class Rm extends ObjectTool
         super(sprite, "rm", "Remove a file");
     }
 
-    public void use(MapObject mapObject)
+    public void use(Map map, MapObject mapObject)
     {
         Log.d("RM", "detected rm tool use");
 
         Tag locked = mapObject.getTag("locked");
         if(locked != null && locked.value.equals("unlocked"))
         {
-            mapObject.onDetachedFromMap();
+            map.removeMapObject(mapObject);
         }
     }
 }
