@@ -12,11 +12,15 @@ import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.shape.Shape;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.AutoWrap;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
+import org.andengine.input.touch.detector.ScrollDetector;
 import org.andengine.opengl.font.Font;
 import org.andengine.util.color.Color;
+
+import java.util.List;
 
 /**
  * Created by Benjamin Daschel on 6/1/15.
@@ -35,6 +39,7 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
     private TimerHandler hudTimeout;
     private Entity stealthbar;
     private Text stealthBarText;
+    private Rectangle inventoryContainer;
 
     public PlayerHud(BaseScene scene) {
         super(scene);
@@ -43,18 +48,23 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
 
     private void createHud(BaseScene scene) {
         HUD playerHud = new HUD();
+        createTerminal(scene, playerHud);
+        createStealthBar(scene, playerHud);
 
-        //set up message terminal
-        terminal = new Rectangle(0, 0, scene.boundCamera.getWidth(), TERMINAL_HEIGHT, scene.vertexBufferObjectManager);
-        terminal.setColor(org.andengine.util.color.Color.BLACK);
-        terminalFont = scene.resourceManager.createFont("clacon.ttf", 32, Color.GREEN.getABGRPackedInt());
-        terminalText = new Text(8, 8, terminalFont, ">>>", scene.vertexBufferObjectManager);
+        createInventory(scene, playerHud);
 
-        terminal.attachChild(terminalText);
-        playerHud.attachChild(terminal);
-        terminal.setVisible(false);
+        //finish setup process
+        scene.boundCamera.setHUD(playerHud);
+    }
 
-        //set up stealth bar
+    private void createInventory(BaseScene scene, HUD playerHud) {
+        inventoryContainer = new Rectangle(0, 0, scene.boundCamera.getWidth(), TERMINAL_HEIGHT, scene.vertexBufferObjectManager);
+
+        inventoryContainer.setVisible(false);
+        playerHud.attachChild(inventoryContainer);
+    }
+
+    private void createStealthBar(BaseScene scene, HUD playerHud) {
         float stealthBarYPos = scene.boundCamera.getHeight() - STEALTH_BAR_HEIGHT - 8;
         stealthbar = new Rectangle(0, stealthBarYPos ,STEALTH_BAR_WIDTH , STEALTH_BAR_HEIGHT, scene.vertexBufferObjectManager);
         stealthbar.setColor(Color.TRANSPARENT);
@@ -65,9 +75,18 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
 
         //todo remove this line
         updatePlayerStealth(5);
+    }
 
-        //finish setup process
-        scene.boundCamera.setHUD(playerHud);
+    private void createTerminal(BaseScene scene, HUD playerHud) {
+        //set up message terminal
+        terminal = new Rectangle(0, 0, scene.boundCamera.getWidth(), TERMINAL_HEIGHT, scene.vertexBufferObjectManager);
+        terminal.setColor(Color.BLACK);
+        terminalFont = scene.resourceManager.createFont("clacon.ttf", 32, Color.GREEN.getABGRPackedInt());
+        terminalText = new Text(8, 8, terminalFont, ">>>", scene.vertexBufferObjectManager);
+
+        terminal.attachChild(terminalText);
+        playerHud.attachChild(terminal);
+        terminal.setVisible(false);
     }
 
     public void setMessage(String message){
