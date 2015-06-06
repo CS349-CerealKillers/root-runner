@@ -10,27 +10,23 @@ import org.andengine.entity.sprite.Sprite;
 import java.util.List;
 
 /**
- * Created by Tyler Herrin on 6/5/2015.
+ * Created by Tyler Herrin on 6/6/2015.
  */
-public class Ls extends MapTool
+public class LsUpgrade extends MapTool
 {
-    public Ls(Sprite sprite)
+    private Ls mLs;
+    
+    public LsUpgrade(Sprite sprite, Ls ls)
     {
-        super(sprite, "ls", "Lists information about a file.");
+        super(sprite, "ls -la", "Lists even more information about a file.");
+        mLs = ls;
     }
 
     public void use(Map map, float x, float y)
     {
-        Log.d("ls -l", "detected ls tool use");
-        String files = getFiles(map);
-
-        CommandFacade.displayMessage(files);
-    }
-
-    protected String getFiles(Map map)
-    {
-        List<MapObject> visibleObjects = map.findByTag("visible");
-        String files = "";
+        Log.d("LsUpgrade", "detected ls -la tool use");
+        List<MapObject> visibleObjects = map.findByTag("hidden");
+        String files = mLs.getFiles(map);
 
         for(MapObject m : visibleObjects)
         {
@@ -41,6 +37,6 @@ public class Ls extends MapTool
             }
         }
 
-        return files;
+        CommandFacade.displayMessage(files);
     }
 }

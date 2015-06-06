@@ -25,6 +25,6 @@ public abstract class MapTool extends InventoryItem implements MapToolBehavior, 
     {
         Log.d("MAP", "detected map touch");
 
-        use(x, y);
+        use(map, x, y);
     }
 }

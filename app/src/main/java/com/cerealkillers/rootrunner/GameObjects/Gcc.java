@@ -16,13 +16,16 @@ public class Gcc extends ObjectTool
 
     public void use(MapObject mapObject)
     {
-        //TODO
         Log.d("GCC", "detected gcc tool use");
 
         Tag itemType = mapObject.getTag("source code");
-        if(itemType != null)
+        if(itemType != null && itemType.value != null)
         {
-
+            //TODO Figure out how we are going to get tmxObject and sprite for new MapObjects
+            //TODO as well determine how source code determines the object it creates when compiled.
+            MapObjectFactory factory = new MapObjectFactory();
+            MapObject newObject = factory.createMapObject(null, null, "items");
+            newObject.addTag(new Tag(itemType.value, null));
         }
     }
 }

@@ -2,6 +2,8 @@ package com.cerealkillers.rootrunner.GameObjects;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameWorld.Map;
+
 import org.andengine.entity.sprite.Sprite;
 
 /**
@@ -14,7 +16,7 @@ public class Ln extends MapTool
         super(sprite, "ln", "Create links to other directories.");
     }
 
-    public void use(float x, float y)
+    public void use(Map map, float x, float y)
     {
         Log.d("LN", "detected ln tool use");
         PortalFactory pf = new PortalFactory();
