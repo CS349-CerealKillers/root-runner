@@ -64,6 +64,7 @@ public class MainActivity extends BaseGameActivity {
     @Override
     protected synchronized void onCreateGame() {
         mGame = new Game(this, this.mEngine);
+        onGameCreated();
         mGame.start();
     }
 
