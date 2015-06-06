@@ -27,8 +27,8 @@ public class Player extends MapObject<AnimatedSprite> {
     }
 
     @Override
-    public void onAttachToMap(Map attached) {
-        super.onAttachToMap(attached);
+    public void onAttach(Map attached) {
+        super.onAttach(attached);
         setCollisionDetector(new MapObjectCollisionDetector(this, attached));
         attached.onPlayerSpawned(this);
         myScene = attached.getBaseScene();
