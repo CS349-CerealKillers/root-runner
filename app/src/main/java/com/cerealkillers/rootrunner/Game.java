@@ -74,6 +74,5 @@ public class Game {
 
     public void start() {
         mSceneManager.loadGameScene();
-        mEngine.start();
     }
 }
