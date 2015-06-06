@@ -18,7 +18,6 @@ import org.andengine.entity.sprite.Sprite;
  * Created by Benjamin Daschel on 5/25/15.
  */
 public class Game {
-
     private final Engine mEngine;
     private MapLoader mMapLoader;
     private SceneManager mSceneManager;
