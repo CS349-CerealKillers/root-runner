@@ -38,7 +38,7 @@ public class Map implements Player.PlayerSpawnedListener{
         if(m != null){
             mMapObjects.add(m);
             mScene.attachChild(m.getSprite());
-            m.onAttachToMap(this);
+            m.onAttach(this);
         }
     }
 
@@ -50,7 +50,7 @@ public class Map implements Player.PlayerSpawnedListener{
     public void removeMapObject(MapObject m){
         if(m != null){
             mMapObjects.remove(m);
-            m.onDetachedFromMap();
+            m.onDetach();
         }
     }
 

@@ -12,7 +12,7 @@ import org.andengine.input.touch.TouchEvent;
 /**
  * Created by Benjamin Daschel on 5/29/15.
  */
-public class MapObject<S extends Sprite> extends GameObject<S> {
+public class MapObject<S extends Sprite> extends GameObject<S> implements Attachable<Map> {
 
     private Map mAttachedMap;
     private MapObjectCollisionDetector mCollisionDetector;
@@ -31,16 +31,15 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
      * Called by Map when this object has been added to the map.
      * @param attached
      */
-    public void onAttachToMap(Map attached){
+    public void onAttach(Map attached){
         mAttachedMap = attached;
-        attached.registerTouchArea(mTouchArea);
     }
 
     /**
      * Called after this object is removed from the map.
      * Removes the sprite from the Scene and unregisters any detectors.
      */
-    public void onDetachedFromMap(){
+    public void onDetach(){
         Sprite mySprite = getSprite();
         mySprite.detachSelf();
         mySprite.unregisterUpdateHandler(mCollisionDetector);
