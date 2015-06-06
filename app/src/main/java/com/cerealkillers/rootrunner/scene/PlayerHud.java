@@ -3,6 +3,7 @@ package com.cerealkillers.rootrunner.scene;
 import android.util.Log;
 
 import com.cerealkillers.rootrunner.Game;
+import com.cerealkillers.rootrunner.GameObjects.InventoryItem;
 
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.IUpdateHandler;
@@ -155,6 +156,37 @@ public class PlayerHud extends SceneDecorator<BaseScene>{
         hideHud();
         getScene().unregisterUpdateHandler(hudTimeout);
         hudTimeout = null;
+    }
+
+    public void openInventory(){
+        inventoryContainer.setVisible(true);
+    }
+
+    public void closeInventory(){
+        inventoryContainer.setVisible(false);
+    }
+
+    /**
+     * Renders the inventory items' tiles into the inventory container.
+     * Assumes all tiles are equal sized.
+     * @param items
+     */
+    private void renderInventory(List<InventoryItem> items){
+
+        int margin = 4;
+
+        for(int i = 0; i < items.size(); i++){
+            InventoryItem currentItem = items.get(i);
+            Sprite sprite = currentItem.getSprite();
+            int centerX = (int)(sprite.getWidth() / 2);
+            int centerY = (int)(sprite.getHeight() / 2);
+            int positionX = (int)((i * margin + margin) + (i * sprite.getWidth() + centerX));
+            int row = (int)(positionX / inventoryContainer.getWidth());
+            positionX = (int)(positionX % inventoryContainer.getWidth());
+            int positionY = (int)((row * margin + margin) + (row * sprite.getHeight() + centerY));
+
+            inventoryContainer.attachChild(sprite);
+        }
     }
 
 }
