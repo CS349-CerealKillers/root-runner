@@ -17,6 +17,11 @@ public class Rm extends ObjectTool
     public void use(MapObject mapObject)
     {
         Log.d("RM", "detected rm tool use");
-        mapObject.onDetachedFromMap();
+
+        Tag locked = mapObject.getTag("locked");
+        if(locked != null && locked.value.equals("unlocked"))
+        {
+            mapObject.onDetachedFromMap();
+        }
     }
 }
