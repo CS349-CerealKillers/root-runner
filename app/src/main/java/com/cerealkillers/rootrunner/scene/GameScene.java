@@ -5,14 +5,7 @@ package com.cerealkillers.rootrunner.scene;
  *
  */
 
-import android.opengl.GLES20;
-
-import com.cerealkillers.rootrunner.Player;
-import com.cerealkillers.rootrunner.SceneManager.SceneType;
-
-import org.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
-import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.HorizontalAlign;
 import org.andengine.util.color.Color;
