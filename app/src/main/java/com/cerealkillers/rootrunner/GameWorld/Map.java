@@ -13,6 +13,7 @@ import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 
 import java.util.ArrayList;
@@ -46,14 +47,22 @@ public class Map implements Player.PlayerSpawnedListener, Attachable<World>, Map
      * Place a map object on the map for use in game play.
      * @param m MapObject to be added
      */
-    public void addMapObject(MapObject m){
-        if(m != null){
+    public void addMapObject(MapObject m) {
+        String name;
+        if (m != null ){
             mMapObjects.add(m);
+            /*if(m instanceof Player) {
+                Player temp = (Player)m;
+                if(temp.getScene() == null)
+                    mScene.attachChild(m.getSprite());
+            }else{*/
             mScene.attachChild(m.getSprite());
+
             MapObjectTouchDetector touchDetector = new MapObjectTouchDetector(m);
             touchDetector.setOnMapObjectTouchListener(this);
             mScene.registerTouchArea(touchDetector);
             m.onAttach(this);
+
         }
     }
 
