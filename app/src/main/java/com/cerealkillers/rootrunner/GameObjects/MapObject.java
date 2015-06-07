@@ -20,11 +20,6 @@ public class MapObject<S extends Sprite> extends GameObject<S> implements Attach
 
     public MapObject(int id, S sprite) {
         super(id, sprite);
-        createTouchArea(sprite);
-    }
-
-    private void createTouchArea(S sprite) {
-        mTouchArea = new MapObjectTouchArea();
     }
 
     /**
@@ -81,32 +76,5 @@ public class MapObject<S extends Sprite> extends GameObject<S> implements Attach
 //        CommandFacade.displayMessage(String.format("%s : %s", getName(), description));
     }
 
-    private class MapObjectTouchArea implements ITouchArea{
 
-        @Override
-        public boolean contains(float pX, float pY) {
-            return getSprite().contains(pX, pY);
-        }
-
-        @Override
-        public float[] convertSceneToLocalCoordinates(float pX, float pY) {
-            return getSprite().convertSceneToLocalCoordinates(pX, pY);
-        }
-
-        @Override
-        public float[] convertLocalToSceneCoordinates(float pX, float pY) {
-            return getSprite().convertLocalToSceneCoordinates(pX, pY);
-        }
-
-        @Override
-        public boolean onAreaTouched(TouchEvent touchEvent, float v, float v1) {
-            if(touchEvent.isActionUp()){
-                Tag description = getTag("description");
-                if(description != null && description.value != null){
-                    CommandFacade.displayMessage(description.value);
-                }
-            }
-            return false;
-        }
-    }
 }
