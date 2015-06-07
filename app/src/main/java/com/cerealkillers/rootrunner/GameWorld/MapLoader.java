@@ -81,7 +81,7 @@ public class MapLoader {
                 Sprite sprite = new Sprite(object.getX(), object.getY(), texture, mVertexBuffer);
 
                 // the group name determines the type of the object
-                MapObject mapObject = mMapObjectFactory.createMapObject(object, sprite, group.getName());
+                MapObject mapObject = mMapObjectFactory.createMapObject(object, sprite);
                 gameMap.addMapObject(mapObject);
             }
         }

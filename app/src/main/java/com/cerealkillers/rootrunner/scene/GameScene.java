@@ -6,6 +6,8 @@ package com.cerealkillers.rootrunner.scene;
  */
 
 import org.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
+import org.andengine.entity.Entity;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.HorizontalAlign;
 import org.andengine.util.color.Color;
@@ -43,9 +45,18 @@ public class GameScene extends BaseScene {
 
         // code for disposing of scene
         this.detachSelf();
-        this.dispose();
+        if(!this.isDisposed())
+            this.dispose();
 
         //todo remove all game scene objects
+        this.detachChildren();
+
+        /*for(int i = 0;i < mChildren.size()-1; i++){
+            if(mChildren.get(i) instanceof Sprite) {
+                //mMapObjects.remove(m);
+                mChildren.get(i).
+            }
+        }*/
     }
 
     @Override

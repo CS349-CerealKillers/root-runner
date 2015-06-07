@@ -89,4 +89,10 @@ public class Player extends MapObject<AnimatedSprite> {
         }
     }
 
+    //This is used to detect of player is already attached to a map.
+    //Use in loading a new level/map
+    public BaseScene getScene(){
+        return this.myScene;
+    }
+
 }

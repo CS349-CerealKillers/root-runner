@@ -1,8 +1,10 @@
 package com.cerealkillers.rootrunner.GameWorld;
 
+import com.cerealkillers.rootrunner.GameObjects.Portal;
 import com.cerealkillers.rootrunner.command.CommandExecutor;
 import com.cerealkillers.rootrunner.command.DisplayPlayerHudCommand;
 import com.cerealkillers.rootrunner.command.GameCommand;
+import com.cerealkillers.rootrunner.command.LoadMapCommand;
 
 /**
  * Created by Benjamin Daschel on 6/2/15.
@@ -20,5 +22,9 @@ public class CommandFacade {
         sInstance.runCommand(command);
     }
 
+    public static void loadMap(Portal p){
+        GameCommand command = new LoadMapCommand(p);
+        sInstance.runCommand(command);
+    }
 
 }
