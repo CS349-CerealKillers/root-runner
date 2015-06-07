@@ -4,6 +4,8 @@ import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.SceneManager;
 import com.cerealkillers.rootrunner.command.CommandExecutor;
 import com.cerealkillers.rootrunner.command.GameCommand;
+import com.cerealkillers.rootrunner.listeners.InteractionDelegate;
+import com.cerealkillers.rootrunner.listeners.TouchInteractionDelegate;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 import com.cerealkillers.rootrunner.scene.ControlScene;
 import com.cerealkillers.rootrunner.scene.PlayerHud;
@@ -22,10 +24,12 @@ public class World implements CommandExecutor<World>{
     private Player mPlayer;
     private ControlScene mControlScene;
     private PlayerHud mPlayerHud;
+    private InteractionDelegate mInteractionDelegate;
 
     public World(MapLoader mapLoader, SceneManager sceneManager){
         mMapLoader = mapLoader;
         mSceneManager = sceneManager;
+        mInteractionDelegate = new TouchInteractionDelegate();
     }
 
     /**
@@ -53,6 +57,7 @@ public class World implements CommandExecutor<World>{
         mControlScene = new ControlScene(gameScene);
         mPlayerHud = new PlayerHud(gameScene);
         mCurrentMap = mMapLoader.load(mapName, gameScene);
+        mCurrentMap.setInteractionDelegate(mInteractionDelegate);
         mCurrentMap.onAttach(this);
         mCurrentMap.spawnPlayer(mPlayer);
         createControls();
