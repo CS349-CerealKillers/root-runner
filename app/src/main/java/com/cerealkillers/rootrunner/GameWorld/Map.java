@@ -18,10 +18,11 @@ import org.andengine.entity.sprite.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Benjamin Daschel on 5/6/15.
  */
-public class Map implements Player.PlayerSpawnedListener, Attachable<World>{
+public class Map implements Player.PlayerSpawnedListener, Attachable<World>, MapObjectTouchDetector.MapObjectTouchListener {
 
     private BaseScene mScene;
     private ArrayList<MapObject> mMapObjects;
@@ -50,7 +51,8 @@ public class Map implements Player.PlayerSpawnedListener, Attachable<World>{
             mMapObjects.add(m);
             mScene.attachChild(m.getSprite());
             MapObjectTouchDetector touchDetector = new MapObjectTouchDetector(m);
-            touchDetector.setOnMapObjectTouchListener(mInteractionDelegate);
+            touchDetector.setOnMapObjectTouchListener(this);
+            mScene.registerTouchArea(touchDetector);
             m.onAttach(this);
         }
     }
@@ -114,6 +116,13 @@ public class Map implements Player.PlayerSpawnedListener, Attachable<World>{
     public void onDetach() {
         mWorld = null;
         //TODO: unregister listeners
+    }
+
+    @Override
+    public void onMapObjectTouched(MapObject mapObject) {
+        if(mInteractionDelegate != null){
+            mInteractionDelegate.onMapObjectTouched(mapObject);
+        }
     }
 
     private class MapCollisionDetectedListener implements MapObjectCollisionDetector.CollisionDetectedListener{
