@@ -2,10 +2,13 @@ package com.cerealkillers.rootrunner.GameWorld;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameObjects.Attachable;
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameObjects.Tag;
+import com.cerealkillers.rootrunner.listeners.InteractionDelegate;
+import com.cerealkillers.rootrunner.listeners.MapObjectTouchDetector;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.ITouchArea;
@@ -15,19 +18,28 @@ import org.andengine.entity.sprite.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Benjamin Daschel on 5/6/15.
  */
-public class Map implements Player.PlayerSpawnedListener{
+public class Map implements Player.PlayerSpawnedListener, Attachable<World>, MapObjectTouchDetector.MapObjectTouchListener {
 
     private BaseScene mScene;
     private ArrayList<MapObject> mMapObjects;
     private MapObjectCollisionDetector.CollisionDetectedListener mCollisionDetectedListener;
+    private World mWorld;
+    private InteractionDelegate mInteractionDelegate;
 
     public Map(BaseScene scene){
         mScene = scene;
         mCollisionDetectedListener = new MapCollisionDetectedListener();
         mMapObjects = new ArrayList<>();
+    }
+
+    public void setInteractionDelegate(InteractionDelegate delegate){
+        if(delegate != null){
+            mInteractionDelegate = delegate;
+        }
     }
 
     /**
@@ -38,6 +50,9 @@ public class Map implements Player.PlayerSpawnedListener{
         if(m != null){
             mMapObjects.add(m);
             mScene.attachChild(m.getSprite());
+            MapObjectTouchDetector touchDetector = new MapObjectTouchDetector(m);
+            touchDetector.setOnMapObjectTouchListener(this);
+            mScene.registerTouchArea(touchDetector);
             m.onAttach(this);
         }
     }
@@ -82,6 +97,31 @@ public class Map implements Player.PlayerSpawnedListener{
         MapObjectCollisionDetector detector = player.getCollisionDetector();
         if(detector != null) {
             detector.registerCollisionListener(mCollisionDetectedListener);
+        }
+    }
+
+    /**
+     * Invoked when the world sets this map as the current map.
+     * @param attached
+     */
+    @Override
+    public void onAttach(World attached) {
+        mWorld = attached;
+    }
+
+    /**
+     * Invoked when the world unloads this map as the current map.
+     */
+    @Override
+    public void onDetach() {
+        mWorld = null;
+        //TODO: unregister listeners
+    }
+
+    @Override
+    public void onMapObjectTouched(MapObject mapObject) {
+        if(mInteractionDelegate != null){
+            mInteractionDelegate.onMapObjectTouched(mapObject);
         }
     }
 
@@ -157,5 +197,6 @@ public class Map implements Player.PlayerSpawnedListener{
     public BaseScene getBaseScene(){
         return this.mScene;
     }
+
 
 }
