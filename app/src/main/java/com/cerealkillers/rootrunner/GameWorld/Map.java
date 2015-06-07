@@ -7,6 +7,8 @@ import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameObjects.Tag;
+import com.cerealkillers.rootrunner.listeners.InteractionDelegate;
+import com.cerealkillers.rootrunner.listeners.MapObjectTouchDetector;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.ITouchArea;
@@ -47,6 +49,8 @@ public class Map implements Player.PlayerSpawnedListener, Attachable<World>{
         if(m != null){
             mMapObjects.add(m);
             mScene.attachChild(m.getSprite());
+            MapObjectTouchDetector touchDetector = new MapObjectTouchDetector(m);
+            touchDetector.setOnMapObjectTouchListener(mInteractionDelegate);
             m.onAttach(this);
         }
     }
@@ -184,5 +188,6 @@ public class Map implements Player.PlayerSpawnedListener, Attachable<World>{
     public BaseScene getBaseScene(){
         return this.mScene;
     }
+
 
 }
