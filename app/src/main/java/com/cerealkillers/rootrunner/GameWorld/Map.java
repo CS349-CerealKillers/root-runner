@@ -2,6 +2,7 @@ package com.cerealkillers.rootrunner.GameWorld;
 
 import android.util.Log;
 
+import com.cerealkillers.rootrunner.GameObjects.Attachable;
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
 import com.cerealkillers.rootrunner.GameObjects.Player;
@@ -18,16 +19,24 @@ import java.util.List;
 /**
  * Created by Benjamin Daschel on 5/6/15.
  */
-public class Map implements Player.PlayerSpawnedListener{
+public class Map implements Player.PlayerSpawnedListener, Attachable<World>{
 
     private BaseScene mScene;
     private ArrayList<MapObject> mMapObjects;
     private MapObjectCollisionDetector.CollisionDetectedListener mCollisionDetectedListener;
+    private World mWorld;
+    private InteractionDelegate mInteractionDelegate;
 
     public Map(BaseScene scene){
         mScene = scene;
         mCollisionDetectedListener = new MapCollisionDetectedListener();
         mMapObjects = new ArrayList<>();
+    }
+
+    public void setInteractionDelegate(InteractionDelegate delegate){
+        if(delegate != null){
+            mInteractionDelegate = delegate;
+        }
     }
 
     /**
@@ -83,6 +92,24 @@ public class Map implements Player.PlayerSpawnedListener{
         if(detector != null) {
             detector.registerCollisionListener(mCollisionDetectedListener);
         }
+    }
+
+    /**
+     * Invoked when the world sets this map as the current map.
+     * @param attached
+     */
+    @Override
+    public void onAttach(World attached) {
+        mWorld = attached;
+    }
+
+    /**
+     * Invoked when the world unloads this map as the current map.
+     */
+    @Override
+    public void onDetach() {
+        mWorld = null;
+        //TODO: unregister listeners
     }
 
     private class MapCollisionDetectedListener implements MapObjectCollisionDetector.CollisionDetectedListener{

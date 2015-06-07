@@ -53,9 +53,13 @@ public class World implements CommandExecutor<World>{
         mControlScene = new ControlScene(gameScene);
         mPlayerHud = new PlayerHud(gameScene);
         mCurrentMap = mMapLoader.load(mapName, gameScene);
-
+        mCurrentMap.onAttach(this);
         mCurrentMap.spawnPlayer(mPlayer);
         createControls();
+    }
+
+    private void unloadMap(){
+        mCurrentMap.onDetach();
     }
 
     private void createControls() {
