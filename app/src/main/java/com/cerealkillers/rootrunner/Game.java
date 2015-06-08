@@ -42,7 +42,7 @@ public class Game {
      */
     private void createPlayer() {
         AnimatedSprite playerSprite = new AnimatedSprite(0, 0, mResourceManager.getPlayerTiledTextureRegion(), mEngine.getVertexBufferObjectManager());
-        mPlayer = new Player(0, playerSprite);
+        mPlayer = new Player(playerSprite);
     }
 
     private class GameSceneListener implements SceneListener.SceneChangeListener<BaseScene>{
