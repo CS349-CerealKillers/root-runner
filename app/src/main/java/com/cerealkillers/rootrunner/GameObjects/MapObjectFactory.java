@@ -10,16 +10,16 @@ import java.util.HashMap;
  */
 public class MapObjectFactory {
 
-    private static final String MAP_PORTALS = "portals";
+    private static final String MAP_PORTAL = "portal";
     private static final String MAP_ITEMS = "items";
     private static final String MAP_CHARACTERS = "characters";
     private static final String PLAYER_SPAWN = "PlayerSpawn";
 
-    public MapObject createMapObject(TMXObject object, Sprite sprite, String type) {
+    public MapObject createMapObject(TMXObject object, Sprite sprite) {
 
         MapObject mapObject = null;
 
-        if(type.equals(MAP_PORTALS)){
+        if(object.getType() != null && object.getType().equals(MAP_PORTAL)){
             Portal portal = new Portal(object.getId(), sprite);
             portal.setDestination(object.getName());
             mapObject = portal;

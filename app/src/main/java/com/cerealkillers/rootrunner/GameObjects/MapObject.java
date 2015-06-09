@@ -65,15 +65,15 @@ public class MapObject<S extends Sprite> extends GameObject<S> implements Attach
     }
 
     public void onCollide(MapObject collidedWith){
-//        mAttachedMap.removeMapObject(this);
-//        Tag descriptionTag = getTag("description");
-//        String description = null;
-//        if(descriptionTag == null || descriptionTag.value == null){
-//            description = "No description available";
-//        }else{
-//            description = descriptionTag.value;
-//        }
-//        CommandFacade.displayMessage(String.format("%s : %s", getName(), description));
+        mAttachedMap.removeMapObject(this);
+        Tag descriptionTag = getTag("description");
+        String description = null;
+        if(descriptionTag == null || descriptionTag.value == null){
+            description = "No description available";
+        }else{
+            description = descriptionTag.value;
+        }
+        CommandFacade.displayMessage(String.format("%s : %s", getName(), description));
     }
 
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="6">
+ <tileset firstgid="1" name="map2" tilewidth="32" tileheight="32">
+  <image source="gfx/map2.png" width="800" height="400"/>
+ </tileset>
+ <tileset firstgid="301" name="file-icons" tilewidth="39" tileheight="39">
+  <image source="gfx/file-icons.png" width="312" height="351"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJyV1D1MFEEUwPE5E4meEkz4biTxFDwhCrRQoJIg2qjRQtBExQawkkq0glIrhRaUFoESlMKP2KgUflCohAP8KFQsFIIJKOH/sm9y7zZ7JBa/zO6bmbfzZme30zmXwhzmsaBS/+kauvAH27AdcXzFqsa9TziF06G4dQu3sSsWjN+DBNaRHwvi3hqxDnS6zLhI6Br885I6vg71WmtVLIh7BbHM2uze1Osa/POkX8afoT27yd75urLl9ffSXsVjPMFTPIvYH1+fzZstn7Tv8QEfMWPmF3JdhGKUoFT7ovI9N2v/hd9YwrJL791Brg+hGjWo1b6ofLOmnjhjdmAncnEAlWii7xiacRwnQvXZfCumrgT2Yh/KTb6LjLmEy2jDFRecz6hvIC90LpK630mT7zr33biBm+acncQrvbY57dyUrtfG7hC7iz70m3PWbq59Lln3AAZxD/cxFHrGMPcPMIJRjOm8HvSa9UpMvqtx2gk8xCNMunSuKmWv85XfP79G+fal/zXtG7zFO0yH8tl/gc1rz7Q/FxL/xv13/MAifpp5UoP9F6wa9kz7cyHztuAFsZf6vqZc5jdaYM6ljW9FTsS5qdSaPuOLC/49Fdgv70VqN8/371HsRpnLjPl8UtNf/HPBv6cBh3EER9EYqjWbuO6z1FSIIhTjHLEWtOI8Lrj0e92M7PMGP4rbkQ==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="2" gid="258" x="372" y="629">
+   <properties>
+    <property name="playerspawn" value="true"/>
+   </properties>
+  </object>
+  <object id="3" gid="306" x="9" y="353"/>
+  <object id="4" gid="305" x="436" y="120"/>
+  <object id="5" gid="303" x="40" y="49"/>
+ </objectgroup>
+</map>

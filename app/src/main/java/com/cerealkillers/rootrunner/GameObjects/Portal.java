@@ -1,5 +1,9 @@
 package com.cerealkillers.rootrunner.GameObjects;
 
+import com.cerealkillers.rootrunner.GameWorld.CommandFacade;
+import com.cerealkillers.rootrunner.GameWorld.Map;
+import com.cerealkillers.rootrunner.GameWorld.World;
+
 import org.andengine.entity.sprite.Sprite;
 
 /**
@@ -13,7 +17,23 @@ public class Portal extends MapObject {
         super(id, sprite);
     }
 
-    void setDestination(String destinationMap){
+    public void setDestination(String destinationMap){
         mDestination = destinationMap;
     }
+
+    /**
+     * Called when the player touches a portal
+     *
+     */
+    @Override
+    public void onCollide(MapObject collidedWith){
+        Map mapToDestroy = collidedWith.getAttachedMap();
+        mapToDestroy.getBaseScene().disposeScene();
+        CommandFacade.loadMap(this);
+    }
+
+    public String getDestination(){
+        return mDestination;
+    }
+
 }
