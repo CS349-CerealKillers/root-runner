@@ -53,7 +53,8 @@ public class World implements CommandExecutor<World>{
     }
 
     public void initializeMap(String mapName){
-        BaseScene gameScene = mSceneManager.getCurrentScene();
+        unloadMap();
+        BaseScene gameScene = mSceneManager.loadGameScene();
         mControlScene = new ControlScene(gameScene);
         mPlayerHud = new PlayerHud(gameScene);
         mCurrentMap = mMapLoader.load(mapName, gameScene);
@@ -66,7 +67,10 @@ public class World implements CommandExecutor<World>{
     }
 
     private void unloadMap(){
-        mCurrentMap.onDetach();
+        if(mCurrentMap != null){
+            mCurrentMap.removeMapObject(mPlayer);
+            mCurrentMap.onDetach();
+        }
     }
 
     private void createControls() {
