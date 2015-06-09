@@ -31,7 +31,14 @@ public class Ln extends MapTool
         Log.d("LN", "detected ln tool use");
         PortalFactory pf = new PortalFactory();
         Portal portal = pf.getPortal(map, x, y);
+        portal.setDestination(getDestination());
 
         map.addMapObject(portal);
+    }
+
+    private String getDestination()
+    {
+        //TODO Get destination from user
+        return "/etc";
     }
 }
