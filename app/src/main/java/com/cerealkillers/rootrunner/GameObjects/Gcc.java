@@ -34,9 +34,8 @@ public class Gcc extends ObjectTool
         Tag itemType = mapObject.getTag("source code");
         if(itemType != null && itemType.value != null && locked.value.equals("unlocked"))
         {
-            //TODO Figure out how we are going to get tmxObject and sprite for new MapObjects
-            MapObject newObject = null;
-            //newObject = new MapObject();
+            MapObjectFactory factory = new MapObjectFactory();
+            MapObject newObject = factory.createMapObject("gcc");
 
             // Set new mapobjects item type
             newObject.addTag(new Tag("type", itemType.value));

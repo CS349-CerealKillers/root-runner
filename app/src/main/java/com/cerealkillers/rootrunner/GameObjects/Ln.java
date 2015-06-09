@@ -29,8 +29,9 @@ public class Ln extends MapTool
     public void use(Map map, float x, float y)
     {
         Log.d("LN", "detected ln tool use");
-        PortalFactory pf = new PortalFactory();
-        Portal portal = pf.getPortal(map, x, y);
+        MapObjectFactory factory = new MapObjectFactory();
+        Portal portal = (Portal)factory.createMapObject("portal");
+        portal.getSprite().setPosition(x,y);
         portal.setDestination(getDestination());
 
         map.addMapObject(portal);
