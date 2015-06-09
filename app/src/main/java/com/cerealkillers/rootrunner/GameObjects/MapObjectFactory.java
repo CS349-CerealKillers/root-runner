@@ -40,4 +40,6 @@ public class MapObjectFactory {
 
         return mapObject;
     }
+
+    public MapObject
 }

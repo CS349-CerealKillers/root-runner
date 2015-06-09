@@ -23,7 +23,7 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
         createTouchArea(sprite);
     }
 
-    private void createTouchArea(S sprite) {
+    public void createTouchArea(S sprite) {
         mTouchArea = new MapObjectTouchArea();
     }
 
@@ -44,6 +44,16 @@ public class MapObject<S extends Sprite> extends GameObject<S> {
         Sprite mySprite = getSprite();
         mySprite.detachSelf();
         mySprite.unregisterUpdateHandler(mCollisionDetector);
+    }
+
+    public MapObject clone()
+    {
+        MapObject theClone;
+        Sprite sprite = new Sprite(this.getSprite().getX(), this.getSprite().getY(),
+                this.getSprite().getTextureRegion(), this.getSprite().getVertexBufferObjectManager());
+
+        theClone = new MapObject(sprite);
+        return theClone;
     }
 
     /**

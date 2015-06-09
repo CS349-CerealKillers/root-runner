@@ -30,7 +30,7 @@ public class Ln extends MapTool
     {
         Log.d("LN", "detected ln tool use");
         PortalFactory pf = new PortalFactory();
-        Portal portal = pf.getPortal(x, y);
+        Portal portal = pf.getPortal(map, x, y);
 
         map.addMapObject(portal);
     }
