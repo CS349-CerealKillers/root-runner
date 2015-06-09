@@ -40,13 +40,11 @@ public class SceneManager {
         mCurrentScene = null;
     }
 
-    public void loadGameScene() {
+    public BaseScene loadGameScene() {
         mCurrentScene = mSceneFactory.createScene(mEngine, mEngine.getCamera(), SceneType.GAME);
-        notifyGameSceneListeners(mCurrentScene, true);
+//        notifyGameSceneListeners(mCurrentScene, true);
         mEngine.setScene(mCurrentScene);
-    }
 
-    public BaseScene getCurrentScene(){
         return mCurrentScene;
     }
 

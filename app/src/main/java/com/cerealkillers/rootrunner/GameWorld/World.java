@@ -48,23 +48,29 @@ public class World implements CommandExecutor<World>{
             TODO: in the future, this should load up the last saved level that the player
             was at. Right now, we will always start the game from the beginning.
          */
-        initializeMap("newtmx.tmx");
+        initializeMap("map.tmx");
         CommandFacade.registerCommandExecutor(this);
     }
 
-    private void initializeMap(String mapName){
-        BaseScene gameScene = mSceneManager.getCurrentScene();
+    public void initializeMap(String mapName){
+        unloadMap();
+        BaseScene gameScene = mSceneManager.loadGameScene();
         mControlScene = new ControlScene(gameScene);
         mPlayerHud = new PlayerHud(gameScene);
         mCurrentMap = mMapLoader.load(mapName, gameScene);
+
         mCurrentMap.setInteractionDelegate(mInteractionDelegate);
         mCurrentMap.onAttach(this);
+
         mCurrentMap.spawnPlayer(mPlayer);
         createControls();
     }
 
     private void unloadMap(){
-        mCurrentMap.onDetach();
+        if(mCurrentMap != null){
+            mCurrentMap.removeMapObject(mPlayer);
+            mCurrentMap.onDetach();
+        }
     }
 
     private void createControls() {
@@ -85,4 +91,5 @@ public class World implements CommandExecutor<World>{
             command.run(this);
         }
     }
+
 }
