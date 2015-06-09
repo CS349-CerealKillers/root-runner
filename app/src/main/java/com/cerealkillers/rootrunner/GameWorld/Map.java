@@ -5,6 +5,7 @@ import android.util.Log;
 import com.cerealkillers.rootrunner.GameObjects.Attachable;
 import com.cerealkillers.rootrunner.GameObjects.MapObject;
 import com.cerealkillers.rootrunner.GameObjects.MapObjectCollisionDetector;
+import com.cerealkillers.rootrunner.GameObjects.MapTouchDetector;
 import com.cerealkillers.rootrunner.GameObjects.Player;
 import com.cerealkillers.rootrunner.GameObjects.Tag;
 import com.cerealkillers.rootrunner.listeners.InteractionDelegate;
@@ -12,13 +13,11 @@ import com.cerealkillers.rootrunner.listeners.MapObjectTouchDetector;
 import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.scene.ITouchArea;
-import org.andengine.entity.scene.Scene;
-import org.andengine.entity.sprite.AnimatedSprite;
+
 import org.andengine.entity.sprite.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by Benjamin Daschel on 5/6/15.
@@ -30,11 +29,14 @@ public class Map implements Player.PlayerSpawnedListener, Attachable<World>, Map
     private MapObjectCollisionDetector.CollisionDetectedListener mCollisionDetectedListener;
     private World mWorld;
     private InteractionDelegate mInteractionDelegate;
+    private MapTouchDetector mMapTouchDetector;
 
     public Map(BaseScene scene){
         mScene = scene;
         mCollisionDetectedListener = new MapCollisionDetectedListener();
         mMapObjects = new ArrayList<>();
+        mMapTouchDetector = new MapTouchDetector(this);
+        mScene.setOnSceneTouchListener(mMapTouchDetector);
     }
 
     public void setInteractionDelegate(InteractionDelegate delegate){

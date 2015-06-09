@@ -22,14 +22,14 @@ public class MapObjectFactory {
         MapObject mapObject = null;
 
         if(object.getType() != null && object.getType().equals(MAP_PORTAL)){
-            Portal portal = new Portal(object.getId(), sprite);
+            Portal portal = new Portal(sprite);
             portal.setDestination(object.getName());
             mapObject = portal;
         }
         //  TODO: add a case for character spawns. This should be used for NPCs, but not the player itself.
 
         else{
-            mapObject = new MapObject(object.getId(), sprite);
+            mapObject = new MapObject(sprite);
         }
 
         //tags come from the TMX properties of an object
@@ -48,6 +48,6 @@ public class MapObjectFactory {
         SpriteFactory spriteFactory = Game.getSpriteFactory();
         Sprite mapObjectSprite = spriteFactory.createSprite(itemName);
 
-        return new MapObject<Sprite>(0, mapObjectSprite);
+        return new MapObject<Sprite>(mapObjectSprite);
     }
 }

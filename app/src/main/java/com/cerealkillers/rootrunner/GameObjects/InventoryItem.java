@@ -7,7 +7,7 @@ import org.andengine.entity.sprite.Sprite;
  */
 public class InventoryItem extends GameObject {
 
-    public InventoryItem(int id, Sprite sprite) {
-        super(id, sprite);
+    public InventoryItem(Sprite sprite) {
+        super(sprite);
     }
 }

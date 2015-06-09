@@ -13,11 +13,19 @@ public class Portal extends MapObject {
 
     private String mDestination;
 
-    public Portal(int id, Sprite sprite) {
-        super(id, sprite);
+    /**
+     * Portal constructor.
+     * @param sprite The portal's sprite.
+     */
+    public Portal(Sprite sprite) {
+        super(sprite);
     }
 
-    public void setDestination(String destinationMap){
+    /**
+     * Set the map that the portal will transport to.
+     * @param destinationMap The map the portal links too.
+     */
+    void setDestination(String destinationMap){
         mDestination = destinationMap;
     }
 

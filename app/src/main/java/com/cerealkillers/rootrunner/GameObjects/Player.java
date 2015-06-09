@@ -19,8 +19,8 @@ public class Player extends MapObject<AnimatedSprite> {
         public void onPlayerSpawned(Player player);
     }
 
-    public Player(int id, AnimatedSprite sprite) {
-        super(id, sprite);
+    public Player(AnimatedSprite sprite) {
+        super(sprite);
         mPlayerControls = new PlayerControl();
         mPhysicsHandler = new PhysicsHandler(sprite);
         sprite.registerUpdateHandler(mPhysicsHandler);

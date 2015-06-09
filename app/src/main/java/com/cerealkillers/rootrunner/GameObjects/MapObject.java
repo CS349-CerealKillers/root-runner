@@ -18,8 +18,9 @@ public class MapObject<S extends Sprite> extends GameObject<S> implements Attach
     private MapObjectCollisionDetector mCollisionDetector;
     private ITouchArea mTouchArea;
 
-    public MapObject(int id, S sprite) {
-        super(id, sprite);
+
+    public MapObject(S sprite) {
+        super(sprite);
     }
 
     /**
@@ -38,6 +39,16 @@ public class MapObject<S extends Sprite> extends GameObject<S> implements Attach
         Sprite mySprite = getSprite();
         mySprite.detachSelf();
         mySprite.unregisterUpdateHandler(mCollisionDetector);
+    }
+
+    public MapObject clone()
+    {
+        MapObject theClone;
+        Sprite sprite = new Sprite(this.getSprite().getX(), this.getSprite().getY(),
+                this.getSprite().getTextureRegion(), this.getSprite().getVertexBufferObjectManager());
+
+        theClone = new MapObject(sprite);
+        return theClone;
     }
 
     /**
