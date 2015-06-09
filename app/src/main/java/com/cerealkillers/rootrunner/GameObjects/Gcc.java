@@ -3,6 +3,7 @@ package com.cerealkillers.rootrunner.GameObjects;
 import android.util.Log;
 
 import com.cerealkillers.rootrunner.GameWorld.Map;
+import com.cerealkillers.rootrunner.scene.BaseScene;
 
 import org.andengine.entity.sprite.Sprite;
 
@@ -34,8 +35,8 @@ public class Gcc extends ObjectTool
         if(itemType != null && itemType.value != null && locked.value.equals("unlocked"))
         {
             //TODO Figure out how we are going to get tmxObject and sprite for new MapObjects
-            MapObjectFactory factory = new MapObjectFactory();
-            MapObject newObject = factory.createMapObject(null, null, "items");
+            MapObject newObject = null;
+            //newObject = new MapObject();
 
             // Set new mapobjects item type
             newObject.addTag(new Tag("type", itemType.value));
