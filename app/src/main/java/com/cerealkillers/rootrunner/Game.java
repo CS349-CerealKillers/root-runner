@@ -2,7 +2,9 @@ package com.cerealkillers.rootrunner;
 
 import android.content.Context;
 
+import com.cerealkillers.rootrunner.GameObjects.MapObjectFactory;
 import com.cerealkillers.rootrunner.GameObjects.Player;
+import com.cerealkillers.rootrunner.GameObjects.SpriteFactory;
 import com.cerealkillers.rootrunner.GameWorld.MapLoader;
 import com.cerealkillers.rootrunner.GameWorld.MapLoaderFactory;
 import com.cerealkillers.rootrunner.GameWorld.World;
@@ -18,6 +20,8 @@ import org.andengine.entity.sprite.Sprite;
  * Created by Benjamin Daschel on 5/25/15.
  */
 public class Game {
+
+    private static Game sInstance;
     private final Engine mEngine;
     private MapLoader mMapLoader;
     private SceneManager mSceneManager;
@@ -25,6 +29,8 @@ public class Game {
     private World mWorld;
     private SceneListener.SceneChangeListener<BaseScene> mGameSceneSceneChangeListener;
     private Player mPlayer;
+    private MapObjectFactory mMapObjectFactory;
+    private SpriteFactory mSpriteFactory;
 
     public Game(Context context, Engine engine){
         mMapLoader = MapLoaderFactory.getMapLoader(context, engine);
@@ -32,6 +38,12 @@ public class Game {
         createResourceManager(context);
         createSceneManager();
         createPlayer();
+        createSpriteFactory();
+        sInstance = this;
+    }
+
+    private void createSpriteFactory() {
+        mSpriteFactory = new SpriteFactory(mEngine.getVertexBufferObjectManager(), mResourceManager);
     }
 
     /**
@@ -58,5 +70,9 @@ public class Game {
         mWorld = new World(mMapLoader, mSceneManager);
         mWorld.setPlayer(mPlayer);
         mWorld.initialize();
+    }
+
+    public static SpriteFactory getSpriteFactory(){
+        return sInstance.mSpriteFactory;
     }
 }

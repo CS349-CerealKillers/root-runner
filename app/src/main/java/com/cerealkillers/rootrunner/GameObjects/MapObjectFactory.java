@@ -1,5 +1,7 @@
 package com.cerealkillers.rootrunner.GameObjects;
 
+import com.cerealkillers.rootrunner.Game;
+
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.extension.tmx.TMXObject;
 
@@ -39,5 +41,13 @@ public class MapObjectFactory {
         }
 
         return mapObject;
+    }
+
+    public MapObject<Sprite> createMapObject(String itemName){
+
+        SpriteFactory spriteFactory = Game.getSpriteFactory();
+        Sprite mapObjectSprite = spriteFactory.createSprite(itemName);
+
+        return new MapObject<Sprite>(0, mapObjectSprite);
     }
 }

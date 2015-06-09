@@ -11,6 +11,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 
 import org.andengine.engine.Engine;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.ITexture;
@@ -21,6 +22,7 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegion
 import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
@@ -179,5 +181,25 @@ public class ResourceManager {
             loadGameGraphics();
         }
         return playerTiledTextureRegion;
+    }
+
+    public TextureRegion makeTextureRegion(String name){
+     /*
+        // load player
+        playerBitmapTextureAtlas = new BitmapTextureAtlas(mTextureManager, 72, 128, TextureOptions.DEFAULT);
+        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, mAssetManager, "i_love_8_bit.png", 0, 0);
+        playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, mAssetManager, "player.png", 0, 0, 3, 4);
+     */
+        BitmapTextureAtlas spriteAtlas = new BitmapTextureAtlas(mTextureManager, 64, 64, TextureOptions.DEFAULT);
+        return  BitmapTextureAtlasTextureRegionFactory.createFromAsset(spriteAtlas, mAssetManager, fileNameForSprite(name), 0, 0);
+    }
+
+    /**
+     * Give the file name provided the name of an object type
+     * This method is a hack.
+     * @param name
+     */
+    private String fileNameForSprite(String name){
+        return name + ".png";
     }
 }
