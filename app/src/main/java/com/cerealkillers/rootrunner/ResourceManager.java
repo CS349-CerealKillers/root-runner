@@ -117,7 +117,7 @@ public class ResourceManager {
     private void loadGameGraphics() {
 
         // load player
-        playerBitmapTextureAtlas = new BitmapTextureAtlas(mTextureManager, 72, 128, TextureOptions.DEFAULT);
+        playerBitmapTextureAtlas = new BitmapTextureAtlas(mTextureManager, 144, 256, TextureOptions.DEFAULT);
         playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(playerBitmapTextureAtlas, mAssetManager, "player.png", 0, 0, 3, 4);
         playerBitmapTextureAtlas.load();
 
