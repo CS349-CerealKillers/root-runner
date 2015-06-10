@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="129">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="129">
  <tileset firstgid="1" name="root-runner-bg" tilewidth="32" tileheight="32">
   <image source="gfx/circuit-board.png" width="800" height="400"/>
  </tileset>
@@ -9,26 +9,32 @@
  <tileset firstgid="373" name="portal" tilewidth="78" tileheight="78">
   <image source="gfx/portal.png" width="78" height="78"/>
  </tileset>
- <layer name="Tile Layer 1" width="20" height="20">
+ <layer name="Tile Layer 1" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="96" gid="233" x="265" y="451"/>
-  <object id="100" gid="233" x="241" y="441"/>
-  <object id="103" name="txt file" type="items" gid="306" x="166" y="361"/>
-  <object id="105" name="Ls command" type="items" gid="320" x="463" y="517"/>
-  <object id="107" name="Ln command" type="items" gid="326" x="99" y="83"/>
-  <object id="108" name="playerspawn" gid="346" x="330" y="558">
+  <object id="100" gid="233" x="864" y="1256">
    <properties>
     <property name="playerspawn" value="1"/>
    </properties>
   </object>
-  <object id="120" gid="368" x="335" y="195"/>
-  <object id="121" gid="360" x="330" y="564"/>
-  <object id="122" gid="360" x="448" y="511"/>
-  <object id="123" gid="360" x="457" y="514"/>
-  <object id="128" name="map2.tmx" type="portal" gid="373" x="264" y="341"/>
+  <object id="103" name="txt file" type="items" gid="306" x="121" y="1121">
+   <properties>
+    <property name="description" value="Hello there! Keep picking up files."/>
+   </properties>
+  </object>
+  <object id="105" name="Ls command" type="items" gid="320" x="974" y="262">
+   <properties>
+    <property name="description" value="Show files in the current dir."/>
+   </properties>
+  </object>
+  <object id="107" name="Lncommand" type="items" gid="326" x="33" y="55">
+   <properties>
+    <property name="description" value="Make aliases"/>
+   </properties>
+  </object>
+  <object id="128" name="map2.tmx" type="portal" gid="373" x="264" y="264"/>
  </objectgroup>
 </map>
