@@ -30,6 +30,7 @@ public class MapObjectFactory {
 
         else{
             mapObject = new MapObject(sprite);
+            mapObject.setName(object.getName());
         }
 
         //tags come from the TMX properties of an object
