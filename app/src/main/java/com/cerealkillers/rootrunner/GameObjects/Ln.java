@@ -40,6 +40,6 @@ public class Ln extends MapTool
     private String getDestination()
     {
         //TODO Get destination from user
-        return "/etc";
+        return "map2";
     }
 }
