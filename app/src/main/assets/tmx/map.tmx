@@ -20,9 +20,21 @@
     <property name="playerspawn" value="1"/>
    </properties>
   </object>
-  <object id="103" name="txt file" type="items" gid="306" x="121" y="1121"/>
-  <object id="105" name="Ls command" type="items" gid="320" x="974" y="262"/>
-  <object id="107" name="Ln command" type="items" gid="326" x="33" y="55"/>
+  <object id="103" name="txt file" type="items" gid="306" x="121" y="1121">
+   <properties>
+    <property name="description" value="Hello there! Keep picking up files."/>
+   </properties>
+  </object>
+  <object id="105" name="Ls command" type="items" gid="320" x="974" y="262">
+   <properties>
+    <property name="description" value="Show files in the current dir."/>
+   </properties>
+  </object>
+  <object id="107" name="Lncommand" type="items" gid="326" x="33" y="55">
+   <properties>
+    <property name="description" value="Make aliases"/>
+   </properties>
+  </object>
   <object id="128" name="map2.tmx" type="portal" gid="373" x="264" y="264"/>
  </objectgroup>
 </map>

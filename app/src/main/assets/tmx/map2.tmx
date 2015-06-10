@@ -20,9 +20,21 @@
     <property name="playerspawn" value="true"/>
    </properties>
   </object>
-  <object id="3" gid="306" x="54" y="1190"/>
-  <object id="4" gid="305" x="1141" y="88"/>
-  <object id="5" gid="303" x="40" y="49"/>
+  <object id="3" name="CluesFile" gid="306" x="54" y="1190">
+   <properties>
+    <property name="description" value="This file has clues to getting access to etc."/>
+   </properties>
+  </object>
+  <object id="4" name="NetworkUtility" gid="305" x="1141" y="88">
+   <properties>
+    <property name="description" value="These file can help you with network connections."/>
+   </properties>
+  </object>
+  <object id="5" name="FileParser" gid="303" x="40" y="49">
+   <properties>
+    <property name="description" value="This program can help you parse any files."/>
+   </properties>
+  </object>
   <object id="7" name="map.tmx" type="portal" gid="373" x="668" y="1219"/>
   <object id="14" name="map3.tmx" type="portal" gid="373" x="1102" y="518"/>
  </objectgroup>

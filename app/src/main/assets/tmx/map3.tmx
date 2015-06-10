@@ -15,9 +15,21 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="3" gid="306" x="54" y="1190"/>
-  <object id="4" gid="305" x="1141" y="88"/>
-  <object id="5" gid="303" x="40" y="49"/>
+  <object id="3" name="HashValues" gid="306" x="54" y="1190">
+   <properties>
+    <property name="description" value="These hash values can be used to enter locked files."/>
+   </properties>
+  </object>
+  <object id="4" name="MysteryProgram" gid="305" x="1141" y="88">
+   <properties>
+    <property name="description" value="This is a mistery program. Try it!"/>
+   </properties>
+  </object>
+  <object id="5" name="Sorting" gid="303" x="40" y="49">
+   <properties>
+    <property name="description" value="You have found a sorting file. It will come in handy."/>
+   </properties>
+  </object>
   <object id="7" name="map.tmx" type="portal" gid="373" x="668" y="1219"/>
   <object id="14" name="map3.tmx" type="portal" gid="373" x="1102" y="518"/>
   <object id="20" gid="248" x="422" y="1207">
