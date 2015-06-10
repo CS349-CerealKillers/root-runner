@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="22">
+ <tileset firstgid="1" name="map3" tilewidth="32" tileheight="32">
+  <image source="gfx/map3.png" width="800" height="400"/>
+ </tileset>
+ <tileset firstgid="301" name="file-icons" tilewidth="39" tileheight="39">
+  <image source="gfx/file-icons.png" width="312" height="351"/>
+ </tileset>
+ <tileset firstgid="373" name="portal" tilewidth="78" tileheight="78">
+  <image source="gfx/portal.png" width="78" height="78"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJytmFlzlEUUhvtjCUi2AQxg0ICYQKIsghugYJxLEBSQzbkEZROIJFVoleByF8kgWiWC3KKyKb8ARInCL1BwAX4AeMGqd7xd06e+wzunv8nEXDzVM9/Wb58+S3fXOefqFLvBcXAi/H4PvA/awEwwC8wGc8DT4fr/5QD4HHyh+j4ZrvOzXtPP4Dy9t3iIOAq+Ad8Ge9STJum7P1zn92NjWRuhBowCo8FDYAyozXj+DDgLfgSNIEea2tV/394A/4AGmlseS4P6nv49BUwFj4Np4AnQSs80JaXW//8N/A4uBS0dqtX+JDpq8O6opGTrA6SpLkJTkv6eDxaAheBF8BJYZLxTT5qtVs+d6JiCvqaG/rTtYtqYFWAlWAXeAKvBmire19o5NrxWHRvadlacWbbYCraBd8B2sAPsNOwj7/4NroCr4Jr6br0rjw2vVeKimvEOBhnjXXAP/Av+U33z/IvWaudA3q+U01iX2KHRxwoYC8YlpZj296eDGS6NlQ56f6D9xfTG7CW6JL+0Q1MHeBI8BbrC/ZdBJ3gF5AONbuB5lbXG9MV0dRn0Bvz9dWA9eBMUwCTwiHswd14Gf4A/wV90L+Ynoms8eBg0gQlgIunqNfgU7Av33wW7QDfoAXPBPBrPTXAL3AZ3Inpi9rJqs9YlWvpAkebDur8ELKXx1Po8COpBQ5JqEb/VtbPSPGbp0n5j2cDHxgawMdhUnmmFpjYwHcxI0ljqdCW/1bWzGl3XXVpH5R1Ll/TnY+MDsEc9o2ufxLfEkvitrp3V2GtkktZRy1faqb9CoMelfqRrX1aOlfFbupqTVJf205YkraM5NYesS2K3J1B05euFk64832lfE20xe8VinK/lDV0Su8VAtytfL/S7dL2sbcbaWFfM13MunjNZl3zLa94PPlM247Upz2eWNrkfi0XJ77HaI98putT3vgPHnL0mlDm2fI21yb2Y7fIuze+xWmm9ew785Ow1Yb8xn5a2XvVtXjdJDiiEb4hGrpVCbJ/AewwrDixdWpsfN6+bpMb3hGdFY8wPYvsEXs8jBbhhYDgYAUaStuj6nNZN4kcSh5XWb7F9gvYvb7tmMBk8Ch4DLUqbXp+VtbRu0jmsz8VjWH7H9gnav/y8PgOeBc+B58ELLo35TpfmLG6t3Fo09HDNkDFb+4Td7kH/8rZ8FSwDy8Fr4HXVt16fccu51Yplq2bExix5hXPFW+BtsAlsBltU33p9xi37p+cU+N6lsWzZW+c3af01ySuSE9cHW+4FH4KPwMfgE9W3Hgu3RWUf8flfwK8uO8/p/Cat1yl5hW3zFTgEDoOvwRGXHXc/gNMVnslC5zdpvU7JK30D+EbWvukCuFjhGesMSuZS5zdptU7dP+vR3xmqMyurzus513pPRHRZZ1mx8yjLp7LOrNbSnPKejM+JBuobX4KDSk+Wz/M+Uq+7u8hGvCfLk12y/CTrLCtrL6z3XFnj8C3vyQpkl5jPVIqRxRn9WvWZkfML3pPVkV1ifmXp0ehnrLMTrs9M3tl1OEfXrHMHORNhPRr9jHV2wjWLKdCYeO1x3ZX2pNa5g8efkU4cBM1JWpetMw+9d9Rj0r99K3tSqU+6tu4y7Gmdncg9PjuRujzTlZ956PWNXm/w2kP2pPcBRNjebA==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="3" gid="306" x="54" y="1190"/>
+  <object id="4" gid="305" x="1141" y="88"/>
+  <object id="5" gid="303" x="40" y="49"/>
+  <object id="7" name="map.tmx" type="portal" gid="373" x="668" y="1219"/>
+  <object id="14" name="map3.tmx" type="portal" gid="373" x="1102" y="518"/>
+  <object id="20" gid="248" x="422" y="1207">
+   <properties>
+    <property name="playerspawn" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
