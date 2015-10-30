@@ -15,4 +15,4 @@ git submodule update
 ``` 
 Import the project into Android Studio as a gradle project. Choose the local gradle wrapper when asked.
 
-![alt Game Screenshot](screenshot.png)
+![Game Screenshot](screenshot.png)
