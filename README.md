@@ -1,6 +1,10 @@
 #Root Runner
 An open source game for Android
-Built by CS349 students at Eastern Washington University
+Play the roll of a curious hacker, traversing a filesystem, picking up files,
+solving puzzles, and avoiding the system Administrators.  Get caught, and die,
+gain root and become a l337 haxor!
+
+![Game Screenshot](screenshot.png)
 
 
 ###How to build
@@ -15,4 +19,3 @@ git submodule update
 ``` 
 Import the project into Android Studio as a gradle project. Choose the local gradle wrapper when asked.
 
-![Game Screenshot](screenshot.png)
